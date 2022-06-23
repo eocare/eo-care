@@ -6,6 +6,8 @@ const ID_UPLOAD_EDIT_LINK = 'license-upload-edit-link';
 const ID_PREVIEW_DIV = 'license-preview-div';
 const ID_LABEL_DIV = 'license-label-div';
 
+var formDisabled = true;
+
 function isPlanSelected() {
   const monthly = '39month';
   const yearly = '249year';
@@ -114,6 +116,9 @@ function init() {
     selectPlanById('249year');
   }
 
+  // Disable Form Submit
+  document.getElementById('create-account-submit-btn').disabled = true;
+  
   // Set Date Of Birth Input Type to Date
   document.getElementById('dob').type = 'date';
 
