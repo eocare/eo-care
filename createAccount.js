@@ -142,7 +142,7 @@ function init() {
   dragDropfileUploadStartUp();
   fileUploadStartUp();
 
-  document.getElementById('create-account-form').addEventListener('load', (e)=>{
+  window.addEventListener('load', (e)=>{
     // Disable Form Submit
     document.getElementById('create-account-submit-btn').disabled = true;
     // Set Date Of Birth Input Type to Date
