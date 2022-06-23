@@ -53,7 +53,7 @@ function checkIfPasswordsMatch(e) {
 }
 
 function showFieldError(e) {
-  e.target.style.borderColor = 'red';
+  e.target.style.borderColor = '#D27A7C';
 }
 
 function hideFieldError(e) {
