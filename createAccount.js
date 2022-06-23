@@ -142,10 +142,12 @@ function init() {
   dragDropfileUploadStartUp();
   fileUploadStartUp();
 
-  // Disable Form Submit
-  document.getElementById('create-account-submit-btn').disabled = true;
-  // Set Date Of Birth Input Type to Date
-  document.getElementById('dob').type = 'date';
+  document.getElementById('create-account-form').addEventListener('load', (e)=>{
+    // Disable Form Submit
+    document.getElementById('create-account-submit-btn').disabled = true;
+    // Set Date Of Birth Input Type to Date
+    document.getElementById('dob').type = 'date';
+  })
 }
 
 init();
