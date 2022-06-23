@@ -116,12 +116,6 @@ function init() {
     selectPlanById('249year');
   }
 
-  // Disable Form Submit
-  document.getElementById('create-account-submit-btn').disabled = true;
-  
-  // Set Date Of Birth Input Type to Date
-  document.getElementById('dob').type = 'date';
-
   // Form Event Listeners
   document.getElementById('firstname').addEventListener('blur', isFieldNotEmpty);
   document.getElementById('lastname').addEventListener('blur', isFieldNotEmpty);
@@ -147,6 +141,11 @@ function init() {
 
   dragDropfileUploadStartUp();
   fileUploadStartUp();
+
+  // Disable Form Submit
+  document.getElementById('create-account-submit-btn').disabled = true;
+  // Set Date Of Birth Input Type to Date
+  document.getElementById('dob').type = 'date';
 }
 
 init();
