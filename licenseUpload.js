@@ -1,3 +1,10 @@
+// CSS Classes
+const ID_FRONT_DIV = 'license-upload-front-div';
+const ID_BACK_DIV = 'license-upload-back-div';
+const ID_UPLOAD_EDIT_LINK = 'license-upload-edit-link';
+const ID_PREVIEW_DIV = 'license-preview-div';
+const ID_LABEL_DIV = 'license-label-div';
+
 // Upload via Input type file
 function fileUploadStartUp() {
     const licenseFront = document.getElementsByClassName('w-file-upload-input')[0];

@@ -1,11 +1,3 @@
-
-// CSS Classes
-const ID_FRONT_DIV = 'license-upload-front-div';
-const ID_BACK_DIV = 'license-upload-back-div';
-const ID_UPLOAD_EDIT_LINK = 'license-upload-edit-link';
-const ID_PREVIEW_DIV = 'license-preview-div';
-const ID_LABEL_DIV = 'license-label-div';
-
 var formDisabled = true;
 
 function isPlanSelected() {
@@ -50,7 +42,7 @@ function checkIfPasswordsMatch(e) {
     hideFieldError(e);
     return true;
   } else {
-    showFieldError(e);
+    showFieldError(e, "Passwords do not match.");
   }
 }
 
@@ -125,90 +117,79 @@ async function isZipEligible(zip) {
   }
 }
 
-async function isDobEligible(dob) {
-  const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          "zip": dob
-      })
-  });
-
-  if (resp.ok && resp.status === 200) {
-      return true;
-  } else {
-      return false;
-  }
-}
-
 function isAtLeast21YrsOld(dob) {
   const dobParsed = new Date(dob);
-  const yrsOld = Math.round((Date.now() - dobParsed) / (60*60*24*365*1000));
-  if (yrsOld >= 21) {
-    return (true);
-  } else {
-    return (false);
-  }
+  const yrsOld = Math.round((Date.now() - dobParsed) / (60 * 60 * 24 * 365 * 1000));
+  return (yrsOld >= 21) ? true : false;
 }
 
 function selectPlanById(htmlPlanId) {
   document.getElementById(htmlPlanId).checked = true;
 }
 
-function init() {
-  // Get Page Query Params
-  const qp = new URLSearchParams(window.location.search);
-  if (qp.get('plan')) {
-    selectPlanById(qp.get('plan'));
+async function zipEventHandler(e) {
+  if (e.target.value.length > 0) {
+    hideFieldError(e);
+    // Zip Eligibility API Call
+    let zipEligible = await isZipEligible(e.target.value);
+    if (!zipEligible) {
+      showFieldError(e, "eo isn't yet available in your area.");
+    }
   } else {
-    // Defaults to Yearly plan
-    selectPlanById('249year');
+    showFieldError(e, "Zip cannot be blank.");
   }
+}
+
+function dobEventHandler(e) {
+  if (e.target.value.length > 0) {
+    hideFieldError(e);
+    let dobEligible = isAtLeast21YrsOld(e.target.value);
+    if (!dobEligible) {
+      showFieldError(e, "Must be at least 21 years old");
+    }
+  } else {
+    showFieldError(e, "Date Of Birth cannot be blank.");
+  }
+}
+
+function formOnloadHandler(e) {
+  // Disable Form Submit
+  document.getElementById('create-account-submit-btn').disabled = true;
+  // Set Date Of Birth Input Type to Date
+  document.getElementById('dob').type = 'date';
+}
+
+function init() {
+  // If plan id is passed, auto select it
+  // else, default to yearly plan
+  const qp = new URLSearchParams(window.location.search);
+  qp.get('plan') ? selectPlanById(qp.get('plan')) : selectPlanById('249year');
 
   // Form Event Listeners
   document.getElementById('firstname').addEventListener('blur', isFieldNotEmpty);
   document.getElementById('lastname').addEventListener('blur', isFieldNotEmpty);
   document.getElementById('phone').addEventListener('blur', isFieldNotEmpty);
-  document.getElementById('zip').addEventListener('blur', async (e)=>{
-    if (e.target.value.length > 0) {
-      hideFieldError(e);
-      // Zip Eligibility API Call
-      let zipEligible = await isZipEligible(e.target.value);
-      if (!zipEligible) {
-        showFieldError(e, "eo isn't yet available in your area.");
-      }
-    } else {
-      showFieldError(e, "Zip cannot be blank.");
-    }
-  })
-
-  document.getElementById('dob').addEventListener('blur', (e)=>{
-    if (e.target.value.length > 0) {
-      hideFieldError(e);
-      let dobEligible = isAtLeast21YrsOld(e.target.value);
-      if (!dobEligible) {
-        showFieldError(e, "Must be at least 21 years old");
-      }
-    } else {
-      showFieldError(e, "Date Of Birth cannot be blank.");
-    }
-  })
-
-  // PWD Conformation
+  document.getElementById('zip').addEventListener('blur', zipEventHandler);
+  document.getElementById('dob').addEventListener('blur', dobEventHandler);
   document.getElementById('pwd-confirmation').addEventListener('input', checkIfPasswordsMatch);
+  document.getElementById('email').addEventListener('blur', (e)=>{
+    if (e.target.value === 0) {
+      showFieldError(e, "Email can't be blank.")
+    } else {
+      hideFieldError(e);
+    }
+  });
 
-  // dragDropfileUploadStartUp();
-  // fileUploadStartUp();
-
-  window.addEventListener('load', (e)=>{
-    // Disable Form Submit
-    document.getElementById('create-account-submit-btn').disabled = true;
-    // Set Date Of Birth Input Type to Date
-    document.getElementById('dob').type = 'date';
+  document.getElementById('email').addEventListener('input', (e)=>{
+    if (e.target.value > 0) {
+      if (!validateEmail(e.target.value)) {
+        showFieldError(e, "This is not a valid email address. Please try again.");
+      } else {
+        hideFieldError(e);
+      }
+    }
   })
+  window.addEventListener('load', formOnloadHandler);
 }
 
 init();
