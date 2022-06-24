@@ -142,10 +142,11 @@ function selectPlanById(htmlPlanId) {
 }
 
 async function zipEventHandler(e) {
-  if (e.target.value.length > 0) {
+  let target = extractTargetElement(e);
+  if (target.value.length > 0) {
     hideFieldError(e);
     // Zip Eligibility API Call
-    let zipEligible = await isZipEligible(e.target.value);
+    let zipEligible = await isZipEligible(target.value);
     if (!zipEligible) {
       showFieldError(e, "eo isn't yet available in your area.");
     }
@@ -155,14 +156,37 @@ async function zipEventHandler(e) {
 }
 
 function dobEventHandler(e) {
-  if (e.target.value.length > 0) {
+  let target = extractTargetElement(e);
+  if (target.value.length > 0) {
     hideFieldError(e);
-    let dobEligible = isAtLeast21YrsOld(e.target.value);
+    let dobEligible = isAtLeast21YrsOld(target.value);
     if (!dobEligible) {
       showFieldError(e, "Must be at least 21 years old");
     }
   } else {
     showFieldError(e, "Date of birth cannot be blank.");
+  }
+}
+
+function emailEventHandler(e) {
+  let target = extractTargetElement(e);
+  if (target.value.length > 0) {
+    if (!validateEmail(target.value)) {
+      showFieldError(e, "This is not a valid email address. Please try again.");
+    } else {
+      hideFieldError(e);
+    }
+  } else {
+    showFieldError(e, "Email can't be blank.")
+  }
+}
+
+function genderEventHandler(e) {
+  let target = extractTargetElement(e);
+  if (target.selectedIndex === 0) {
+    showFieldError(e, "Gender cannot be blank.");
+  } else {
+    hideFieldError(e);
   }
 }
 
@@ -188,39 +212,9 @@ function init() {
   document.getElementById('pwd-confirmation').addEventListener('input', checkIfPasswordsMatch);
   document.getElementById('Medical-Card-Number').addEventListener('blur', medicalCardEventHandler);
   document.getElementById('Medical-Card-Number').addEventListener('input', medicalCardEventHandler);
-  document.getElementById('email').addEventListener('blur', (e)=>{
-    if (e.target.value.length === 0) {
-      showFieldError(e, "Email can't be blank.")
-    } else {
-      hideFieldError(e);
-    }
-  });
-
-  document.getElementById('email').addEventListener('input', (e)=>{
-    if (e.target.value.length > 0) {
-      if (!validateEmail(e.target.value)) {
-        showFieldError(e, "This is not a valid email address. Please try again.");
-      } else {
-        hideFieldError(e);
-      }
-    }
-  });
-
-  document.getElementById('gender').addEventListener('blur', (e)=> {
-    if (e.target.selectedIndex === 0) {
-      showFieldError(e, "Gender cannot be blank.");
-    } else {
-      hideFieldError(e);
-    }
-  });
-
-  document.getElementById('gender').addEventListener('input', (e)=> {
-    if (e.target.selectedIndex === 0) {
-      showFieldError(e, "Gender cannot be blank.");
-    } else {
-      hideFieldError(e);
-    }
-  });
+  document.getElementById('email').addEventListener('blur', emailEventHandler);
+  document.getElementById('gender').addEventListener('blur', genderEventHandler);
+  document.getElementById('gender').addEventListener('input', genderEventHandler);
 
   document.getElementById('create-account-submit-btn').addEventListener('click', (e)=>{
     e.preventDefault();
@@ -241,11 +235,11 @@ function validateForm() {
   console.log(`First Name: ${isFieldEmpty('firstname')}`);
   console.log(`Last Name: ${isFieldEmpty('lastname')}`);
   console.log(`Phone: ${isFieldEmpty('phone')}`);
-  console.log(`Zip: ${isFieldEmpty('zip')}`);
-  console.log(`Date of Birth: ${isFieldEmpty('dob')}`);
-  console.log(`Gender: ${isFieldEmpty('gender')}`);
+  console.log(`Zip: ${zipEventHandler('zip')}`);
+  console.log(`Date of Birth: ${dobEventHandler('dob')}`);
+  console.log(`Gender: ${genderEventHandler('gender')}`);
 
-  console.log(`Email: ${isFieldEmpty('email')}`);
+  console.log(`Email: ${emailEventHandler('email')}`);
   console.log(`Pwd: ${isFieldEmpty('pwd')}`);
   console.log(`Pwd Confirmation: ${isFieldEmpty('pwd-confirmation')}`);
 
@@ -253,22 +247,4 @@ function validateForm() {
   console.log(`Medical Card Option: ${isMedicalCardOptionSelected()}`);
 
   console.log(`Medical Card: ${formData.get(isFieldEmpty('Medical-Card-Number'))}`);
-
-  // let planSelected = isPlanSelected();
-  // let genderCheck = document.getElementById('gender').selectedIndex !== 0;
-  // let validEmailCheck = false;
-  // let emailCheck = isFieldEmpty('email');
-  // if (emailCheck) {
-  //   validEmailCheck = validateEmail(document.getElementById('email'));
-  // }
-
-  // let pwdCheck = isFieldEmpty('pwd');
-  // let pwdConfirmationCheck = isFieldEmpty('pwd-confirmation');
-  // let pwdsMatchCheck = false;
-  // if (pwdCheck && pwdConfirmationCheck) {
-  //   pwdsMatchCheck = checkIfPasswordsMatch();
-  // }
-
-  // let idFrontUploadCheck;
-  // let idBackUploadCheck;
 }
