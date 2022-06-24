@@ -173,7 +173,7 @@ function init() {
   document.getElementById('dob').addEventListener('blur', dobEventHandler);
   document.getElementById('pwd-confirmation').addEventListener('input', checkIfPasswordsMatch);
   document.getElementById('email').addEventListener('blur', (e)=>{
-    if (e.target.value === 0) {
+    if (e.target.value.length === 0) {
       showFieldError(e, "Email can't be blank.")
     } else {
       hideFieldError(e);
@@ -181,7 +181,7 @@ function init() {
   });
 
   document.getElementById('email').addEventListener('input', (e)=>{
-    if (e.target.value > 0) {
+    if (e.target.value.length > 0) {
       if (!validateEmail(e.target.value)) {
         showFieldError(e, "This is not a valid email address. Please try again.");
       } else {
