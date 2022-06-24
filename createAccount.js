@@ -221,7 +221,7 @@ function medicalCardEventHandler(e) {
 
 // FORM FIELD VALIDATION FUNCTIONS END
 
-function formOnloadHandler(e) {
+function onFormLoad() {
   // Change Form Submit Button Type
   document.getElementById('create-account-submit-btn').type = 'button';
   // Set Date Of Birth Input Type to Date
@@ -255,7 +255,7 @@ function init() {
     return false;
   })
   
-  formOnloadHandler();
+  onFormLoad();
 }
 
 init();
