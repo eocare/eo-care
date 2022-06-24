@@ -10,27 +10,15 @@ function isMedicalCardOptionSelected() {
   document.getElementById('already-have').checked
 }
 
-function medicalCardEventHandler(e) {
-  if (document.getElementById('already-have').checked) {
-    if (e.target.value.length === 0) {
-      showFieldError(e, "Medical card field cannot be empty.");
-    } else {
-      hideFieldError(e);
-    }
-  } else {
-    hideFieldError(e);
-  }
+function showMedicalCardOptionError(msg) {
+  let errorLabel = document.getElementById('medical-card-selection-error-label');
+  errorLabel.innerText = msg;
+  errorLabel.style.display = 'block';
 }
 
-function isFieldEmpty(e) {
-  let target = extractTargetElement(e);
-  if (target.value.length > 0) {
-    hideFieldError(e);
-    return false;
-  } else {
-    showFieldError(e);
-    return true;
-  }
+function hideMedicalCardOptionError() {
+  let errorLabel = document.getElementById('medical-card-selection-error-label');
+  errorLabel.style.display = 'none';
 }
 
 function validateEmail(email){
@@ -40,21 +28,6 @@ function validateEmail(email){
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
-
-function passwordsEventHandler(e) {
-  let confirmPwd = extractTargetElement(e);
-  let pwd = document.getElementById('pwd');
-  if (pwd.value.length > 0 && confirmPwd.value.length > 0) {
-    if (pwd.value === confirmPwd.value) {
-      hideFieldError(e);
-      return true;
-    } else {
-      showFieldError(e, "Passwords do not match.");
-    }
-  } else {
-    showFieldError(e, "Passwords cannot be blank.")
-  }
-}
 
 function extractTargetElement(e) {
   if (e.target) {
@@ -71,12 +44,14 @@ function showFieldError(e, msg=null) {
   if (msg) {
     target.nextElementSibling.innerText = msg;
   }
+  return false;
 }
 
 function hideFieldError(e) {
   let target = extractTargetElement(e);
   target.style.borderColor = '';
   target.nextElementSibling.style.display = 'none';
+  return true;
 }
 
 // API Integration
@@ -147,6 +122,17 @@ function selectPlanById(htmlPlanId) {
   document.getElementById(htmlPlanId).checked = true;
 }
 
+// FORM FIELD VALIDATION FUNCTIONS BEGIN
+
+function isFieldEmpty(e) {
+  let target = extractTargetElement(e);
+  if (target.value.length > 0) {
+    return hideFieldError(e);
+  } else {
+    return showFieldError(e);
+  }
+}
+
 async function zipEventHandler(e) {
   let target = extractTargetElement(e);
   if (target.value.length > 0) {
@@ -154,10 +140,12 @@ async function zipEventHandler(e) {
     // Zip Eligibility API Call
     let zipEligible = await isZipEligible(target.value);
     if (!zipEligible) {
-      showFieldError(e, "eo isn't yet available in your area.");
+      return showFieldError(e, "eo isn't yet available in your area.");
+    } else {
+      return hideFieldError(e);
     }
   } else {
-    showFieldError(e, "Zip cannot be blank.");
+    return showFieldError(e, "Zip cannot be blank.");
   }
 }
 
@@ -167,10 +155,12 @@ function dobEventHandler(e) {
     hideFieldError(e);
     let dobEligible = isAtLeast21YrsOld(target.value);
     if (!dobEligible) {
-      showFieldError(e, "Must be at least 21 years old");
+      return showFieldError(e, "Must be at least 21 years old");
+    } else {
+      return hideFieldError(e);
     }
   } else {
-    showFieldError(e, "Date of birth cannot be blank.");
+    return showFieldError(e, "Date of birth cannot be blank.");
   }
 }
 
@@ -178,23 +168,58 @@ function emailEventHandler(e) {
   let target = extractTargetElement(e);
   if (target.value.length > 0) {
     if (!validateEmail(target.value)) {
-      showFieldError(e, "This is not a valid email address. Please try again.");
+      return showFieldError(e, "This is not a valid email address. Please try again.");
     } else {
-      hideFieldError(e);
+      return hideFieldError(e);
     }
   } else {
-    showFieldError(e, "Email can't be blank.")
+    return showFieldError(e, "Email can't be blank.")
   }
 }
 
 function genderEventHandler(e) {
   let target = extractTargetElement(e);
   if (target.selectedIndex === 0) {
-    showFieldError(e, "Gender cannot be blank.");
+    return showFieldError(e, "Gender cannot be blank.");
   } else {
-    hideFieldError(e);
+    return hideFieldError(e);
   }
 }
+
+function passwordsEventHandler(e) {
+  let confirmPwd = extractTargetElement(e);
+  let pwd = document.getElementById('pwd');
+  if (pwd.value.length > 0 && confirmPwd.value.length > 0) {
+    if (pwd.value === confirmPwd.value) {
+      return hideFieldError(e);
+    } else {
+      return showFieldError(e, "Passwords do not match.");
+    }
+  } else {
+    return showFieldError(e, "Passwords cannot be blank.")
+  }
+}
+
+function medicalCardEventHandler(e) {
+  let isMedCardOptionSelected = isMedicalCardOptionSelected();
+  if (!isMedCardOptionSelected) {
+    showMedicalCardOptionError('Please make a selection.')
+  } else {
+    hideMedicalCardOptionError();
+    if (document.getElementById('already-have').checked) {
+      let target = extractTargetElement(e);
+      if (target.value.length === 0) {
+        showFieldError(e, "Medical card field cannot be empty.");
+      } else {
+        hideFieldError(e);
+      }
+    } else {
+      hideFieldError(e);
+    }
+  }
+}
+
+// FORM FIELD VALIDATION FUNCTIONS END
 
 function formOnloadHandler(e) {
   // Change Form Submit Button Type
@@ -229,15 +254,14 @@ function init() {
     validateForm();
     return false;
   })
-
-  window.addEventListener('load', formOnloadHandler);
+  
+  formOnloadHandler();
 }
 
 init();
 
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
-  const formData = new FormData(document.getElementById('create-account-form'));
   console.log(`First Name: ${isFieldEmpty('firstname')}`);
   console.log(`Last Name: ${isFieldEmpty('lastname')}`);
   console.log(`Phone: ${isFieldEmpty('phone')}`);
@@ -249,5 +273,5 @@ function validateForm() {
   console.log(`Pwd Confirmation: ${passwordsEventHandler('pwd-confirmation')}`);
 
   console.log(`Plan: ${isPlanSelected()}`);
-  console.log(`Medical Card Option: ${isMedicalCardOptionSelected()}`);
+  console.log(`Medical Card Option: ${medicalCardEventHandler('Medical-Card-Number')}`);
 }
