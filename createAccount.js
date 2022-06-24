@@ -148,7 +148,7 @@ function dobEventHandler(e) {
       showFieldError(e, "Must be at least 21 years old");
     }
   } else {
-    showFieldError(e, "Date Of Birth cannot be blank.");
+    showFieldError(e, "Date of birth cannot be blank.");
   }
 }
 
@@ -188,7 +188,24 @@ function init() {
         hideFieldError(e);
       }
     }
-  })
+  });
+
+  document.getElementById('gender').addEventListener('blur', (e)=> {
+    if (e.target.selectedIndex === 0) {
+      showFieldError(e, "Gender cannot be blank.");
+    } else {
+      hideFieldError(e);
+    }
+  });
+
+  document.getElementById('gender').addEventListener('input', (e)=> {
+    if (e.target.selectedIndex === 0) {
+      showFieldError(e, "Gender cannot be blank.");
+    } else {
+      hideFieldError(e);
+    }
+  });
+
   window.addEventListener('load', formOnloadHandler);
 }
 
