@@ -54,9 +54,12 @@ function checkIfPasswordsMatch(e) {
   }
 }
 
-function showFieldError(e) {
+function showFieldError(e, msg=null) {
   e.target.style.borderColor = '#D27A7C';
   e.target.nextElementSibling.style.display = 'block';
+  if (msg) {
+    e.target.nextElementSibling.innerText = msg;
+  }
 }
 
 function hideFieldError(e) {
@@ -68,41 +71,59 @@ function hideFieldError(e) {
 const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
 
 async function createProfile(e) {
-
-const resp = await fetch(`${API_ROOT_DOMAIN}/web_profile`, {
-  method: 'POST',
-  mode: 'cors',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    "profile": {
-      "birth_date": dob,
-      "email": email,
-      "first_name": fname,
-      "gender": gender,
-      "last_name": lname,
-      "med_card": true,
-      "med_card_interest": false,
-      "med_card_number": "",
-      "password": pwd,
-      "phone": phone,
-      "zip": zip
+  const resp = await fetch(`${API_ROOT_DOMAIN}/web_profile`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
     },
-    "stripe": {
-      "plan": stripePriceId
-    }
-  })
-});
+    body: JSON.stringify({
+      "profile": {
+        "birth_date": dob,
+        "email": email,
+        "first_name": fname,
+        "gender": gender,
+        "last_name": lname,
+        "med_card": true,
+        "med_card_interest": false,
+        "med_card_number": "",
+        "password": pwd,
+        "phone": phone,
+        "zip": zip
+      },
+      "stripe": {
+        "plan": stripePriceId
+      }
+    })
+  });
 
-if (resp.ok && resp.status === 200) {
-  const data = await resp.json();
-  const {management_link} = data.stripe;
-  document.location.href = management_link;
-} else {
-  console.log(resp.status);
-}
+  if (resp.ok && resp.status === 200) {
+    const data = await resp.json();
+    const {management_link} = data.stripe;
+    document.location.href = management_link;
+  } else {
+    console.log(resp.status);
+  }
 };
+
+async function isZipEligible(zip) {
+  const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          "zip": zip
+      })
+  });
+
+  if (resp.ok && resp.status === 200) {
+      return true;
+  } else {
+      return false;
+  }
+}
 
 function selectPlanById(htmlPlanId) {
   document.getElementById(htmlPlanId).checked = true;
@@ -122,11 +143,21 @@ function init() {
   document.getElementById('firstname').addEventListener('blur', isFieldNotEmpty);
   document.getElementById('lastname').addEventListener('blur', isFieldNotEmpty);
   document.getElementById('phone').addEventListener('blur', isFieldNotEmpty);
-  document.getElementById('zip').addEventListener('blur', (e)=>{
-    let dob = document.getElementById('dob');
-    if (e.target.value.length > 0 && dob.value.length > 0) {
-      // Eligibility API call
-      console.log("[TODO] Eligibility API call");
+  document.getElementById('zip').addEventListener('blur', async (e)=>{
+    // let dob = document.getElementById('dob');
+    // if (e.target.value.length > 0 && dob.value.length > 0) {
+    //   // Eligibility API call
+    //   console.log("[TODO] Eligibility API call");
+    // }
+    if (e.target.value.length > 0) {
+      hideFieldError(e);
+      // Zip Eligibility API Call
+      let zipEligible = await isZipEligible(e.target.value);
+      if (!zipEligible) {
+        showFieldError(e, "eo isn't yet available in your area.");
+      }
+    } else {
+      showFieldError(e, "Zip cannot be blank.");
     }
   })
 
