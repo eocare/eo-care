@@ -125,6 +125,35 @@ async function isZipEligible(zip) {
   }
 }
 
+async function isDobEligible(dob) {
+  const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          "zip": dob
+      })
+  });
+
+  if (resp.ok && resp.status === 200) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
+function isAtLeast21YrsOld(dob) {
+  const dobParsed = new Date(dob);
+  const yrsOld = Math.round((Date.now() - dobParsed) / (60*60*24*365*1000));
+  if (yrsOld >= 21) {
+    return (true);
+  } else {
+    return (false);
+  }
+}
+
 function selectPlanById(htmlPlanId) {
   document.getElementById(htmlPlanId).checked = true;
 }
@@ -144,11 +173,6 @@ function init() {
   document.getElementById('lastname').addEventListener('blur', isFieldNotEmpty);
   document.getElementById('phone').addEventListener('blur', isFieldNotEmpty);
   document.getElementById('zip').addEventListener('blur', async (e)=>{
-    // let dob = document.getElementById('dob');
-    // if (e.target.value.length > 0 && dob.value.length > 0) {
-    //   // Eligibility API call
-    //   console.log("[TODO] Eligibility API call");
-    // }
     if (e.target.value.length > 0) {
       hideFieldError(e);
       // Zip Eligibility API Call
@@ -162,10 +186,14 @@ function init() {
   })
 
   document.getElementById('dob').addEventListener('blur', (e)=>{
-    let zip = document.getElementById('zip');
-    if (e.target.value.length > 0 && zip.value.length > 0) {
-      // Eligibility API call
-      console.log("[TODO] Eligibility API call");
+    if (e.target.value.length > 0) {
+      hideFieldError(e);
+      let dobEligible = isAtLeast21YrsOld(e.target.value);
+      if (!dobEligible) {
+        showFieldError(e, "Must be at least 21 years old");
+      }
+    } else {
+      showFieldError(e, "Date Of Birth cannot be blank.");
     }
   })
 
