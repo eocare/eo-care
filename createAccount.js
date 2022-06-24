@@ -23,7 +23,8 @@ function medicalCardEventHandler(e) {
 }
 
 function isFieldEmpty(e) {
-  if (e.target.value.length > 0) {
+  let target = extractTargetElement(e);
+  if (target.value.length > 0) {
     hideFieldError(e);
     return false;
   } else {
@@ -49,17 +50,27 @@ function checkIfPasswordsMatch(e) {
   }
 }
 
+function extractTargetElement(e) {
+  if (e.target) {
+    return e.target;
+  } else {
+    return document.getElementById(e);
+  }
+}
+
 function showFieldError(e, msg=null) {
-  e.target.style.borderColor = '#D27A7C';
-  e.target.nextElementSibling.style.display = 'block';
+  let target = extractTargetElement(e);
+  target.style.borderColor = '#D27A7C';
+  target.nextElementSibling.style.display = 'block';
   if (msg) {
-    e.target.nextElementSibling.innerText = msg;
+    target.nextElementSibling.innerText = msg;
   }
 }
 
 function hideFieldError(e) {
-  e.target.style.borderColor = '';
-  e.target.nextElementSibling.style.display = 'none';
+  let target = extractTargetElement(e);
+  target.style.borderColor = '';
+  target.nextElementSibling.style.display = 'none';
 }
 
 // API Integration
@@ -215,6 +226,7 @@ function init() {
     e.preventDefault();
     console.log("Form Submit Intercepted.")
     // Do Form Validation Here
+    validateForm();
     return false;
   })
 
