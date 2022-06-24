@@ -12,11 +12,15 @@ function isMedicalCardOptionSelected() {
   document.getElementById('already-have').checked
 }
 
-function medicalCardCheck() {
+function medicalCardEventHandler(e) {
   if (document.getElementById('already-have').checked) {
-    return (document.getElementById('Medical-Card-Number').value.length > 0);
+    if (document.getElementById('Medical-Card-Number').value.length > 0) {
+      showFieldError(e, "Medical card field cannot be empty.");
+    } else {
+      hideFieldError(e);
+    }
   } else {
-    return (true);
+    hideFieldError(e);
   }
 }
 
@@ -166,12 +170,14 @@ function init() {
   qp.get('plan') ? selectPlanById(qp.get('plan')) : selectPlanById('249year');
 
   // Form Event Listeners
-  document.getElementById('firstname').addEventListener('blur', isFieldNotEmpty);
-  document.getElementById('lastname').addEventListener('blur', isFieldNotEmpty);
-  document.getElementById('phone').addEventListener('blur', isFieldNotEmpty);
+  document.getElementById('firstname').addEventListener('input', isFieldNotEmpty);
+  document.getElementById('lastname').addEventListener('input', isFieldNotEmpty);
+  document.getElementById('phone').addEventListener('input', isFieldNotEmpty);
   document.getElementById('zip').addEventListener('blur', zipEventHandler);
   document.getElementById('dob').addEventListener('blur', dobEventHandler);
   document.getElementById('pwd-confirmation').addEventListener('input', checkIfPasswordsMatch);
+  document.getElementById('Medical-Card-Number').addEventListener('blur', medicalCardEventHandler);
+  document.getElementById('Medical-Card-Number').addEventListener('input', medicalCardEventHandler);
   document.getElementById('email').addEventListener('blur', (e)=>{
     if (e.target.value.length === 0) {
       showFieldError(e, "Email can't be blank.")
