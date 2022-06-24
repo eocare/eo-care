@@ -238,21 +238,21 @@ init();
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
   const formData = new FormData(document.getElementById('create-account-form'));
-  console.log(`First Name: ${isFieldEmpty(formData.get('firstname'))}`);
-  console.log(`Last Name: ${isFieldEmpty(formData.get('lastname'))}`);
-  console.log(`Phone: ${isFieldEmpty(formData.get('phone'))}`);
-  console.log(`Zip: ${isFieldEmpty(formData.get('zip'))}`);
-  console.log(`Date of Birth: ${isFieldEmpty(formData.get('dob'))}`);
-  console.log(`Gender: ${isFieldEmpty(formData.get('gender'))}`);
+  console.log(`First Name: ${isFieldEmpty('firstname')}`);
+  console.log(`Last Name: ${isFieldEmpty('lastname')}`);
+  console.log(`Phone: ${isFieldEmpty('phone')}`);
+  console.log(`Zip: ${isFieldEmpty('zip')}`);
+  console.log(`Date of Birth: ${isFieldEmpty('dob')}`);
+  console.log(`Gender: ${isFieldEmpty('gender')}`);
 
-  console.log(`Email: ${isFieldEmpty(formData.get('email'))}`);
-  console.log(`Pwd: ${isFieldEmpty(formData.get('pwd'))}`);
-  console.log(`Pwd Confirmation: ${isFieldEmpty(formData.get('pwd-confirmation'))}`);
+  console.log(`Email: ${isFieldEmpty('email')}`);
+  console.log(`Pwd: ${isFieldEmpty('pwd')}`);
+  console.log(`Pwd Confirmation: ${isFieldEmpty('pwd-confirmation')}`);
 
   console.log(`Plan: ${isPlanSelected()}`);
   console.log(`Medical Card Option: ${isMedicalCardOptionSelected()}`);
 
-  console.log(`Medical Card: ${formData.get(isFieldEmpty(formData.get('Medical-Card-Number')))}`);
+  console.log(`Medical Card: ${formData.get(isFieldEmpty('Medical-Card-Number'))}`);
 
   // let planSelected = isPlanSelected();
   // let genderCheck = document.getElementById('gender').selectedIndex !== 0;
