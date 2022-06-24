@@ -56,10 +56,12 @@ function checkIfPasswordsMatch(e) {
 
 function showFieldError(e) {
   e.target.style.borderColor = '#D27A7C';
+  e.target.nextElementSibling.style.display = 'block';
 }
 
 function hideFieldError(e) {
   e.target.style.borderColor = '';
+  e.target.nextElementSibling.style.display = 'none';
 }
 
 // API Integration
