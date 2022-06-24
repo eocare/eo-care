@@ -41,12 +41,18 @@ function validateEmail(email){
     );
 };
 
-function checkIfPasswordsMatch(e) {
-  if (document.getElementById('pwd').value === e.target.value) {
-    hideFieldError(e);
-    return true;
+function passwordsEventHandler(e) {
+  let confirmPwd = extractTargetElement(e);
+  let pwd = document.getElementById('pwd');
+  if (pwd.value.length > 0 && confirmPwd.value.length > 0) {
+    if (pwd.value === confirmPwd.value) {
+      hideFieldError(e);
+      return true;
+    } else {
+      showFieldError(e, "Passwords do not match.");
+    }
   } else {
-    showFieldError(e, "Passwords do not match.");
+    showFieldError(e, "Passwords cannot be blank.")
   }
 }
 
@@ -209,7 +215,7 @@ function init() {
   document.getElementById('phone').addEventListener('input', isFieldEmpty);
   document.getElementById('zip').addEventListener('blur', zipEventHandler);
   document.getElementById('dob').addEventListener('input', dobEventHandler);
-  document.getElementById('pwd-confirmation').addEventListener('input', checkIfPasswordsMatch);
+  document.getElementById('pwd-confirmation').addEventListener('input', passwordsEventHandler);
   document.getElementById('Medical-Card-Number').addEventListener('blur', medicalCardEventHandler);
   document.getElementById('Medical-Card-Number').addEventListener('input', medicalCardEventHandler);
   document.getElementById('email').addEventListener('blur', emailEventHandler);
@@ -240,11 +246,8 @@ function validateForm() {
   console.log(`Gender: ${genderEventHandler('gender')}`);
 
   console.log(`Email: ${emailEventHandler('email')}`);
-  console.log(`Pwd: ${isFieldEmpty('pwd')}`);
-  console.log(`Pwd Confirmation: ${isFieldEmpty('pwd-confirmation')}`);
+  console.log(`Pwd Confirmation: ${passwordsEventHandler('pwd-confirmation')}`);
 
   console.log(`Plan: ${isPlanSelected()}`);
   console.log(`Medical Card Option: ${isMedicalCardOptionSelected()}`);
-
-  console.log(`Medical Card: ${formData.get(isFieldEmpty('Medical-Card-Number'))}`);
 }
