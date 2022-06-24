@@ -226,22 +226,37 @@ init();
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
   const formData = new FormData(document.getElementById('create-account-form'));
-  if ()
-  let planSelected = isPlanSelected();
-  let genderCheck = document.getElementById('gender').selectedIndex !== 0;
-  let validEmailCheck = false;
-  let emailCheck = isFieldEmpty('email');
-  if (emailCheck) {
-    validEmailCheck = validateEmail(document.getElementById('email'));
-  }
+  console.log(`First Name: ${isFieldEmpty(formData.get('firstname'))}`);
+  console.log(`Last Name: ${isFieldEmpty(formData.get('lastname'))}`);
+  console.log(`Phone: ${isFieldEmpty(formData.get('phone'))}`);
+  console.log(`Zip: ${isFieldEmpty(formData.get('zip'))}`);
+  console.log(`Date of Birth: ${isFieldEmpty(formData.get('dob'))}`);
+  console.log(`Gender: ${isFieldEmpty(formData.get('gender'))}`);
 
-  let pwdCheck = isFieldEmpty('pwd');
-  let pwdConfirmationCheck = isFieldEmpty('pwd-confirmation');
-  let pwdsMatchCheck = false;
-  if (pwdCheck && pwdConfirmationCheck) {
-    pwdsMatchCheck = checkIfPasswordsMatch();
-  }
+  console.log(`Email: ${isFieldEmpty(formData.get('email'))}`);
+  console.log(`Pwd: ${isFieldEmpty(formData.get('pwd'))}`);
+  console.log(`Pwd Confirmation: ${isFieldEmpty(formData.get('pwd-confirmation'))}`);
 
-  let idFrontUploadCheck;
-  let idBackUploadCheck;
+  console.log(`Plan: ${isPlanSelected()}`);
+  console.log(`Medical Card Option: ${isMedicalCardOptionSelected()}`);
+
+  console.log(`Medical Card: ${formData.get(isFieldEmpty(formData.get('Medical-Card-Number')))}`);
+
+  // let planSelected = isPlanSelected();
+  // let genderCheck = document.getElementById('gender').selectedIndex !== 0;
+  // let validEmailCheck = false;
+  // let emailCheck = isFieldEmpty('email');
+  // if (emailCheck) {
+  //   validEmailCheck = validateEmail(document.getElementById('email'));
+  // }
+
+  // let pwdCheck = isFieldEmpty('pwd');
+  // let pwdConfirmationCheck = isFieldEmpty('pwd-confirmation');
+  // let pwdsMatchCheck = false;
+  // if (pwdCheck && pwdConfirmationCheck) {
+  //   pwdsMatchCheck = checkIfPasswordsMatch();
+  // }
+
+  // let idFrontUploadCheck;
+  // let idBackUploadCheck;
 }
