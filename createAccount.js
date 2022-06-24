@@ -14,7 +14,7 @@ function isMedicalCardOptionSelected() {
 
 function medicalCardEventHandler(e) {
   if (document.getElementById('already-have').checked) {
-    if (document.getElementById('Medical-Card-Number').value.length > 0) {
+    if (e.target.value.length === 0) {
       showFieldError(e, "Medical card field cannot be empty.");
     } else {
       hideFieldError(e);
