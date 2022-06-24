@@ -1,5 +1,3 @@
-var formDisabled = true;
-
 function isPlanSelected() {
   const monthly = '39month';
   const yearly = '249year';
@@ -24,12 +22,13 @@ function medicalCardEventHandler(e) {
   }
 }
 
-function isFieldNotEmpty(e) {
+function isFieldEmpty(e) {
   if (e.target.value.length > 0) {
     hideFieldError(e);
-    return true;
+    return false;
   } else {
     showFieldError(e);
+    return true;
   }
 }
 
@@ -157,8 +156,8 @@ function dobEventHandler(e) {
 }
 
 function formOnloadHandler(e) {
-  // Disable Form Submit
-  document.getElementById('create-account-submit-btn').disabled = true;
+  // Change Form Submit Button Type
+  document.getElementById('create-account-submit-btn').type = 'button';
   // Set Date Of Birth Input Type to Date
   document.getElementById('dob').type = 'date';
 }
@@ -170,11 +169,11 @@ function init() {
   qp.get('plan') ? selectPlanById(qp.get('plan')) : selectPlanById('249year');
 
   // Form Event Listeners
-  document.getElementById('firstname').addEventListener('input', isFieldNotEmpty);
-  document.getElementById('lastname').addEventListener('input', isFieldNotEmpty);
-  document.getElementById('phone').addEventListener('input', isFieldNotEmpty);
+  document.getElementById('firstname').addEventListener('input', isFieldEmpty);
+  document.getElementById('lastname').addEventListener('input', isFieldEmpty);
+  document.getElementById('phone').addEventListener('input', isFieldEmpty);
   document.getElementById('zip').addEventListener('blur', zipEventHandler);
-  document.getElementById('dob').addEventListener('blur', dobEventHandler);
+  document.getElementById('dob').addEventListener('input', dobEventHandler);
   document.getElementById('pwd-confirmation').addEventListener('input', checkIfPasswordsMatch);
   document.getElementById('Medical-Card-Number').addEventListener('blur', medicalCardEventHandler);
   document.getElementById('Medical-Card-Number').addEventListener('input', medicalCardEventHandler);
@@ -212,6 +211,13 @@ function init() {
     }
   });
 
+  document.getElementById('create-account-submit-btn').addEventListener('click', (e)=>{
+    e.preventDefault();
+    console.log("Form Submit Intercepted.")
+    // Do Form Validation Here
+    return false;
+  })
+
   window.addEventListener('load', formOnloadHandler);
 }
 
@@ -220,21 +226,17 @@ init();
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
   const formData = new FormData(document.getElementById('create-account-form'));
+  if ()
   let planSelected = isPlanSelected();
-  let fnameCheck = isFieldNotEmpty('firstname');
-  let lnameCheck = isFieldNotEmpty('lastname');
-  let phoneCheck = isFieldNotEmpty('phone');
-  let zipCheck = isFieldNotEmpty('zip');
-  let dobCheck = isFieldNotEmpty('dob');
   let genderCheck = document.getElementById('gender').selectedIndex !== 0;
   let validEmailCheck = false;
-  let emailCheck = isFieldNotEmpty('email');
+  let emailCheck = isFieldEmpty('email');
   if (emailCheck) {
     validEmailCheck = validateEmail(document.getElementById('email'));
   }
 
-  let pwdCheck = isFieldNotEmpty('pwd');
-  let pwdConfirmationCheck = isFieldNotEmpty('pwd-confirmation');
+  let pwdCheck = isFieldEmpty('pwd');
+  let pwdConfirmationCheck = isFieldEmpty('pwd-confirmation');
   let pwdsMatchCheck = false;
   if (pwdCheck && pwdConfirmationCheck) {
     pwdsMatchCheck = checkIfPasswordsMatch();
