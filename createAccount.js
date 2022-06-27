@@ -216,18 +216,22 @@ function passwordsEventHandler(e) {
 function medicalCardEventHandler(e) {
   let isMedCardOptionSelected = isMedicalCardOptionSelected();
   if (!isMedCardOptionSelected) {
-    showMedicalCardOptionError('Please make a selection.')
+    showMedicalCardOptionError('Please make a selection.');
+    return false;
   } else {
     hideMedicalCardOptionError();
     if (document.getElementById('already-have').checked) {
       let target = extractTargetElement(e);
       if (target.value.length === 0) {
         showFieldError(e, "Medical card field cannot be empty.");
+        return false;
       } else {
         hideFieldError(e);
+        return true;
       }
     } else {
       hideFieldError(e);
+      return true;
     }
   }
 }
