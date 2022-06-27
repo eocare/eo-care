@@ -108,7 +108,8 @@ async function createProfile(formData) {
   if (resp.ok && resp.status === 200) {
     const data = await resp.json();
     const {checkout_session_url} = data.stripe;
-    document.location.href = checkout_session_url;
+    console.log(checkout_session_url);
+    // document.location.href = checkout_session_url;
   } else {
     console.log(resp.status);
   }
