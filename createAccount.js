@@ -1,7 +1,19 @@
+const monthly = '39month';
+const yearly = '249year';
 function isPlanSelected() {
-  const monthly = '39month';
-  const yearly = '249year';
   return document.getElementById(monthly).checked || document.getElementById(yearly).checked;
+}
+
+function getPriceIdFromSelectedPlan() {
+  const monthlySubs = document.getElementById(monthly);
+  const yearlySubs = document.getElementById(yearly);
+  if (yearlySubs.checked) {
+    return (yearlySubs.dataset.priceid);
+  } else if (monthlySubs.checked) {
+    return (monthlySubs.priceid);
+  } else {
+    throw new Error('No Subscription Selected');
+  }
 }
 
 function isMedicalCardOptionSelected() {
@@ -57,7 +69,8 @@ function hideFieldError(e) {
 // API Integration
 const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
 
-async function createProfile(e) {
+async function createProfile(formData) {
+  let API_ROOT_DOMAIN = 'https://leonk.free.beeceptor.com';
   const resp = await fetch(`${API_ROOT_DOMAIN}/web_profile`, {
     method: 'POST',
     mode: 'cors',
@@ -66,20 +79,20 @@ async function createProfile(e) {
     },
     body: JSON.stringify({
       "profile": {
-        "birth_date": dob,
-        "email": email,
-        "first_name": fname,
-        "gender": gender,
-        "last_name": lname,
+        "birth_date": formData.get('dob'),
+        "email": formData.get('email'),
+        "first_name": formData.get('firstname'),
+        "gender": formData.get('gender'),
+        "last_name": formData.get('lastname'),
         "med_card": true,
         "med_card_interest": false,
-        "med_card_number": "",
-        "password": pwd,
-        "phone": phone,
-        "zip": zip
+        "med_card_number": formData.get('Medical-Card-Number'),
+        "password": formData.get('pwd'),
+        "phone": formData.get('phone'),
+        "zip": formData.get('zip')
       },
       "stripe": {
-        "plan": stripePriceId
+        "plan": getPriceIdFromSelectedPlan()
       }
     })
   });
@@ -262,16 +275,25 @@ init();
 
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
-  console.log(`First Name: ${isFieldEmpty('firstname')}`);
-  console.log(`Last Name: ${isFieldEmpty('lastname')}`);
-  console.log(`Phone: ${isFieldEmpty('phone')}`);
-  console.log(`Zip: ${zipEventHandler('zip')}`);
-  console.log(`Date of Birth: ${dobEventHandler('dob')}`);
-  console.log(`Gender: ${genderEventHandler('gender')}`);
+  let fnameCheck = isFieldEmpty('firstname');
+  let lnameCheck = isFieldEmpty('lastname');
+  let phoneCheck = isFieldEmpty('phone');
+  let zipCheck = zipEventHandler('zip');
+  let dobCheck = dobEventHandler('dob');
+  let genderCheck = genderEventHandler('gender');
 
-  console.log(`Email: ${emailEventHandler('email')}`);
-  console.log(`Pwd Confirmation: ${passwordsEventHandler('pwd-confirmation')}`);
+  let emailCheck = emailEventHandler('email');
+  let pwdCheck = passwordsEventHandler('pwd-confirmation');
 
-  console.log(`Plan: ${isPlanSelected()}`);
-  console.log(`Medical Card Option: ${medicalCardEventHandler('Medical-Card-Number')}`);
+  let planCheck = isPlanSelected();
+  let medCardCheck = medicalCardEventHandler('Medical-Card-Number');
+
+  if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck && emailCheck && pwdCheck && planCheck && medCardCheck) {
+    // Create Web Profile
+    console.log("Form Validation Successful.");
+    const formData = new FormData(document.querySelector('#create-account-form'));
+    createProfile(formData);
+  } else {
+    console.log("Form Validation Failed. Please fix the highlighted errors and resubmit.");
+  }
 }
