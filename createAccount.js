@@ -66,11 +66,19 @@ function hideFieldError(e) {
   return true;
 }
 
+function isInterestedInMedcard(formDataMedCardClass) {
+  if (formDataMedCardClass === 'like-to-have') {
+    return (true);
+  } else {
+    return (false);
+  }
+}
+
 // API Integration
 const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
 
 async function createProfile(formData) {
-  let API_ROOT_DOMAIN = 'https://leonk.free.beeceptor.com';
+  // let API_ROOT_DOMAIN = 'https://leonk.free.beeceptor.com';
   const resp = await fetch(`${API_ROOT_DOMAIN}/web_profile`, {
     method: 'POST',
     mode: 'cors',
@@ -84,8 +92,8 @@ async function createProfile(formData) {
         "first_name": formData.get('firstname'),
         "gender": formData.get('gender'),
         "last_name": formData.get('lastname'),
-        "med_card": true,
-        "med_card_interest": false,
+        "med_card": formData.get('Medical-Card-Number').length > 0 ? true : false,
+        "med_card_interest": isInterestedInMedcard(formData.get('medical-card')),
         "med_card_number": formData.get('Medical-Card-Number'),
         "password": formData.get('pwd'),
         "phone": formData.get('phone'),
@@ -99,8 +107,8 @@ async function createProfile(formData) {
 
   if (resp.ok && resp.status === 200) {
     const data = await resp.json();
-    const {management_link} = data.stripe;
-    document.location.href = management_link;
+    const {checkout_session_url} = data.stripe;
+    document.location.href = checkout_session_url;
   } else {
     console.log(resp.status);
   }
