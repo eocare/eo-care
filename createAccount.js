@@ -210,7 +210,11 @@ function passwordsEventHandler(e) {
   let pwd = document.getElementById('pwd');
   if (pwd.value.length > 0 && confirmPwd.value.length > 0) {
     if (pwd.value === confirmPwd.value) {
-      return hideFieldError(e);
+      if (passwordPolicyCheck(pwd.value)) {
+        return hideFieldError(e);
+      } else {
+        return showFieldError(e, "Password must contain at least one UpperCase letter, one LowerCase letter, and one Number");
+      }
     } else {
       return showFieldError(e, "Passwords do not match.");
     }
@@ -240,6 +244,20 @@ function medicalCardEventHandler(e) {
       return true;
     }
   }
+}
+
+function passwordPolicyCheck(pwd) {
+  // Should have at least 1 uppercase, 1 lowercase, and 1 number
+  let uppercaseCheck = false;
+  let lowercaseCheck = false;
+  let numberCheck = false;
+  for(let i=0; i < pwd.length; i++) {
+    let curChar = pwd[i];
+    uppercaseCheck = uppercaseCheck || (curChar === curChar.toUpperCase());
+    lowercaseCheck = lowercaseCheck || (curChar === curChar.toLowerCase());
+    numberCheck = numberCheck || (curChar == Number(curChar));
+  }
+  return (uppercaseCheck && lowercaseCheck && numberCheck);
 }
 
 // FORM FIELD VALIDATION FUNCTIONS END
