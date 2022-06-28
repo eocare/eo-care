@@ -1,0 +1,11 @@
+input:disabled,
+input[disabled]{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+/* Slider Arrow Colors */
+.w-icon-slider-right:before {
+    color: #99b6ed;
+}
+.w-icon-slider-left:before {
+    color: #99b6ed;
+}

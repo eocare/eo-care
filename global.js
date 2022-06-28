@@ -1,8 +1,6 @@
 // On Page Load - Hide Login and Pwd Reset Forms
-window.addEventListener('load', (e) => {
-    loginFormStartUp();
-    pwdResetFormStartUp();
-});
+loginFormStartUp();
+pwdResetFormStartUp();
 
 function loginFormStartUp() {
     let loginFormSubmitBtn = document.getElementsByClassName('submit-button-6')[0];
