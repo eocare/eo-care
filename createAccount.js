@@ -1,5 +1,3 @@
-const monthly = '39month';
-const yearly = '249year';
 function isPlanSelected() {
   return document.getElementById(monthly).checked || document.getElementById(yearly).checked;
 }
@@ -75,7 +73,6 @@ function isInterestedInMedcard(formDataMedCardClass) {
 }
 
 // API Integration
-const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
 
 async function createProfile(formData) {
   // let API_ROOT_DOMAIN = 'https://leonk.free.beeceptor.com';

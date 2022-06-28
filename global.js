@@ -1,3 +1,7 @@
+const monthly = '39month';
+const yearly = '249year';
+const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
+
 // On Page Load - Hide Login and Pwd Reset Forms
 loginFormStartUp();
 pwdResetFormStartUp();
@@ -43,8 +47,6 @@ document.getElementById('pwd-reset-email-2').addEventListener('input', pwdResetE
 }
 
 // API Integration
-const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
-
 async function webLogin(email, pwd) {
     resetLoginFailedErr();
     const resp = await fetch(`${API_ROOT_DOMAIN}/web_login`, {
