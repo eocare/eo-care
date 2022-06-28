@@ -46,6 +46,7 @@ document.getElementById('pwd-reset-email-2').addEventListener('input', pwdResetE
 const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
 
 async function webLogin(email, pwd) {
+    resetLoginFailedErr();
     const resp = await fetch(`${API_ROOT_DOMAIN}/web_login`, {
         method: 'POST',
         mode: 'cors',
@@ -67,8 +68,24 @@ async function webLogin(email, pwd) {
     } else {
         console.log(resp.status);
         console.log("ERROR");
+        showLoginFailedErr();
     }
 };
+
+function showLoginFailedErr() {
+    const loginErrorLabel = document.getElementById('login-error-info-label');
+    loginErrorLabel.innerText = 'Sorry, we couldn’t sign you in. Please confirm that you have already created an account and have entered the correct details below.'
+    loginErrorLabel.style.display = 'block';
+    // Highlight Email & Pwd Fields
+    document.getElementById('Login-Email-Input').style.borderColor = '#D27A7C';
+    document.getElementById('Login-Pwd').style.borderColor = '#D27A7C';
+}
+
+function resetLoginFailedErr() {
+    document.getElementById('login-error-info-label').style.display = 'none';
+    document.getElementById('Login-Email-Input').style.borderColor = '';
+    document.getElementById('Login-Pwd').style.borderColor = '';
+}
 
 async function webPwdReset(email) {
 const resp = await fetch(`${API_ROOT_DOMAIN}/password/reset/request?web=true`, {
