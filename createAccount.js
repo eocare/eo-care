@@ -99,6 +99,10 @@ async function createProfile(formData) {
         "front_64": "",
         "back_64": ""
       },
+      "utm": {
+        "utm_source": "whatever",
+        "utm_blah": "blah"
+      },
       "stripe": {
         "plan": getPriceIdFromSelectedPlan()
       }
