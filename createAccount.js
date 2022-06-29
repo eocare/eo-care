@@ -274,8 +274,10 @@ function onFormLoad() {
   // Set Date Of Birth Input Type to Date
   document.getElementById('dob').type = 'date';
 
-  document.getElementById('license-front').accept += ';capture=camera';
-  document.getElementById('license-back').accept += ';capture=camera';
+  // Limit Input Image Types and allow Capturing from Camera
+  const fileAcceptanceCriteria = '.jpg, .jpeg, .png;capture=camera';
+  document.getElementById('license-front').accept = fileAcceptanceCriteria;
+  document.getElementById('license-back').accept = fileAcceptanceCriteria;
 }
 
 function init() {
