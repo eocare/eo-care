@@ -75,7 +75,6 @@ function isInterestedInMedcard(formDataMedCardClass) {
 // API Integration
 
 async function createProfile(formData) {
-  // let API_ROOT_DOMAIN = 'https://leonk.free.beeceptor.com';
   const resp = await fetch(`${API_ROOT_DOMAIN}/web_profile`, {
     method: 'POST',
     mode: 'cors',
@@ -96,6 +95,10 @@ async function createProfile(formData) {
         "phone": formData.get('phone'),
         "zip": formData.get('zip')
       },
+      "license": {
+        "front_64": "",
+        "back_64": ""
+      },
       "stripe": {
         "plan": getPriceIdFromSelectedPlan()
       }
@@ -105,8 +108,7 @@ async function createProfile(formData) {
   if (resp.ok && resp.status === 200) {
     const data = await resp.json();
     const {checkout_session_url} = data.stripe;
-    console.log(checkout_session_url);
-    // document.location.href = checkout_session_url;
+    document.location.href = checkout_session_url;
   } else {
     console.log(resp.status);
   }
@@ -267,6 +269,9 @@ function onFormLoad() {
   document.getElementById('create-account-submit-btn').type = 'button';
   // Set Date Of Birth Input Type to Date
   document.getElementById('dob').type = 'date';
+
+  document.getElementById('license-front').accept += ';capture=camera';
+  document.getElementById('license-back').accept += ';capture=camera';
 }
 
 function init() {
