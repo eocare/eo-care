@@ -189,7 +189,7 @@ function pwdChangeModalListener() {
         document.querySelector('.pwd-reset-modal-wrapper').style.display = 'flex';
         document.querySelector('.pwd-change-modal').style.display = 'block';
 
-        document.getElementById('pwd-change-2').addEventListener('blur', matchPasswords);
+        document.getElementById('pwd-change-2').addEventListener('input', matchPasswords);
 
         document.querySelector('.pwd-change-submit-btn').addEventListener('click', (e)=>{
             // On submit
@@ -220,7 +220,7 @@ function pwdPolicyCheck(pwd) {
 function matchPasswords(e) {
     let pwd = e;
     let confirmPwd = document.getElementById('pwd-change-1');
-    let errorLabel = confirmPwd.nextElementSibling();
+    let errorLabel = confirmPwd.nextElementSibling;
     if (pwd.value.length > 0 && confirmPwd.value.length > 0) {
         if (pwd.value === confirmPwd.value) {
           if (pwdPolicyCheck(pwd.value)) {
