@@ -4,6 +4,7 @@ const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
 
 pwdChangeModalListener();
 loginFormStartUp();
+captureUTM();
 pwdResetFormStartUp();
 
 function loginFormStartUp() {
@@ -192,7 +193,18 @@ function pwdChangeModalListener() {
         document.getElementById('pwd-change-2').addEventListener('input', matchPasswords);
 
         document.querySelector('.pwd-change-submit-btn').addEventListener('click', (e)=>{
-            // On submit
+            e.preventDefault();
+            if (matchPasswords()) {
+                // Get reset key from URL Query Params
+                const pwdResetKey = qp.get('reset_key');
+                if (pwdResetKey) {
+
+                } else {
+
+                }
+            } else {
+
+            }
         });
 
     } else {
@@ -217,7 +229,7 @@ function pwdPolicyCheck(pwd) {
     return (uppercaseCheck && lowercaseCheck && numberCheck);
 }
 
-function matchPasswords(e) {
+function matchPasswords() {
     let pwd = document.getElementById('pwd-change-1');;
     let confirmPwd = document.getElementById('pwd-change-2');
     let errorLabel = confirmPwd.nextElementSibling;
@@ -225,16 +237,49 @@ function matchPasswords(e) {
         if (pwd.value === confirmPwd.value) {
           if (pwdPolicyCheck(pwd.value)) {
             errorLabel.style.display = 'none';
+            return (true);
           } else {
             errorLabel.innerText = "Password must contain at least one UpperCase letter, one LowerCase letter, and one Number";
             errorLabel.style.display = 'block';
+            return (false);
           }
         } else {
             errorLabel.innerText = "Passwords do not match.";
             errorLabel.style.display = 'block';
+            return (false);
         }
     } else {
         errorLabel.innerText = "Passwords cannot be blank.";
         errorLabel.style.display = 'block';
+        return (false);
     }
+}
+
+// TODO
+function changePwd(newPwd, resetKey) {
+    const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "zip": zip
+        })
+    });
+  
+    if (resp.ok && resp.status === 200) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function captureUTM() {
+    const qs = new URLSearchParams(window.location.search);
+    localStorage.setItem('utm_source', qs.get('utm_source'));
+    localStorage.setItem('utm_medium', qs.get('utm_medium'));
+    localStorage.setItem('utm_campaign', qs.get('utm_campaign'));
+    localStorage.setItem('utm_term', qs.get('utm_term'));
+    localStorage.setItem('utm_content', qs.get('utm_content'));
 }
