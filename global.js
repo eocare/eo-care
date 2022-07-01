@@ -2,7 +2,7 @@ const monthly = '39month';
 const yearly = '249year';
 const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
 
-// On Page Load - Hide Login and Pwd Reset Forms
+pwdChangeModalListener();
 loginFormStartUp();
 pwdResetFormStartUp();
 
@@ -178,5 +178,20 @@ function pwdResetEmailFieldChangeHandler(e) {
         pwdResetFormSubmitBtn.disabled = false;
     } else {
         pwdResetFormSubmitBtn.disabled = true;
+    }
+}
+
+function pwdChangeModalListener() {
+    const qp = new URLSearchParams(window.location.search);
+    if (qp.get('action') === 'passwordReset') {
+        // Show Password Change Modal
+        document.querySelector('.pwd-reset-modal').style.display = 'none';
+        document.querySelector('.pwd-reset-modal-wrapper').style.display = 'block';
+        document.querySelector('.pwd-change-modal').style.display = 'block';
+    } else {
+        document.querySelector('.pwd-reset-modal').style.display = 'block';
+        document.querySelector('.pwd-reset-success-modal').style.display = 'none';
+        document.querySelector('.pwd-reset-modal-wrapper').style.display = 'none';
+        document.querySelector('.pwd-change-modal').style.display = 'none';
     }
 }
