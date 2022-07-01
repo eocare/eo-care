@@ -218,8 +218,8 @@ function pwdPolicyCheck(pwd) {
 }
 
 function matchPasswords(e) {
-    let pwd = e;
-    let confirmPwd = document.getElementById('pwd-change-1');
+    let pwd = document.getElementById('pwd-change-1');;
+    let confirmPwd = document.getElementById('pwd-change-2');
     let errorLabel = confirmPwd.nextElementSibling;
     if (pwd.value.length > 0 && confirmPwd.value.length > 0) {
         if (pwd.value === confirmPwd.value) {
