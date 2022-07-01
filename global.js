@@ -186,12 +186,55 @@ function pwdChangeModalListener() {
     if (qp.get('action') === 'passwordReset') {
         // Show Password Change Modal
         document.querySelector('.pwd-reset-modal').style.display = 'none';
-        document.querySelector('.pwd-reset-modal-wrapper').style.display = 'block';
+        document.querySelector('.pwd-reset-modal-wrapper').style.display = 'flex';
         document.querySelector('.pwd-change-modal').style.display = 'block';
+
+        document.getElementById('pwd-change-2').addEventListener('blur', matchPasswords);
+
+        document.querySelector('.pwd-change-submit-btn').addEventListener('click', (e)=>{
+            // On submit
+        });
+
     } else {
         document.querySelector('.pwd-reset-modal').style.display = 'block';
         document.querySelector('.pwd-reset-success-modal').style.display = 'none';
         document.querySelector('.pwd-reset-modal-wrapper').style.display = 'none';
         document.querySelector('.pwd-change-modal').style.display = 'none';
+    }
+}
+
+function pwdPolicyCheck(pwd) {
+    // Should have at least 1 uppercase, 1 lowercase, and 1 number
+    let uppercaseCheck = false;
+    let lowercaseCheck = false;
+    let numberCheck = false;
+    for(let i=0; i < pwd.length; i++) {
+        let curChar = pwd[i];
+        uppercaseCheck = uppercaseCheck || (curChar === curChar.toUpperCase());
+        lowercaseCheck = lowercaseCheck || (curChar === curChar.toLowerCase());
+        numberCheck = numberCheck || (curChar == Number(curChar));
+    }
+    return (uppercaseCheck && lowercaseCheck && numberCheck);
+}
+
+function matchPasswords(e) {
+    let pwd = e;
+    let confirmPwd = document.getElementById('pwd-change-1');
+    let errorLabel = confirmPwd.nextElementSibling();
+    if (pwd.value.length > 0 && confirmPwd.value.length > 0) {
+        if (pwd.value === confirmPwd.value) {
+          if (pwdPolicyCheck(pwd.value)) {
+            errorLabel.style.display = 'none';
+          } else {
+            errorLabel.innerText = "Password must contain at least one UpperCase letter, one LowerCase letter, and one Number";
+            errorLabel.style.display = 'block';
+          }
+        } else {
+            errorLabel.innerText = "Passwords do not match.";
+            errorLabel.style.display = 'block';
+        }
+    } else {
+        errorLabel.innerText = "Passwords cannot be blank.";
+        errorLabel.style.display = 'block';
     }
 }
