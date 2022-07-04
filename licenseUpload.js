@@ -35,9 +35,11 @@ function frontIdUploadStartUp() {
     let file;
 
     let licenseFrontEditLink = document.getElementsByClassName(ID_UPLOAD_EDIT_LINK)[0];
+    // License Front Clear/Edit Link Handler
     licenseFrontEditLink.addEventListener("click", (e)=>{
         let previewDiv = dropArea.querySelector(`.${ID_PREVIEW_DIV}`);
         previewDiv.style.background = '';
+        previewDiv.dataset.file = '';
         previewDiv.querySelector('div').style.display = '';
 
         // clear input value
@@ -78,9 +80,11 @@ function backIdUploadStartUp() {
     let file;
 
     let licenseBackEditLink = document.getElementsByClassName(ID_UPLOAD_EDIT_LINK)[1];
+    // License Back Clear/Edit Event Handler
     licenseBackEditLink.addEventListener("click", (e)=>{
         let previewDiv = dropArea.querySelector(`.${ID_PREVIEW_DIV}`);
         previewDiv.style.background = '';
+        previewDiv.dataset.file = '';
         previewDiv.querySelector('div').style.display = '';
         // clear input value
         let inputDiv =  dropArea.querySelector('.w-file-upload-default');
