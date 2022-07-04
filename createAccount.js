@@ -226,7 +226,7 @@ function passwordsEventHandler(e) {
       if (passwordPolicyCheck(pwd.value)) {
         return hideFieldError(e);
       } else {
-        return showFieldError(e, "Password must contain at least one UpperCase letter, one LowerCase letter, and one Number");
+        return showFieldError(e, "Password must be at least 8 characters long and contain at least one UpperCase letter, one LowerCase letter, and one Number");
       }
     } else {
       return showFieldError(e, "Passwords do not match.");
@@ -264,13 +264,14 @@ function passwordPolicyCheck(pwd) {
   let uppercaseCheck = false;
   let lowercaseCheck = false;
   let numberCheck = false;
+  let atleast8Characters = pwd.length >= 8;
   for(let i=0; i < pwd.length; i++) {
     let curChar = pwd[i];
     uppercaseCheck = uppercaseCheck || (curChar === curChar.toUpperCase());
     lowercaseCheck = lowercaseCheck || (curChar === curChar.toLowerCase());
     numberCheck = numberCheck || (curChar == Number(curChar));
   }
-  return (uppercaseCheck && lowercaseCheck && numberCheck);
+  return (uppercaseCheck && lowercaseCheck && numberCheck && atleast8Characters);
 }
 
 function licenseValidator() {
