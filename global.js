@@ -184,7 +184,7 @@ function pwdResetEmailFieldChangeHandler(e) {
 
 function pwdChangeModalListener() {
     const qp = new URLSearchParams(window.location.search);
-    if (qp.get('action') === 'passwordReset') {
+    if (qp.get('action') === 'passwordReset' && qp.get('email')) {
         // Show Password Change Modal
         document.querySelector('.pwd-reset-modal').style.display = 'none';
         document.querySelector('.pwd-reset-modal-wrapper').style.display = 'flex';
@@ -197,13 +197,15 @@ function pwdChangeModalListener() {
             if (matchPasswords()) {
                 // Get reset key from URL Query Params
                 const pwdResetKey = qp.get('reset_key');
-                if (pwdResetKey) {
-
+                const email = atob(qp.get('email'));
+                const pwd = document.getElementById('pwd-change-2');
+                if (pwdResetKey && email && pwd) {
+                    changePwd(email, pwd, pwdResetKey);
                 } else {
-
+                    console.log(`Missing pwdRestKey or email pr Pwd`);
                 }
             } else {
-
+                console.log(`Passwords don't match`);
             }
         });
 
@@ -230,7 +232,7 @@ function pwdPolicyCheck(pwd) {
 }
 
 function matchPasswords() {
-    let pwd = document.getElementById('pwd-change-1');;
+    let pwd = document.getElementById('pwd-change-1');
     let confirmPwd = document.getElementById('pwd-change-2');
     let errorLabel = confirmPwd.nextElementSibling;
     if (pwd.value.length > 0 && confirmPwd.value.length > 0) {
@@ -256,7 +258,7 @@ function matchPasswords() {
 }
 
 // TODO
-function changePwd(newPwd, resetKey) {
+function changePwd(email, newPwd, resetKey) {
     const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
         method: 'POST',
         mode: 'cors',

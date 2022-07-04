@@ -72,6 +72,16 @@ function isInterestedInMedcard(formDataMedCardClass) {
   }
 }
 
+function getUTM() {
+  return {
+    'utm_source': localStorage.getItem('utm_source'),
+    'utm_medium': localStorage.getItem('utm_medium'),
+    'utm_campaign': localStorage.getItem('utm_campaign'),
+    'utm_term': localStorage.getItem('utm_term'),
+    'utm_content': localStorage.getItem('utm_content'),
+  }
+}
+
 // API Integration
 
 async function createProfile(formData) {
@@ -99,10 +109,7 @@ async function createProfile(formData) {
         "front_64": "",
         "back_64": ""
       },
-      "utm": {
-        "utm_source": "whatever",
-        "utm_blah": "blah"
-      },
+      "utm": getUTM(),
       "stripe": {
         "plan": getPriceIdFromSelectedPlan()
       }
