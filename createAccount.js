@@ -146,7 +146,7 @@ async function isZipEligible(zip) {
 
 function isAtLeast21YrsOld(dob) {
   const dobParsed = new Date(dob);
-  const yrsOld = Math.round((Date.now() - dobParsed) / (60 * 60 * 24 * 365 * 1000));
+  const yrsOld = (Date.now() - dobParsed) / (60 * 60 * 24 * 365 * 1000);
   return (yrsOld >= 21) ? true : false;
 }
 
@@ -215,6 +215,19 @@ function genderEventHandler(e) {
     return showFieldError(e, "Gender cannot be blank.");
   } else {
     return hideFieldError(e);
+  }
+}
+
+function phoneValidator(e) {
+  let phone = extractTargetElement(e);
+  if (isFieldEmpty(phone)) {
+    showFieldError(e, 'Phone Number Field cannot be blank.')
+  } else {
+    if (phone.length !== 10) {
+      showFieldError(e, 'Phone Number should be 10 digits long.')
+    } else {
+      hideFieldError(e);
+    }
   }
 }
 
@@ -323,7 +336,8 @@ function init() {
   // Form Event Listeners
   document.getElementById('firstname').addEventListener('input', isFieldEmpty);
   document.getElementById('lastname').addEventListener('input', isFieldEmpty);
-  document.getElementById('phone').addEventListener('input', isFieldEmpty);
+  document.getElementById('phone').addEventListener('input', phoneValidator);
+  document.getElementById('phone').addEventListener('blur', phoneValidator);
   document.getElementById('zip').addEventListener('blur', zipEventHandler);
   document.getElementById('dob').addEventListener('input', dobEventHandler);
   document.getElementById('pwd-confirmation').addEventListener('input', passwordsEventHandler);
@@ -350,7 +364,7 @@ init();
 function validateForm() {
   let fnameCheck = isFieldEmpty('firstname');
   let lnameCheck = isFieldEmpty('lastname');
-  let phoneCheck = isFieldEmpty('phone');
+  let phoneCheck = phoneValidator('phone');
   let zipCheck = zipEventHandler('zip');
   let dobCheck = dobEventHandler('dob');
   let genderCheck = genderEventHandler('gender');
