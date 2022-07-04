@@ -106,8 +106,8 @@ async function createProfile(formData) {
         "zip": formData.get('zip')
       },
       "license": {
-        "front_64": "",
-        "back_64": ""
+        "front_64": getLicenseFront64(),
+        "back_64": getLicenseBack64()
       },
       "utm": getUTM(),
       "stripe": {
@@ -273,7 +273,33 @@ function passwordPolicyCheck(pwd) {
   return (uppercaseCheck && lowercaseCheck && numberCheck);
 }
 
+function licenseValidator() {
+  const licenseFrontPreviewDiv = document.querySelector('.license-upload-front-div')
+  .querySelector('.license-preview-div');
+  const licenseBackPreviewDiv = document.querySelector('.license-upload-back-div')
+  .querySelector('.license-preview-div');
+  if (licenseFrontPreviewDiv.dataset.file && licenseBackPreviewDiv.dataset.file) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 // FORM FIELD VALIDATION FUNCTIONS END
+
+function getLicenseFront64() {
+  return document.querySelector('.license-upload-front-div')
+  .querySelector('.license-preview-div')
+  .dataset
+  .file;
+}
+
+function getLicenseBack64() {
+  return document.querySelector('.license-upload-back-div')
+  .querySelector('.license-preview-div')
+  .dataset
+  .file;
+}
 
 function onFormLoad() {
   // Change Form Submit Button Type
@@ -282,7 +308,7 @@ function onFormLoad() {
   document.getElementById('dob').type = 'date';
 
   // Limit Input Image Types and allow Capturing from Camera
-  const fileAcceptanceCriteria = '.jpg, .jpeg, .png;capture=camera';
+  const fileAcceptanceCriteria = '.jpg, .jpeg, .png, ;capture=camera';
   document.getElementById('license-front').accept = fileAcceptanceCriteria;
   document.getElementById('license-back').accept = fileAcceptanceCriteria;
 }
@@ -334,7 +360,10 @@ function validateForm() {
   let planCheck = isPlanSelected();
   let medCardCheck = medicalCardEventHandler('Medical-Card-Number');
 
-  if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck && emailCheck && pwdCheck && planCheck && medCardCheck) {
+  let licenseCheck = licenseValidator();
+
+  if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck 
+    && emailCheck && pwdCheck && planCheck && medCardCheck && licenseCheck) {
     // Create Web Profile
     console.log("Form Validation Successful.");
     const formData = new FormData(document.querySelector('#create-account-form'));
