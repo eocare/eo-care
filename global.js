@@ -257,8 +257,7 @@ function matchPasswords() {
     }
 }
 
-// TODO
-function changePwd(email, newPwd, resetKey) {
+async function changePwd(email, newPwd, resetKey) {
     const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
         method: 'POST',
         mode: 'cors',
