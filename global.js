@@ -258,14 +258,18 @@ function matchPasswords() {
 }
 
 async function changePwd(email, newPwd, resetKey) {
-    const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
+    const resp = await fetch(`${API_ROOT_DOMAIN}/password/reset/confirm`, {
         method: 'POST',
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            "zip": zip
+            "profile": {
+                "email": email,
+                "password": newPwd
+              },
+              "token": resetKey
         })
     });
   
