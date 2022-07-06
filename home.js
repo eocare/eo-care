@@ -12,12 +12,12 @@ if (Math.random() <= 0.50) {
 }
 
 let animationIntervalId;
+document.querySelector('.animate-1').style.opacity = '0';
+document.querySelector('.animate-2').style.opacity = '1';
 window.onscroll = function (e) {
 	if (window.scrollY >= 871) {
 		// Begin animation
 		if (!animationIntervalId) {
-			document.querySelector('.animate-1').style.opacity = '0';
-			document.querySelector('.animate-2').style.opacity = '1';
 			animationIntervalId = setInterval(()=>{
 				let slideOneOpacity = document.querySelector('.animate-1').style.opacity;
 				let slideTwoOpacity = document.querySelector('.animate-2').style.opacity;
