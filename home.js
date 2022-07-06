@@ -10,3 +10,20 @@ if (Math.random() <= 0.50) {
 } else {
 	heroImageBlock.style.backgroundImage = femaleHeroURL;
 }
+
+let animationIntervalId;
+window.onscroll = function (e) {
+	if (window.scrollY >= 871) {
+		// Begin animation
+		if (!animationIntervalId) {
+			document.querySelector('.animate-1').style.opacity = '0';
+			document.querySelector('.animate-2').style.opacity = '1';
+			animationIntervalId = setInterval(()=>{
+				let slideOneOpacity = document.querySelector('.animate-1').style.opacity;
+				let slideTwoOpacity = document.querySelector('.animate-2').style.opacity;
+				document.querySelector('.animate-1').style.opacity = String(Number(!Boolean(Number(slideOneOpacity))));
+				document.querySelector('.animate-2').style.opacity = String(Number(!Boolean(Number(slideTwoOpacity))));
+			}, 2500);
+		}
+	}
+};
