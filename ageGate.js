@@ -42,6 +42,16 @@ ageGateFormSubmitBtn.onclick = async function (e) {
     }
 }
 
+const stayInformedFormBtn = document.getElementById('stayInformedSubmitBtn');
+stayInformedFormBtn.onclick = async function (e) {
+    e.preventDefault();
+    let zip = document.getElementsByName('zip')[0].value;
+    let email = document.getElementById('stayInformedEmail').value;
+    if (zip && email) {
+        return await stayInformed(zip, email);
+    }
+}
+
 async function isZipEligible(zip) {
     const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
     const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
@@ -52,6 +62,29 @@ async function isZipEligible(zip) {
         },
         body: JSON.stringify({
             "zip": zip
+        })
+    });
+
+    if (resp.ok && resp.status === 200) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+async function stayInformed(zip, email) {
+    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
+    const resp = await fetch(`${API_ROOT_DOMAIN}/profile/subscribe`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "profile": {
+                "email": email,
+                "zip": zip
+            }
         })
     });
 

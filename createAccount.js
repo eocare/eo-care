@@ -220,7 +220,7 @@ function genderEventHandler(e) {
 
 function phoneValidator(e) {
   let phone = extractTargetElement(e);
-  if (isFieldEmpty(phone)) {
+  if (isFieldEmpty(e)) {
     showFieldError(e, 'Phone Number Field cannot be blank.')
   } else {
     if (phone.length !== 10) {
