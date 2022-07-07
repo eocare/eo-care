@@ -156,7 +156,7 @@ function selectPlanById(htmlPlanId) {
 
 // FORM FIELD VALIDATION FUNCTIONS BEGIN
 
-function isFieldEmpty(e) {
+function isFieldNotEmpty(e) {
   let target = extractTargetElement(e);
   if (target.value.length > 0) {
     return hideFieldError(e);
@@ -220,7 +220,7 @@ function genderEventHandler(e) {
 
 function phoneValidator(e) {
   let phone = extractTargetElement(e);
-  if (isFieldEmpty('phone')) {
+  if (!isFieldNotEmpty('phone')) {
     showFieldError(e, 'Phone Number Field cannot be blank.')
   } else {
     if (phone.value.length !== 10) {
@@ -334,8 +334,8 @@ function init() {
   qp.get('plan') ? selectPlanById(qp.get('plan')) : selectPlanById('249year');
 
   // Form Event Listeners
-  document.getElementById('firstname').addEventListener('input', isFieldEmpty);
-  document.getElementById('lastname').addEventListener('input', isFieldEmpty);
+  document.getElementById('firstname').addEventListener('input', isFieldNotEmpty);
+  document.getElementById('lastname').addEventListener('input', isFieldNotEmpty);
   document.getElementById('phone').addEventListener('input', phoneValidator);
   document.getElementById('phone').addEventListener('blur', phoneValidator);
   document.getElementById('zip').addEventListener('blur', zipEventHandler);
@@ -362,8 +362,8 @@ init();
 
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
-  let fnameCheck = isFieldEmpty('firstname');
-  let lnameCheck = isFieldEmpty('lastname');
+  let fnameCheck = isFieldNotEmpty('firstname');
+  let lnameCheck = isFieldNotEmpty('lastname');
   let phoneCheck = phoneValidator('phone');
   let zipCheck = zipEventHandler('zip');
   let dobCheck = dobEventHandler('dob');
