@@ -299,7 +299,7 @@ function licenseValidator() {
   }
 }
 
-// FORM FIELD VALIDATION FUNCTIONS END
+// FORM FIELD VALIDATION FUNCTIONS END 
 
 function getLicenseFront64() {
   return document.querySelector('.license-upload-front-div')
