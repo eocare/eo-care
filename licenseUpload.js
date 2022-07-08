@@ -120,6 +120,8 @@ function idPreview(file, parentClassName) {
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
     const idParentDiv = document.querySelector(`.${parentClassName}`);
     const idPreviewDiv = idParentDiv.querySelector(`.${ID_PREVIEW_DIV}`);
+    console.log(file);
+    console.log(file.size);
     if (validExtensions.includes(fileType)) {
         let fileReader = new FileReader();
         fileReader.onload = ()=>{
