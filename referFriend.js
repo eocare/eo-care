@@ -67,5 +67,9 @@ function referFriend(payload) {
     }
 }
 
-document.getElementById('refer_friend_submit_btn').type = 'button';
-document.getElementById('refer_friend_submit_btn').addEventListener('click', formSubmit);
+function onFormLoad() {
+    document.getElementById('refer_friend_submit_btn').type = 'button';
+    document.getElementById('refer_friend_submit_btn').addEventListener('click', formSubmit);
+}
+
+window.onload(onFormLoad);
