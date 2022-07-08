@@ -11,6 +11,8 @@ function fileUploadStartUp() {
     const licenseBack = document.getElementsByClassName('w-file-upload-input')[1];
     hideAllFileUploadStates();
     licenseFront.addEventListener('change', (e)=>{
+        let dropArea = document.querySelector(`.${ID_FRONT_DIV}`);
+        let dragText = dropArea.querySelector(".license-front-drag-text");
         dragText.textContent = 'Uploading...';
         console.log(`ID Front`);
         let file = e.target.files[0];
@@ -20,6 +22,9 @@ function fileUploadStartUp() {
 
     licenseBack.addEventListener('change', (e)=>{
         document.getElementsByClassName('w-file-upload-default')[1].style.display = '';
+        let dropArea = document.querySelector(`.${ID_BACK_DIV}`);
+        let dragText = dropArea.querySelector(".license-back-drag-text");
+        dragText.textContent = 'Uploading...';
         console.log(`ID Back`);
         console.log(e);
         let file = e.target.files[0];
@@ -138,8 +143,13 @@ function idPreview(file, parentClassName) {
         // Show Edit/Clear Link
         idParentDiv.querySelector(`.${ID_LABEL_DIV}`).querySelector(`.${ID_UPLOAD_EDIT_LINK}`).style.display = '';
     } else {
-        let dropArea = document.querySelector(`.${ID_BACK_DIV}`);
-        let dragText = dropArea.querySelector(".license-back-drag-text");
+        let dropArea = document.querySelector(`.${parentClassName}`);
+        let dragText;
+        if (parentClassName === ID_FRONT_DIV) {
+            dragText = dropArea.querySelector(".license-front-drag-text");
+        } else if (parentClassName === ID_BACK_DIV) {
+            dragText = dropArea.querySelector(".license-back-drag-text");
+        }
         dragText.textContent = 'Drag & Drop to Upload File';
         // Hide Edit/Clear Link
         idParentDiv.querySelector(`.${ID_LABEL_DIV}`).querySelector(`.${ID_UPLOAD_EDIT_LINK}`).style.display = 'none';
