@@ -11,6 +11,7 @@ function fileUploadStartUp() {
     const licenseBack = document.getElementsByClassName('w-file-upload-input')[1];
     hideAllFileUploadStates();
     licenseFront.addEventListener('change', (e)=>{
+        dragText.textContent = 'Uploading...';
         console.log(`ID Front`);
         let file = e.target.files[0];
         idPreview(file, ID_FRONT_DIV);
@@ -63,6 +64,7 @@ function frontIdUploadStartUp() {
 
     dropArea.addEventListener("drop", (event)=>{
         event.preventDefault();
+        dragText.textContent = 'Uploading...';
         file = event.dataTransfer.files[0];
         console.log(`Front License: Got the file`);
         console.log(file);
