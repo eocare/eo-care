@@ -1,4 +1,4 @@
-function formSubmit(e) {
+async function formSubmit(e) {
     e.preventDefault();
     const formData = new FormData(document.getElementById('wf-form-Refer-a-Friend'));
     let payload = {
@@ -38,6 +38,13 @@ function formSubmit(e) {
                 "name": formData.get('friend_name_3')
             }
         );
+    }
+    
+    let status = await referFriend(payload);
+    if (status) {
+        window.location.href = window.location.origin + '/refer-a-friend-thank-you';
+    } else {
+        console.log(`Refer Friend Request Failed`);
     }
 }
 

@@ -4,6 +4,7 @@ const ageGateBtnNo = document.getElementById('age-gate-btn-no');
 ageGateBtnYes.onclick = function (e) {
     e.target.dataset.selected = true;
     ageGateBtnNo.dataset.selected = false;
+    ageGateBtnNo.style.backgroundColor = "";
     e.target.style.backgroundColor = "#B4F9C7";
 }
 
@@ -11,6 +12,7 @@ ageGateBtnNo.onclick = function (e) {
     e.target.dataset.selected = true;
     ageGateBtnYes.dataset.selected = false;
     ageGateBtnYes.style.backgroundColor = "";
+    e.target.style.backgroundColor = "#B4F9C7";
 }
 
 function showAgeRestrictionModal() {
@@ -33,7 +35,12 @@ ageGateFormSubmitBtn.onclick = async function (e) {
         let zipEligible = await isZipEligible(ageGateZip);
         if (zipEligible) {
             Cookies.set('validAge', true, { expires: 365 });
-            window.location.replace('/home-wip');
+            let qs = new URLSearchParams(window.location.search);
+            if (qs.get('next')) {
+                window.location.href = decodeURIComponent(qs.get('next'));
+            } else {
+                window.location.replace = '/home-wip';
+            }
         } else {
             showIneligibleZipModal();
         }
