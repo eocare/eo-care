@@ -1,6 +1,5 @@
 async function formSubmit(e) {
     e.preventDefault();
-    const formData = new FormData(document.getElementById('wf-form-Refer-a-Friend'));
     let payload = buildPayload();
     let status = await referFriend(payload);
     if (status) {
@@ -13,6 +12,7 @@ async function formSubmit(e) {
 }
 
 function buildPayload() {
+    const formData = new FormData(document.getElementById('wf-form-Refer-a-Friend'));
     let payload = {
         "referral": {
             "recipients": [],
