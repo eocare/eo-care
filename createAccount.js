@@ -295,6 +295,9 @@ function licenseValidator() {
   if (licenseFrontPreviewDiv.dataset.file && licenseBackPreviewDiv.dataset.file) {
     return true;
   } else {
+    if (!licenseFrontPreviewDiv.dataset.file) {
+      return showFieldError('license-upload-front-div');
+    }
     return false;
   }
 }
