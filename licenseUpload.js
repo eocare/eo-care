@@ -107,6 +107,7 @@ function backIdUploadStartUp() {
 
     dropArea.addEventListener("drop", (event)=>{
         event.preventDefault();
+        dragText.textContent = 'Uploading...';
         file = event.dataTransfer.files[0];
         console.log(`Back License: Got the file`);
         console.log(file);
@@ -116,9 +117,6 @@ function backIdUploadStartUp() {
 }
 
 function idPreview(file, parentClassName) {
-    let dropArea = document.querySelector(`.${ID_BACK_DIV}`);
-    let dragText = dropArea.querySelector(".license-back-drag-text");
-    dragText.textContent = 'Uploading...';
     let fileType = file.type;
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
     const filesizeLimitInBytes = 4 * 1000 * 1000;
@@ -138,6 +136,8 @@ function idPreview(file, parentClassName) {
         // Show Edit/Clear Link
         idParentDiv.querySelector(`.${ID_LABEL_DIV}`).querySelector(`.${ID_UPLOAD_EDIT_LINK}`).style.display = '';
     } else {
+        let dropArea = document.querySelector(`.${ID_BACK_DIV}`);
+        let dragText = dropArea.querySelector(".license-back-drag-text");
         dragText.textContent = 'Drag & Drop to Upload File';
         // Hide Edit/Clear Link
         idParentDiv.querySelector(`.${ID_LABEL_DIV}`).querySelector(`.${ID_UPLOAD_EDIT_LINK}`).style.display = 'none';
