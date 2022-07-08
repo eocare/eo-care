@@ -53,7 +53,7 @@ function buildPayload() {
         );
     }
 
-    return (formData);
+    return (payload);
 }
 
 async function referFriend(payload) {
