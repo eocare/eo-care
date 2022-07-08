@@ -1,6 +1,18 @@
 async function formSubmit(e) {
     e.preventDefault();
     const formData = new FormData(document.getElementById('wf-form-Refer-a-Friend'));
+    let payload = buildPayload();
+    let status = await referFriend(payload);
+    if (status) {
+        window.location.href = window.location.origin + '/refer-a-friend-thank-you';
+        return(status);
+    } else {
+        console.log(`Refer Friend Request Failed`);
+        return(status);
+    }
+}
+
+function buildPayload() {
     let payload = {
         "referral": {
             "recipients": [],
@@ -8,6 +20,7 @@ async function formSubmit(e) {
             "referrer_name": ""
         }
     };
+
     if (formData.get('referrer_name') && formData.get('referrer_email')) {
         payload["referrer_email"] = formData.get('referrer_email');
         payload["referrer_name"] = formData.get('referrer_name');
@@ -39,15 +52,8 @@ async function formSubmit(e) {
             }
         );
     }
-    
-    let status = await referFriend(payload);
-    if (status) {
-        window.location.href = window.location.origin + '/refer-a-friend-thank-you';
-        return(status);
-    } else {
-        console.log(`Refer Friend Request Failed`);
-        return(status);
-    }
+
+    return (formData);
 }
 
 async function referFriend(payload) {
