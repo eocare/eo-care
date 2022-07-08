@@ -50,7 +50,7 @@ async function formSubmit(e) {
     }
 }
 
-function referFriend(payload) {
+async function referFriend(payload) {
     const resp = await fetch(`${API_ROOT_DOMAIN}/referral`, {
         method: 'POST',
         mode: 'cors',
@@ -72,4 +72,4 @@ function onFormLoad() {
     document.getElementById('refer_friend_submit_btn').addEventListener('click', formSubmit);
 }
 
-window.onload(onFormLoad);
+onFormLoad();
