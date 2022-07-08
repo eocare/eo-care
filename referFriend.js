@@ -22,8 +22,8 @@ function buildPayload() {
     };
 
     if (formData.get('referrer_name') && formData.get('referrer_email')) {
-        payload["referrer_email"] = formData.get('referrer_email');
-        payload["referrer_name"] = formData.get('referrer_name');
+        payload["referral"]["referrer_email"] = formData.get('referrer_email');
+        payload["referral"]["referrer_name"] = formData.get('referrer_name');
     }
 
     if (formData.get('friend_name_1') && formData.get('friend_email_1')) {
