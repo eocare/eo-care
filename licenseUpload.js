@@ -118,7 +118,7 @@ function backIdUploadStartUp() {
 function idPreview(file, parentClassName) {
     let dropArea = document.querySelector(`.${ID_BACK_DIV}`);
     let dragText = dropArea.querySelector(".license-back-drag-text");
-    dragText.textContent('Uploading...');
+    dragText.textContent = 'Uploading...';
     let fileType = file.type;
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
     const filesizeLimitInBytes = 4 * 1000 * 1000;
