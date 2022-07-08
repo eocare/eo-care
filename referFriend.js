@@ -43,8 +43,10 @@ async function formSubmit(e) {
     let status = await referFriend(payload);
     if (status) {
         window.location.href = window.location.origin + '/refer-a-friend-thank-you';
+        return(status);
     } else {
         console.log(`Refer Friend Request Failed`);
+        return(status);
     }
 }
 
