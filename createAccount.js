@@ -116,11 +116,15 @@ async function createProfile(formData) {
     })
   });
 
+  const data = await resp.json();
   if (resp.ok && resp.status === 200) {
-    const data = await resp.json();
     const {checkout_session_url} = data.stripe;
     document.location.href = checkout_session_url;
   } else {
+    if (data["errors"]["email"][0]["message"] === 'already taken') {
+      showFieldError('email', 'You already have an account. Please login.');
+    }
+    console.log(data["errors"]["email"][0]["message"]);
     console.log(resp.status);
   }
 };
