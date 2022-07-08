@@ -296,7 +296,10 @@ function licenseValidator() {
     return true;
   } else {
     if (!licenseFrontPreviewDiv.dataset.file) {
-      return showFieldError('license-upload-front-div');
+      showFieldError('license-upload-front-div', 'ID is required');
+    }
+    if (!licenseBackPreviewDiv.dataset.file) {
+      showFieldError('license-upload-back-div', 'ID is required');
     }
     return false;
   }
