@@ -116,6 +116,9 @@ function backIdUploadStartUp() {
 }
 
 function idPreview(file, parentClassName) {
+    let dropArea = document.querySelector(`.${ID_BACK_DIV}`);
+    let dragText = dropArea.querySelector(".license-back-drag-text");
+    dragText.textContent('Uploading...');
     let fileType = file.type;
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
     const filesizeLimitInBytes = 4 * 1000 * 1000;
@@ -135,6 +138,7 @@ function idPreview(file, parentClassName) {
         // Show Edit/Clear Link
         idParentDiv.querySelector(`.${ID_LABEL_DIV}`).querySelector(`.${ID_UPLOAD_EDIT_LINK}`).style.display = '';
     } else {
+        dragText.textContent = 'Drag & Drop to Upload File';
         // Hide Edit/Clear Link
         idParentDiv.querySelector(`.${ID_LABEL_DIV}`).querySelector(`.${ID_UPLOAD_EDIT_LINK}`).style.display = 'none';
         alert("Please upload a .jpeg or .jpg or .png image file that is less than 4 MB.");
