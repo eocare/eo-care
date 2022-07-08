@@ -118,11 +118,10 @@ function backIdUploadStartUp() {
 function idPreview(file, parentClassName) {
     let fileType = file.type;
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+    const filesizeLimitInBytes = 4 * 1000 * 1000;
     const idParentDiv = document.querySelector(`.${parentClassName}`);
     const idPreviewDiv = idParentDiv.querySelector(`.${ID_PREVIEW_DIV}`);
-    console.log(file);
-    console.log(file.size);
-    if (validExtensions.includes(fileType)) {
+    if (validExtensions.includes(fileType) && file.size <= filesizeLimitInBytes) {
         let fileReader = new FileReader();
         fileReader.onload = ()=>{
             let fileURL = fileReader.result;
@@ -138,7 +137,7 @@ function idPreview(file, parentClassName) {
     } else {
         // Hide Edit/Clear Link
         idParentDiv.querySelector(`.${ID_LABEL_DIV}`).querySelector(`.${ID_UPLOAD_EDIT_LINK}`).style.display = 'none';
-        alert("Invalid file type uploaded. Please try again with a valid image file.");
+        alert("Please upload a .jpeg or .jpg or .png image file that is less than 4 MB.");
     }
 }
 
