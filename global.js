@@ -307,12 +307,12 @@ function _hideFieldError(e) {
     return true;
 }
 
-function _isFieldNotEmpty(e) {
+function _isFieldNotEmpty(e, msg=null) {
     let target = _extractTargetElement(e);
     if (target.value.length > 0) {
         return _hideFieldError(e);
     } else {
-        return _showFieldError(e);
+        return _showFieldError(e, msg);
     }
 }
 

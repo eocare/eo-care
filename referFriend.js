@@ -111,9 +111,13 @@ function validateForm() {
 function onFormLoad() {
     document.getElementById('refer_friend_submit_btn').type = 'button';
     document.getElementById('refer_friend_submit_btn').addEventListener('click', formSubmit);
-    document.getElementById('referrer_name').addEventListener('input', _isFieldNotEmpty);
+    document.getElementById('referrer_name').addEventListener('input', (e) => {
+        _isFieldNotEmpty(e, 'Referrer Name cannot be blank. ');
+    });
     document.getElementById('referrer_email').addEventListener('input', _emailEventHandler);
-    document.getElementById('friend_name_1').addEventListener('input', _isFieldNotEmpty);
+    document.getElementById('friend_name_1').addEventListener('input', (e) => {
+        _isFieldNotEmpty(e, 'Friend Name cannot be blank. ');
+    });
     document.getElementById('friend_email_1').addEventListener('input', _emailEventHandler);
 }
 
