@@ -40,6 +40,7 @@ pwdResetFormSubmitBtn.type = 'button';
 // Handle Form Submission
 pwdResetFormSubmitBtn.onclick = function (e) {
     e.preventDefault();
+    _submittingState(e);
     const email = document.getElementById('pwd-reset-email-2').value;
     webPwdReset(email);
     return false;
@@ -112,6 +113,7 @@ if (resp.ok && resp.status === 200) {
 } else {
     console.log(resp.status);
     console.log("ERROR");
+    _resetState('pwd-reset-btn');
 }
 }
 
