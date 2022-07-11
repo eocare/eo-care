@@ -307,6 +307,7 @@ function _hideFieldError(e) {
     return true;
 }
 
+// Returns true if validation is passed
 function _isFieldNotEmpty(e, msg=null) {
     let target = _extractTargetElement(e);
     if (target.value.length > 0) {
@@ -316,6 +317,7 @@ function _isFieldNotEmpty(e, msg=null) {
     }
 }
 
+// Returns true if validation is passed
 function _emailEventHandler(e, msg=null) {
     let target = _extractTargetElement(e);
     if (target.value.length > 0) {

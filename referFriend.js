@@ -1,7 +1,7 @@
-let refNameError = true;
-let refEmailError = true;
-let frndNameError = true;
-let frndEmailError = true;
+let refNameCheck = false;
+let refEmailCheck = false;
+let frndNameCheck = false;
+let frndEmailCheck = false;
 
 async function formSubmit(e) {
     e.preventDefault();
@@ -83,25 +83,25 @@ function onFormLoad() {
     document.getElementById('refer_friend_submit_btn').disabled = true;
     document.getElementById('refer_friend_submit_btn').addEventListener('click', formSubmit);
     document.getElementById('referrer_name').addEventListener('input', (e) => {
-        refNameError = _isFieldNotEmpty(e, "Referrer's Name cannot be blank.");
+        refNameCheck = _isFieldNotEmpty(e, "Referrer's Name cannot be blank.");
         submitBtnCheck();
     });
     document.getElementById('referrer_email').addEventListener('input', (e) => {
-        refEmailError = _emailEventHandler(e, "Referrer's Email cannot be blank.");
+        refEmailCheck = _emailEventHandler(e, "Referrer's Email cannot be blank.");
         submitBtnCheck();
     });
     document.getElementById('friend_name_1').addEventListener('input', (e) => {
-        frndNameError = _isFieldNotEmpty(e, "Friend's Name cannot be blank. ");
+        frndNameCheck = _isFieldNotEmpty(e, "Friend's Name cannot be blank. ");
         submitBtnCheck();
     });
     document.getElementById('friend_email_1').addEventListener('input', (e) => {
-        frndEmailError = _emailEventHandler(e, "Friend's Email cannot be blank.");
+        frndEmailCheck = _emailEventHandler(e, "Friend's Email cannot be blank.");
         submitBtnCheck();
     });
 }
 
 function submitBtnCheck() {
-    if (!refEmailError && !refNameError && !frndNameError && !frndEmailError) {
+    if (refEmailCheck && refNameCheck && frndNameCheck && frndEmailCheck) {
         document.getElementById('refer_friend_submit_btn').disabled = false;
     } else {
         document.getElementById('refer_friend_submit_btn').disabled = true;
