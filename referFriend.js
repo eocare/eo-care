@@ -5,6 +5,8 @@ let frndEmailCheck = false;
 
 async function formSubmit(e) {
     e.preventDefault();
+    // submittingState('refer_friend_submit_btn');
+    failedState('refer_friend_submit_btn');
     let payload = buildPayload();
     let status = await referFriend(payload);
     if (status) {
@@ -12,6 +14,7 @@ async function formSubmit(e) {
         return(status);
     } else {
         console.log(`Refer Friend Request Failed`);
+        failedState('refer_friend_submit_btn');
         return(status);
     }
 }
@@ -106,6 +109,29 @@ function submitBtnCheck() {
     } else {
         document.getElementById('refer_friend_submit_btn').disabled = true;
     }
+}
+
+function submittingState(e, msg=null) {
+    let target = _extractTargetElement(e);
+    target.innerText = 'Please Wait ...';
+}
+
+function resetState(e, msg=null) {
+    let target = _extractTargetElement(e);
+    target.innerText = 'Submit';
+}
+
+function successfulState(e, msg=null) {
+    let target = _extractTargetElement(e);
+    target.innerText = 'Done';
+}
+
+function failedState(e, msg=null) {
+    let target = _extractTargetElement(e);
+    target.innerText = 'Failed';
+    document.setTimeout(() => {
+        resetState(this.e);
+    }, 800).bind(e);
 }
 
 onFormLoad();
