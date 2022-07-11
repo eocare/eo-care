@@ -5,16 +5,16 @@ let frndEmailCheck = false;
 
 async function formSubmit(e) {
     e.preventDefault();
-    // submittingState('refer_friend_submit_btn');
-    failedState('refer_friend_submit_btn');
+    submittingState('refer_friend_submit_btn');
     let payload = buildPayload();
     let status = await referFriend(payload);
     if (status) {
+        successfulState('refer_friend_submit_btn');
         window.location.href = window.location.origin + '/refer-a-friend-thank-you';
         return(status);
     } else {
         console.log(`Refer Friend Request Failed`);
-        failedState('refer_friend_submit_btn');
+        resetState('refer_friend_submit_btn');
         return(status);
     }
 }
@@ -124,14 +124,6 @@ function resetState(e, msg=null) {
 function successfulState(e, msg=null) {
     let target = _extractTargetElement(e);
     target.value = 'Done';
-}
-
-function failedState(e, msg=null) {
-    let target = _extractTargetElement(e);
-    target.value = 'Failed';
-    setTimeout(() => {
-        resetState(e);
-    }, 800);
 }
 
 onFormLoad();
