@@ -1,3 +1,7 @@
+function hideLoading() {
+    document.getElementById('payment-loading').style.display = 'none';
+}
+
 function paymentFailed() {
     hideLoading();
     document.getElementById('payment-failed-div').style.display = 'block';
@@ -17,10 +21,6 @@ function paymentSuccessful() {
 function pageExpired() {
     hideLoading();
     document.getElementById('payment-default-div').style.display = 'block';
-}
-
-function hideLoading() {
-    document.getElementById('payment-loading').style.display = 'none';
 }
 
 const qs = new URLSearchParams(document.location.search);
