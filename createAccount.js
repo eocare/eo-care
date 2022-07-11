@@ -119,13 +119,13 @@ async function createProfile(formData) {
   const data = await resp.json();
   if (resp.ok && resp.status === 200) {
     const {checkout_session_url} = data.stripe;
+    _successfulState('create-account-submit-btn', 'Taking you to payment gateway');
     document.location.href = checkout_session_url;
   } else {
+    _resetState('create-account-submit-btn');
     if (data["errors"]["email"][0]["message"] === 'already taken') {
       showFieldError('email', 'You already have an account. Please login.');
     }
-    console.log(data["errors"]["email"][0]["message"]);
-    console.log(resp.status);
   }
 };
 
@@ -359,7 +359,7 @@ function init() {
 
   document.getElementById('create-account-submit-btn').addEventListener('click', (e)=>{
     e.preventDefault();
-    e.target.innerText = 'Taking you to the payment link...';
+    _submittingState(e);
     console.log("Form Submit Intercepted.")
     // Do Form Validation Here
     validateForm();

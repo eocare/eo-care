@@ -338,3 +338,19 @@ function _extractTargetElement(e) {
       return document.getElementById(e);
     }
 }
+
+// Button States
+function _submittingState(e, msg=null) {
+    let target = _extractTargetElement(e);
+    target.value = 'Please Wait ...';
+}
+
+function _resetState(e, msg=null) {
+    let target = _extractTargetElement(e);
+    target.value = 'Submit';
+}
+
+function _successfulState(e, msg=null) {
+    let target = _extractTargetElement(e);
+    target.value = 'Done';
+}
