@@ -8,7 +8,12 @@ function paymentFailed() {
 function paymentSuccessful() {
     document.getElementById('payment-status-heading').innerText = 'Payment successful. Thank you!';
     document.getElementById('payment-status-sub-heading').innerHTML = 'Adding a medical card? Our member support team will email you within 24 hours.'
-    document.querySelector('.payment-successful').style.display = 'flex';
+    // Mobile Breakpoint
+    if (window.screen.width <= 479) {
+        document.querySelector('.payment-successful').style.display = 'none';
+    } else {
+        document.querySelector('.payment-successful').style.display = 'flex';
+    }
 }
 
 function pageExpired() {
