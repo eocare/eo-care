@@ -288,3 +288,51 @@ function captureUTM() {
     localStorage.setItem('utm_term', qs.get('utm_term'));
     localStorage.setItem('utm_content', qs.get('utm_content'));
 }
+
+// Global Shared Functions
+function _showFieldError(e, msg=null) {
+    let target = _extractTargetElement(e);
+    target.style.borderColor = '#D27A7C';
+    target.nextElementSibling.style.display = 'block';
+    if (msg) {
+        target.nextElementSibling.innerText = msg;
+    }
+    return false;
+}
+
+function _hideFieldError(e) {
+    let target = _extractTargetElement(e);
+    target.style.borderColor = '';
+    target.nextElementSibling.style.display = 'none';
+    return true;
+}
+
+function _isFieldNotEmpty(e) {
+    let target = _extractTargetElement(e);
+    if (target.value.length > 0) {
+        return _hideFieldError(e);
+    } else {
+        return _showFieldError(e);
+    }
+}
+
+function _emailEventHandler(e) {
+    let target = _extractTargetElement(e);
+    if (target.value.length > 0) {
+      if (!validateEmail(target.value)) {
+        return _showFieldError(e, "This is not a valid email address. Please try again.");
+      } else {
+        return _hideFieldError(e);
+      }
+    } else {
+      return _showFieldError(e, "Email can't be blank.")
+    }
+}
+
+function _extractTargetElement(e) {
+    if (e.target) {
+      return e.target;
+    } else {
+      return document.getElementById(e);
+    }
+}

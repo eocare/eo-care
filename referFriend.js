@@ -73,9 +73,48 @@ async function referFriend(payload) {
     }
 }
 
+function validateForm() {
+    // Referer Name and Email are required
+    // At least 1 Referee's Name and Email are required
+    const formData = new FormData(document.getElementById('wf-form-Refer-a-Friend'));
+    if (formData.get('referrer_name') && formData.get('referrer_email') && 
+    formData.get('friend_name_1') && formData.get('friend_email_1')) {
+        hideFieldError('referrer_name');
+        hideFieldError('referrer_email');
+        hideFieldError('friend_name_1');
+        hideFieldError('friend_email_1');
+        return (true);
+    } else {
+        if (!formData.get('referrer_name')) {
+            showFieldError('referrer_name');
+        } else {
+            hideFieldError('referrer_name');
+        }
+        if (!formData.get('referrer_email')) {
+            showFieldError('referrer_email');
+        } else {
+            hideFieldError('referrer_email');
+        }
+        if (!formData.get('friend_name_1')) {
+            showFieldError('friend_name_1');
+        } else {
+            hideFieldError('friend_name_1');
+        }
+        if (!formData.get('friend_email_1')) {
+            showFieldError('friend_email_1');
+        } else {
+            hideFieldError('friend_email_1');
+        }
+    }
+}
+
 function onFormLoad() {
     document.getElementById('refer_friend_submit_btn').type = 'button';
     document.getElementById('refer_friend_submit_btn').addEventListener('click', formSubmit);
+    document.getElementById('referrer_name').addEventListener('input', _isFieldNotEmpty);
+    document.getElementById('referrer_email').addEventListener('input', _emailEventHandler);
+    document.getElementById('friend_name_1').addEventListener('input', _isFieldNotEmpty);
+    document.getElementById('friend_email_1').addEventListener('input', _emailEventHandler);
 }
 
 onFormLoad();

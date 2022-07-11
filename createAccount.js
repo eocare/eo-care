@@ -359,6 +359,7 @@ function init() {
 
   document.getElementById('create-account-submit-btn').addEventListener('click', (e)=>{
     e.preventDefault();
+    e.target.innerText = 'Taking you to the payment link...';
     console.log("Form Submit Intercepted.")
     // Do Form Validation Here
     validateForm();
@@ -395,5 +396,6 @@ function validateForm() {
     createProfile(formData);
   } else {
     console.log("Form Validation Failed. Please fix the highlighted errors and resubmit.");
+    // document.getElementById('create-account-submit-btn').innerText = 'Continue to payment'
   }
 }
