@@ -67,9 +67,9 @@ async function webLogin(email, pwd) {
 
     if (resp.ok && resp.status === 200) {
         const data = await resp.json();
-        const {management_link} = data.stripe;
+        const {management_link, checkout_session_url} = data.stripe;
         _successfulState('login-btn', 'Redirecting...');
-        // document.location.href = management_link;
+        document.location.href = management_link || checkout_session_url;
     } else {
         console.log(resp.status);
         console.log("ERROR");
