@@ -17,6 +17,7 @@ function loginFormStartUp() {
     // Handle Form Submission
     loginFormSubmitBtn.onclick = function (e) {
         e.preventDefault();
+        _submittingState(e);
         const email = document.getElementById('Login-Email-Input').value;
         const pwd = document.getElementById('Login-Pwd').value;
         webLogin(email, pwd);
@@ -67,11 +68,13 @@ async function webLogin(email, pwd) {
     if (resp.ok && resp.status === 200) {
         const data = await resp.json();
         const {management_link} = data.stripe;
+        _successfulState('login-btn', 'Redirecting...');
         document.location.href = management_link;
     } else {
         console.log(resp.status);
         console.log("ERROR");
         showLoginFailedErr();
+        _resetState('login-btn', 'Login');
     }
 };
 
