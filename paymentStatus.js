@@ -5,6 +5,8 @@ function hideLoading() {
 function paymentFailed() {
     hideLoading();
     document.getElementById('payment-failed-div').style.display = 'block';
+    document.querySelector('.payment-successful').style.display = 'none';
+    document.querySelector('.payment-successful-mobile').style.display = 'none';
 }
 
 function paymentSuccessful() {
@@ -21,6 +23,8 @@ function paymentSuccessful() {
 function pageExpired() {
     hideLoading();
     document.getElementById('payment-default-div').style.display = 'block';
+    document.querySelector('.payment-successful').style.display = 'none';
+    document.querySelector('.payment-successful-mobile').style.display = 'none';
 }
 
 const qs = new URLSearchParams(document.location.search);
