@@ -340,17 +340,17 @@ function _extractTargetElement(e) {
 }
 
 // Button States
-function _submittingState(e, msg=null) {
+function _submittingState(e, msg = null) {
     let target = _extractTargetElement(e);
-    target.value = 'Please Wait ...';
+    msg ? target.value = msg : target.value = 'Please Wait ...';
 }
 
-function _resetState(e, msg=null) {
+function _resetState(e, msg = null) {
     let target = _extractTargetElement(e);
-    target.value = 'Submit';
+    msg ? target.value = msg : target.value = 'Submit';
 }
 
-function _successfulState(e, msg=null) {
+function _successfulState(e, msg = null) {
     let target = _extractTargetElement(e);
-    target.value = 'Done';
+    msg ? target.value = msg : target.value = 'Done';
 }
