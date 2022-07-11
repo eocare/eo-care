@@ -1,8 +1,10 @@
 function paymentFailed() {
+    hideLoading();
     document.getElementById('payment-failed-div').style.display = 'block';
 }
 
 function paymentSuccessful() {
+    hideLoading();
     document.getElementById('payment-successful-div').style.display = 'block';
     // Mobile Breakpoint
     if (window.screen.width <= 479) {
@@ -13,7 +15,12 @@ function paymentSuccessful() {
 }
 
 function pageExpired() {
+    hideLoading();
     document.getElementById('payment-default-div').style.display = 'block';
+}
+
+function hideLoading() {
+    document.getElementById('payment-loading').style.display = 'none';
 }
 
 const qs = new URLSearchParams(document.location.search);
