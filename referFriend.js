@@ -113,25 +113,25 @@ function submitBtnCheck() {
 
 function submittingState(e, msg=null) {
     let target = _extractTargetElement(e);
-    target.innerText = 'Please Wait ...';
+    target.value = 'Please Wait ...';
 }
 
 function resetState(e, msg=null) {
     let target = _extractTargetElement(e);
-    target.innerText = 'Submit';
+    target.value = 'Submit';
 }
 
 function successfulState(e, msg=null) {
     let target = _extractTargetElement(e);
-    target.innerText = 'Done';
+    target.value = 'Done';
 }
 
 function failedState(e, msg=null) {
     let target = _extractTargetElement(e);
-    target.innerText = 'Failed';
-    document.setTimeout(() => {
-        resetState(this.e);
-    }, 800).bind(e);
+    target.value = 'Failed';
+    setTimeout(() => {
+        resetState(e);
+    }, 800);
 }
 
 onFormLoad();
