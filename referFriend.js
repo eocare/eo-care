@@ -1,3 +1,8 @@
+let refNameError = true;
+let refEmailError = true;
+let frndNameError = true;
+let frndEmailError = true;
+
 async function formSubmit(e) {
     e.preventDefault();
     let payload = buildPayload();
@@ -73,52 +78,34 @@ async function referFriend(payload) {
     }
 }
 
-function validateForm() {
-    // Referer Name and Email are required
-    // At least 1 Referee's Name and Email are required
-    const formData = new FormData(document.getElementById('wf-form-Refer-a-Friend'));
-    if (formData.get('referrer_name') && formData.get('referrer_email') && 
-    formData.get('friend_name_1') && formData.get('friend_email_1')) {
-        hideFieldError('referrer_name');
-        hideFieldError('referrer_email');
-        hideFieldError('friend_name_1');
-        hideFieldError('friend_email_1');
-        return (true);
-    } else {
-        if (!formData.get('referrer_name')) {
-            showFieldError('referrer_name');
-        } else {
-            hideFieldError('referrer_name');
-        }
-        if (!formData.get('referrer_email')) {
-            showFieldError('referrer_email');
-        } else {
-            hideFieldError('referrer_email');
-        }
-        if (!formData.get('friend_name_1')) {
-            showFieldError('friend_name_1');
-        } else {
-            hideFieldError('friend_name_1');
-        }
-        if (!formData.get('friend_email_1')) {
-            showFieldError('friend_email_1');
-        } else {
-            hideFieldError('friend_email_1');
-        }
-    }
-}
-
 function onFormLoad() {
     document.getElementById('refer_friend_submit_btn').type = 'button';
+    document.getElementById('refer_friend_submit_btn').disabled = true;
     document.getElementById('refer_friend_submit_btn').addEventListener('click', formSubmit);
     document.getElementById('referrer_name').addEventListener('input', (e) => {
-        _isFieldNotEmpty(e, 'Referrer Name cannot be blank. ');
+        refNameError = _isFieldNotEmpty(e, "Referrer's Name cannot be blank.");
+        submitBtnCheck();
     });
-    document.getElementById('referrer_email').addEventListener('input', _emailEventHandler);
+    document.getElementById('referrer_email').addEventListener('input', (e) => {
+        refEmailError = _emailEventHandler(e, "Referrer's Email cannot be blank.");
+        submitBtnCheck();
+    });
     document.getElementById('friend_name_1').addEventListener('input', (e) => {
-        _isFieldNotEmpty(e, 'Friend Name cannot be blank. ');
+        frndNameError = _isFieldNotEmpty(e, "Friend's Name cannot be blank. ");
+        submitBtnCheck();
     });
-    document.getElementById('friend_email_1').addEventListener('input', _emailEventHandler);
+    document.getElementById('friend_email_1').addEventListener('input', (e) => {
+        frndEmailError = _emailEventHandler(e, "Friend's Email cannot be blank.");
+        submitBtnCheck();
+    });
+}
+
+function submitBtnCheck() {
+    if (!refEmailError && !refNameError && !frndNameError && !frndEmailError) {
+        document.getElementById('refer_friend_submit_btn').disabled = false;
+    } else {
+        document.getElementById('refer_friend_submit_btn').disabled = true;
+    }
 }
 
 onFormLoad();

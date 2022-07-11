@@ -316,7 +316,7 @@ function _isFieldNotEmpty(e, msg=null) {
     }
 }
 
-function _emailEventHandler(e) {
+function _emailEventHandler(e, msg=null) {
     let target = _extractTargetElement(e);
     if (target.value.length > 0) {
       if (!validateEmail(target.value)) {
@@ -325,7 +325,7 @@ function _emailEventHandler(e) {
         return _hideFieldError(e);
       }
     } else {
-      return _showFieldError(e, "Email can't be blank.")
+        return msg ? _showFieldError(e, msg) : _showFieldError(e, "Email can't be blank.")
     }
 }
 
