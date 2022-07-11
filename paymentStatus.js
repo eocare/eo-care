@@ -1,5 +1,5 @@
 function hideLoading() {
-    document.getElementById('payment-loading').style.display = 'none';
+    document.getElementById('payment-loading-div').style.display = 'none';
 }
 
 function paymentFailed() {
