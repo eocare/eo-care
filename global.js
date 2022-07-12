@@ -108,6 +108,7 @@ const resp = await fetch(`${API_ROOT_DOMAIN}/password/reset/request?web=true`, {
 
 if (resp.ok && resp.status === 200) {
     // Show Password Reset Successful Confirmation
+    _successfulState('pwd-change-btn', 'Success');
     document.querySelector('.pwd-reset-modal').style.display = 'none';
     document.querySelector('.pwd-reset-success-modal').style.display = 'block';
 } else {
