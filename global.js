@@ -212,6 +212,7 @@ function pwdChangeModalListener() {
                 }
             } else {
                 console.log(`Passwords don't match`);
+                _resetState('pwd-change-btn', 'Change Password');
             }
         });
 
