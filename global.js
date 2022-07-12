@@ -108,7 +108,6 @@ const resp = await fetch(`${API_ROOT_DOMAIN}/password/reset/request?web=true`, {
 
 if (resp.ok && resp.status === 200) {
     // Show Password Reset Successful Confirmation
-    _successfulState('pwd-change-btn', 'Success');
     document.querySelector('.pwd-reset-modal').style.display = 'none';
     document.querySelector('.pwd-reset-success-modal').style.display = 'block';
 } else {
@@ -200,6 +199,7 @@ function pwdChangeModalListener() {
 
         document.querySelector('.pwd-change-submit-btn').addEventListener('click', (e)=>{
             e.preventDefault();
+            _submittingState(e);
             if (matchPasswords()) {
                 // Get reset key from URL Query Params
                 const pwdResetKey = qp.get('reset_key');
@@ -280,6 +280,7 @@ async function changePwd(email, newPwd, resetKey) {
     });
   
     if (resp.ok && resp.status === 200) {
+        _successfulState('pwd-change-btn', 'Success');
         return true;
     } else {
         return false;
