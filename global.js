@@ -283,6 +283,7 @@ async function changePwd(email, newPwd, resetKey) {
         _successfulState('pwd-change-btn', 'Success');
         return true;
     } else {
+        _resetState('pwd-change-btn', 'Change Password');
         return false;
     }
 }
