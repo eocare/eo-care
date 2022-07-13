@@ -95,26 +95,26 @@ function resetLoginFailedErr() {
 }
 
 async function webPwdReset(email) {
-const resp = await fetch(`${API_ROOT_DOMAIN}/password/reset/request?web=true`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        "email": email
-    })
-});
+    const resp = await fetch(`${API_ROOT_DOMAIN}/password/reset/request?web=true`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "email": email
+        })
+    });
 
-if (resp.ok && resp.status === 200) {
-    // Show Password Reset Successful Confirmation
-    document.querySelector('.pwd-reset-modal').style.display = 'none';
-    document.querySelector('.pwd-reset-success-modal').style.display = 'block';
-} else {
-    console.log(resp.status);
-    console.log("ERROR");
-    _resetState('pwd-reset-btn');
-}
+    if (resp.ok && resp.status === 200) {
+        // Show Password Reset Successful Confirmation
+        document.querySelector('.pwd-reset-modal').style.display = 'none';
+        document.querySelector('.pwd-reset-success-modal').style.display = 'block';
+    } else {
+        console.log(resp.status);
+        console.log("ERROR");
+        _resetState('pwd-reset-btn');
+    }
 }
 
 // Login Form Validation Function
@@ -282,9 +282,12 @@ async function changePwd(email, newPwd, resetKey) {
   
     if (resp.ok && resp.status === 200) {
         _successfulState('pwd-change-btn', 'Success');
+        document.querySelector('.pwd-change-modal').style.display = 'none';
+        document.querySelector('.pwd-change-success-modal').style.display = 'block';
         return true;
     } else {
         _resetState('pwd-change-btn', 'Change Password');
+        document.querySelector('.pwd-change-success-modal').style.display = 'none';
         return false;
     }
 }
