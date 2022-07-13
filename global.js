@@ -282,12 +282,15 @@ async function changePwd(email, newPwd, resetKey) {
   
     if (resp.ok && resp.status === 200) {
         _successfulState('pwd-change-btn', 'Success');
+        document.getElementById('pwd-change-error-info-label').style.display = 'none';
         document.querySelector('.pwd-change-modal').style.display = 'none';
         document.querySelector('.pwd-change-success-modal').style.display = 'block';
         return true;
     } else {
         _resetState('pwd-change-btn', 'Change Password');
         document.querySelector('.pwd-change-success-modal').style.display = 'none';
+        document.getElementById('pwd-change-error-info-label').value = 'Failed to change password. Please try again.';
+        document.getElementById('pwd-change-error-info-label').style.display = 'block';
         return false;
     }
 }
