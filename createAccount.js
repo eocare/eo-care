@@ -119,6 +119,8 @@ async function createProfile(formData) {
   const data = await resp.json();
   if (resp.ok && resp.status === 200) {
     const {checkout_session_url} = data.stripe;
+    // Save Session URL to local Storage
+    saveSessionURL(checkout_session_url);
     _successfulState('create-account-submit-btn', 'Taking you to payment gateway');
     document.location.href = checkout_session_url;
   } else {
@@ -128,6 +130,13 @@ async function createProfile(formData) {
     }
   }
 };
+
+function saveSessionURL(url) {
+  if (url) {
+    localStorage.setItem('EO_PAYMENT_SESSION_URL', url);
+    localStorage.setItem('EO_PAYMENT_SESSION_TIMESTAMP', new Date());
+  }
+}
 
 async function isZipEligible(zip) {
   const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
