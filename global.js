@@ -229,13 +229,14 @@ function pwdPolicyCheck(pwd) {
     let uppercaseCheck = false;
     let lowercaseCheck = false;
     let numberCheck = false;
+    let lengthCheck = pwd.length >= 8;
     for(let i=0; i < pwd.length; i++) {
         let curChar = pwd[i];
         uppercaseCheck = uppercaseCheck || (curChar === curChar.toUpperCase());
         lowercaseCheck = lowercaseCheck || (curChar === curChar.toLowerCase());
         numberCheck = numberCheck || (curChar == Number(curChar));
     }
-    return (uppercaseCheck && lowercaseCheck && numberCheck);
+    return (uppercaseCheck && lowercaseCheck && numberCheck && lengthCheck);
 }
 
 function matchPasswords() {
