@@ -204,7 +204,7 @@ function pwdChangeModalListener() {
                 // Get reset key from URL Query Params
                 const pwdResetKey = qp.get('reset_key');
                 const email = atob(qp.get('email'));
-                const pwd = document.getElementById('pwd-change-2');
+                const pwd = document.getElementById('pwd-change-2').value;
                 if (pwdResetKey && email && pwd) {
                     changePwd(email, pwd, pwdResetKey);
                 } else {
@@ -248,7 +248,7 @@ function matchPasswords() {
             errorLabel.style.display = 'none';
             return (true);
           } else {
-            errorLabel.innerText = "Password must contain at least one UpperCase letter, one LowerCase letter, and one Number";
+            errorLabel.innerText = "Password must be at least 8 characters long and contain at least one UpperCase letter, one LowerCase letter, and one Number";
             errorLabel.style.display = 'block';
             return (false);
           }
