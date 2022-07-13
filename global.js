@@ -290,7 +290,7 @@ async function changePwd(email, newPwd, resetKey) {
     } else {
         _resetState('pwd-change-btn', 'Change Password');
         document.querySelector('.pwd-change-success-modal').style.display = 'none';
-        document.getElementById('pwd-change-error-info-label').value = 'Failed to change password. Please try again.';
+        document.getElementById('pwd-change-error-info-label').innerText = 'Failed to change password. Please try again.';
         document.getElementById('pwd-change-error-info-label').style.display = 'block';
         return false;
     }
