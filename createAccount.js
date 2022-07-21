@@ -408,6 +408,7 @@ function validateForm() {
     const formData = new FormData(document.querySelector('#create-account-form'));
     createProfile(formData);
   } else {
+    _resetState('create-account-submit-btn');
     console.log("Form Validation Failed. Please fix the highlighted errors and resubmit.");
     // document.getElementById('create-account-submit-btn').innerText = 'Continue to payment'
   }
