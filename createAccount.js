@@ -85,35 +85,39 @@ function getUTM() {
 // API Integration
 
 async function createProfile(formData) {
+  let body = {
+    "profile": {
+      "birth_date": formData.get('dob'),
+      "email": formData.get('email'),
+      "first_name": formData.get('firstname'),
+      "gender": formData.get('gender'),
+      "last_name": formData.get('lastname'),
+      "med_card": formData.get('Medical-Card-Number').length > 0 ? true : false,
+      "med_card_interest": isInterestedInMedcard(formData.get('medical-card')),
+      "med_card_number": formData.get('Medical-Card-Number'),
+      "password": formData.get('pwd'),
+      "phone": formData.get('phone'),
+      "zip": formData.get('zip')
+    },
+    "utm": getUTM(),
+    "stripe": {
+      "plan": getPriceIdFromSelectedPlan()
+    }
+  };
+
+  if (document.getElementById('continue-without').checked) {
+    body["license"] = {
+      "front_64": getLicenseFront64(),
+      "back_64": getLicenseBack64()
+    };
+  }
   const resp = await fetch(`${API_ROOT_DOMAIN}/web_profile`, {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      "profile": {
-        "birth_date": formData.get('dob'),
-        "email": formData.get('email'),
-        "first_name": formData.get('firstname'),
-        "gender": formData.get('gender'),
-        "last_name": formData.get('lastname'),
-        "med_card": formData.get('Medical-Card-Number').length > 0 ? true : false,
-        "med_card_interest": isInterestedInMedcard(formData.get('medical-card')),
-        "med_card_number": formData.get('Medical-Card-Number'),
-        "password": formData.get('pwd'),
-        "phone": formData.get('phone'),
-        "zip": formData.get('zip')
-      },
-      "license": {
-        "front_64": getLicenseFront64(),
-        "back_64": getLicenseBack64()
-      },
-      "utm": getUTM(),
-      "stripe": {
-        "plan": getPriceIdFromSelectedPlan()
-      }
-    })
+    body: JSON.stringify(body)
   });
 
   const data = await resp.json();
