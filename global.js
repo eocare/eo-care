@@ -298,11 +298,21 @@ async function changePwd(email, newPwd, resetKey) {
 
 function captureUTM() {
     const qs = new URLSearchParams(window.location.search);
-    localStorage.setItem('utm_source', qs.get('utm_source'));
-    localStorage.setItem('utm_medium', qs.get('utm_medium'));
-    localStorage.setItem('utm_campaign', qs.get('utm_campaign'));
-    localStorage.setItem('utm_term', qs.get('utm_term'));
-    localStorage.setItem('utm_content', qs.get('utm_content'));
+    setUTM('utm_source', qs);
+    setUTM('utm_medium', qs);
+    setUTM('utm_campaign', qs);
+    setUTM('utm_term', qs);
+    setUTM('utm_content', qs);
+}
+
+function setUTM(utm_key, qs) {
+    if (localStorage.getItem(utm_key)) { // If UTM Value exists locally
+        if (qs.get(utm_key)) { // If UTM Value is not null
+            localStorage.setItem(utm_key, qs.get(utm_key));
+        }
+    } else {
+        localStorage.setItem(utm_key, qs.get(utm_key));
+    }
 }
 
 // Global Shared Functions
