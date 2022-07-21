@@ -301,20 +301,24 @@ function passwordPolicyCheck(pwd) {
 }
 
 function licenseValidator() {
-  const licenseFrontPreviewDiv = document.querySelector('.license-upload-front-div')
-  .querySelector('.license-preview-div');
-  const licenseBackPreviewDiv = document.querySelector('.license-upload-back-div')
-  .querySelector('.license-preview-div');
-  if (licenseFrontPreviewDiv.dataset.file && licenseBackPreviewDiv.dataset.file) {
-    return true;
+  if (document.getElementById('continue-without').checked) {
+    const licenseFrontPreviewDiv = document.querySelector('.license-upload-front-div')
+    .querySelector('.license-preview-div');
+    const licenseBackPreviewDiv = document.querySelector('.license-upload-back-div')
+    .querySelector('.license-preview-div');
+    if (licenseFrontPreviewDiv.dataset.file && licenseBackPreviewDiv.dataset.file) {
+      return true;
+    } else {
+      if (!licenseFrontPreviewDiv.dataset.file) {
+        showFieldError('license-upload-front-div', 'ID is required');
+      }
+      if (!licenseBackPreviewDiv.dataset.file) {
+        showFieldError('license-upload-back-div', 'ID is required');
+      }
+      return false;
+    }
   } else {
-    if (!licenseFrontPreviewDiv.dataset.file) {
-      showFieldError('license-upload-front-div', 'ID is required');
-    }
-    if (!licenseBackPreviewDiv.dataset.file) {
-      showFieldError('license-upload-back-div', 'ID is required');
-    }
-    return false;
+    return true;
   }
 }
 
