@@ -1,6 +1,6 @@
 const monthly = '39month';
 const yearly = '249year';
-const API_ROOT_DOMAIN = 'https://api.eo.care';
+const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
 
 pwdChangeModalListener();
 loginFormStartUp();
