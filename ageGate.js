@@ -60,7 +60,7 @@ stayInformedFormBtn.onclick = async function (e) {
 }
 
 async function isZipEligible(zip) {
-    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
+    const API_ROOT_DOMAIN = 'https://api.eo.care';
     const resp = await fetch(`${API_ROOT_DOMAIN}/profile/eligible`, {
         method: 'POST',
         mode: 'cors',
@@ -80,7 +80,7 @@ async function isZipEligible(zip) {
 }
 
 async function stayInformed(zip, email) {
-    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
+    const API_ROOT_DOMAIN = 'https://api.eo.care';
     const resp = await fetch(`${API_ROOT_DOMAIN}/profile/subscribe`, {
         method: 'POST',
         mode: 'cors',
