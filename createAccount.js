@@ -365,6 +365,8 @@ function init() {
   document.getElementById('lastname').addEventListener('input', isFieldNotEmpty);
   document.getElementById('phone').addEventListener('input', phoneValidator);
   document.getElementById('phone').addEventListener('blur', phoneValidator);
+  document.getElementById('street').addEventListener('input', isFieldNotEmpty);
+  document.getElementById('city').addEventListener('input', isFieldNotEmpty);
   document.getElementById('zip').addEventListener('blur', zipEventHandler);
   document.getElementById('dob').addEventListener('input', dobEventHandler);
   document.getElementById('pwd-confirmation').addEventListener('input', passwordsEventHandler);
@@ -393,6 +395,8 @@ function validateForm() {
   let fnameCheck = isFieldNotEmpty('firstname');
   let lnameCheck = isFieldNotEmpty('lastname');
   let phoneCheck = phoneValidator('phone');
+  let streetAddressCheck = isFieldNotEmpty('street');
+  let cityCheck = isFieldNotEmpty('city');
   let zipCheck = zipEventHandler('zip');
   let dobCheck = dobEventHandler('dob');
   let genderCheck = genderEventHandler('gender');
@@ -406,7 +410,7 @@ function validateForm() {
   let licenseCheck = licenseValidator();
 
   if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck 
-    && emailCheck && pwdCheck && planCheck && medCardCheck && licenseCheck) {
+    && emailCheck && pwdCheck && planCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck) {
     // Create Web Profile
     console.log("Form Validation Successful.");
     const formData = new FormData(document.querySelector('#create-account-form'));
