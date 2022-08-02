@@ -11,18 +11,46 @@ if (Math.random() <= 0.50) {
 	heroImageBlock.style.backgroundImage = femaleHeroURL;
 }
 
-let animationIntervalId;
-document.querySelector('.animate-1').style.opacity = '0';
-document.querySelector('.animate-2').style.opacity = '1';
+let animationOneIntervalId;
+let animationTwoIntervalId;
+let animationThreeIntervalId;
+document.querySelector('#animate1').style.opacity = '0';
+document.querySelector('#animate2').style.opacity = '1';
+document.querySelector('#animate3').style.opacity = '0';
+document.querySelector('#animate4').style.opacity = '1';
+document.querySelector('#animate5').style.opacity = '0';
+document.querySelector('#animate6').style.opacity = '1';
 window.onscroll = function (e) {
 	if (window.scrollY >= 871) {
 		// Begin animation
-		if (!animationIntervalId) {
-			animationIntervalId = setInterval(()=>{
-				let slideOneOpacity = document.querySelector('.animate-1').style.opacity;
-				let slideTwoOpacity = document.querySelector('.animate-2').style.opacity;
-				document.querySelector('.animate-1').style.opacity = String(Number(!Boolean(Number(slideOneOpacity))));
-				document.querySelector('.animate-2').style.opacity = String(Number(!Boolean(Number(slideTwoOpacity))));
+		if (!animationOneIntervalId) {
+			animationOneIntervalId = setInterval(()=>{
+				let secOneSlideOneOpacity = document.querySelector('#animate1').style.opacity;
+				let secOneSlideTwoOpacity = document.querySelector('#animate2').style.opacity;
+				document.querySelector('#animate1').style.opacity = String(Number(!Boolean(Number(secOneSlideOneOpacity))));
+				document.querySelector('#animate2').style.opacity = String(Number(!Boolean(Number(secOneSlideTwoOpacity))));
+			}, 2500);
+		}
+	}
+	if (window.scrollY >= 871) {
+		// Begin animation
+		if (!animationTwoIntervalId) {
+			animationTwoIntervalId = setInterval(()=>{
+				let secTwoSlideOneOpacity = document.querySelector('#animate3').style.opacity;
+				let secTwoSlideTwoOpacity = document.querySelector('#animate4').style.opacity;
+				document.querySelector('#animate3').style.opacity = String(Number(!Boolean(Number(secTwoSlideOneOpacity))));
+				document.querySelector('#animate4').style.opacity = String(Number(!Boolean(Number(secTwoSlideTwoOpacity))));
+			}, 2500);
+		}
+	}
+	if (window.scrollY >= 871) {
+		// Begin animation
+		if (!animationThreeIntervalId) {
+			animationThreeIntervalId = setInterval(()=>{
+				let secThreeSlideOneOpacity = document.querySelector('#animate5').style.opacity;
+				let secThreeSlideTwoOpacity = document.querySelector('#animate6').style.opacity;
+				document.querySelector('#animate5').style.opacity = String(Number(!Boolean(Number(secThreeSlideOneOpacity))));
+				document.querySelector('#animate6').style.opacity = String(Number(!Boolean(Number(secThreeSlideTwoOpacity))));
 			}, 2500);
 		}
 	}

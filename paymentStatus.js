@@ -22,7 +22,7 @@ function paymentSuccessful(selectedPlan, userEmailAddress) {
     // Set Dynamic text
     if (selectedPlan && userEmailAddress) {
         let selectedPlanAmount = selectedPlan == 'monthly' ? '$39' : '$249';
-        document.getElementById('payment-status-sub-heading').innerText = `Thanks for subscribing. A bill for ${selectedPlanAmount} will be sent shortly to ${atob(userEmailAddress)}. Adding a medical card? Our support team will email you within 24 hours.`;
+        document.getElementById('payment-success-status-sub-heading').innerText = `Thanks for subscribing. A bill for ${selectedPlanAmount} will be sent shortly to ${atob(userEmailAddress)}. Adding a medical card? Our support team will email you within 24 hours.`;
     }
 
     hideLoading();
