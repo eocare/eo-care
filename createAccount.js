@@ -129,7 +129,8 @@ async function createProfile(formData) {
     // Save Session URL to local Storage
     // saveSessionURL(checkout_session_url);
     _successfulState('create-account-submit-btn', 'Subscribing...');
-    document.location.href = document.location.origin + '/payment-status?status=success&plan=' + getPriceIdFromSelectedPlan();
+    let userEmail = document.getElementById('email').value;
+    document.location.href = document.location.origin + '/payment-status?status=success&plan=' + getPriceIdFromSelectedPlan() + '&email=' + btoa(userEmail);
   } else {
     _resetState('create-account-submit-btn');
     if (data["errors"]["email"][0]["message"] === 'already taken') {
