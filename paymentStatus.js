@@ -18,7 +18,13 @@ function paymentFailed() {
     hideLoading();
 }
 
-function paymentSuccessful() {
+function paymentSuccessful(selectedPlan, userEmailAddress) {
+    // Set Dynamic text
+    if (selectedPlan && userEmailAddress) {
+        let selectedPlanAmount = selectedPlan == 'monthly' ? '$39' : '$249';
+        document.getElementById('payment-status-sub-heading').innerText = `Thanks for subscribing. A bill for ${selectedPlanAmount} will be sent shortly to ${userEmailAddress}. Adding a medical card? Our support team will email you within 24 hours.`;
+    }
+
     hideLoading();
     document.getElementById('payment-successful-div').style.display = 'block';
     // Mobile Breakpoint
@@ -42,7 +48,9 @@ const qs = new URLSearchParams(document.location.search);
 if (qs.get('status')) {
     let status = qs.get('status');
     if (status === 'success') {
-        paymentSuccessful();
+        let planSelected = qs.get('plan');
+        let userEmail = qs.get('email');
+        paymentSuccessful(planSelected, userEmail);
     } else {
         paymentFailed();
     }
