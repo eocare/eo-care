@@ -174,6 +174,7 @@ function isAtLeast21YrsOld(dob) {
 }
 
 function selectPlanById(htmlPlanId) {
+  document.getElementById(htmlPlanId).style = 'border-color: rgb(0, 0, 0); background-color: rgb(211, 207, 203);';
   document.getElementById(htmlPlanId).checked = true;
 }
 
