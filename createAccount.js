@@ -125,7 +125,7 @@ async function createProfile(formData) {
 
   const data = await resp.json();
   if (resp.ok && resp.status === 200) {
-    const {checkout_session_url} = data.stripe;
+    // const {checkout_session_url} = data.stripe;
     // Save Session URL to local Storage
     // saveSessionURL(checkout_session_url);
     _successfulState('create-account-submit-btn', 'Subscribing...');
