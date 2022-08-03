@@ -11,47 +11,74 @@ if (Math.random() <= 0.50) {
 	heroImageBlock.style.backgroundImage = femaleHeroURL;
 }
 
-// let animationOneIntervalId;
-// let animationTwoIntervalId;
-// let animationThreeIntervalId;
-// document.querySelector('#animate1').style.opacity = '0';
-// document.querySelector('#animate2').style.opacity = '1';
-// document.querySelector('#animate3').style.opacity = '0';
-// document.querySelector('#animate4').style.opacity = '1';
-// document.querySelector('#animate5').style.opacity = '0';
-// document.querySelector('#animate6').style.opacity = '1';
-// window.onscroll = function (e) {
-// 	if (window.scrollY >= 871) {
-// 		// Begin animation
-// 		if (!animationOneIntervalId) {
-// 			animationOneIntervalId = setInterval(()=>{
-// 				let secOneSlideOneOpacity = document.querySelector('#animate1').style.opacity;
-// 				let secOneSlideTwoOpacity = document.querySelector('#animate2').style.opacity;
-// 				document.querySelector('#animate1').style.opacity = String(Number(!Boolean(Number(secOneSlideOneOpacity))));
-// 				document.querySelector('#animate2').style.opacity = String(Number(!Boolean(Number(secOneSlideTwoOpacity))));
-// 			}, 2500);
-// 		}
-// 	}
-// 	if (window.scrollY >= 871) {
-// 		// Begin animation
-// 		if (!animationTwoIntervalId) {
-// 			animationTwoIntervalId = setInterval(()=>{
-// 				let secTwoSlideOneOpacity = document.querySelector('#animate3').style.opacity;
-// 				let secTwoSlideTwoOpacity = document.querySelector('#animate4').style.opacity;
-// 				document.querySelector('#animate3').style.opacity = String(Number(!Boolean(Number(secTwoSlideOneOpacity))));
-// 				document.querySelector('#animate4').style.opacity = String(Number(!Boolean(Number(secTwoSlideTwoOpacity))));
-// 			}, 2500);
-// 		}
-// 	}
-// 	if (window.scrollY >= 871) {
-// 		// Begin animation
-// 		if (!animationThreeIntervalId) {
-// 			animationThreeIntervalId = setInterval(()=>{
-// 				let secThreeSlideOneOpacity = document.querySelector('#animate5').style.opacity;
-// 				let secThreeSlideTwoOpacity = document.querySelector('#animate6').style.opacity;
-// 				document.querySelector('#animate5').style.opacity = String(Number(!Boolean(Number(secThreeSlideOneOpacity))));
-// 				document.querySelector('#animate6').style.opacity = String(Number(!Boolean(Number(secThreeSlideTwoOpacity))));
-// 			}, 2500);
-// 		}
-// 	}
-// };
+let animationOneIntervalId;
+let animationTwoIntervalId;
+let animationThreeIntervalId;
+document.querySelector('#animate1').style.opacity = '1';
+document.querySelector('#animate2').style.opacity = '0';
+document.querySelector('#animate3').style.opacity = '1';
+document.querySelector('#animate4').style.opacity = '0';
+document.querySelector('#animate5').style.opacity = '1';
+document.querySelector('#animate6').style.opacity = '0';
+window.onscroll = function (e) {
+	if (window.scrollY >= 871) {
+		// Begin animation
+		if (!animationOneIntervalId) {
+			animationOneIntervalId = setInterval(()=>{
+				let secOneSlideOne = document.querySelector('#animate1');
+				let secOneSlideTwo = document.querySelector('#animate2');
+				if (secOneSlideOne.style.opacity == '0') {
+					secOneSlideOne.style.height = 'auto';
+					secOneSlideOne.style.opacity = '1';
+					secOneSlideTwo.style.height = '0';
+					secOneSlideTwo.style.opacity = '0'
+				} else {
+					secOneSlideOne.style.height = '0';
+					secOneSlideOne.style.opacity = '0';
+					secOneSlideTwo.style.height = 'auto';
+					secOneSlideTwo.style.opacity = '1'
+				}
+			}, 2500);
+		}
+	}
+	if (window.scrollY >= 871) {
+		// Begin animation
+		if (!animationTwoIntervalId) {
+			animationTwoIntervalId = setInterval(()=>{
+				let secTwoSlideOne = document.querySelector('#animate3');
+				let secTwoSlideTwo = document.querySelector('#animate4');
+				if (secTwoSlideOne.style.opacity == '0') {
+					secTwoSlideOne.style.height = 'auto';
+					secTwoSlideOne.style.opacity = '1';
+					secTwoSlideTwo.style.height = '0';
+					secTwoSlideTwo.style.opacity = '0'
+				} else {
+					secTwoSlideOne.style.height = '0';
+					secTwoSlideOne.style.opacity = '0';
+					secTwoSlideTwo.style.height = 'auto';
+					secTwoSlideTwo.style.opacity = '1'
+				}
+			}, 2500);
+		}
+	}
+	if (window.scrollY >= 871) {
+		// Begin animation
+		if (!animationThreeIntervalId) {
+			animationThreeIntervalId = setInterval(()=>{
+				let secThreeSlideOne = document.querySelector('#animate5');
+				let secThreeSlideTwo = document.querySelector('#animate6');
+				if (secThreeSlideOne.style.opacity == '0') {
+					secThreeSlideOne.style.height = 'auto';
+					secThreeSlideOne.style.opacity = '1';
+					secThreeSlideTwo.style.height = '0';
+					secThreeSlideTwo.style.opacity = '0'
+				} else {
+					secThreeSlideOne.style.height = '0';
+					secThreeSlideOne.style.opacity = '0';
+					secThreeSlideTwo.style.height = 'auto';
+					secThreeSlideTwo.style.opacity = '1'
+				}
+			}, 2500);
+		}
+	}
+};
