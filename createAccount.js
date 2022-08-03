@@ -388,11 +388,10 @@ function init() {
     validateForm();
     return false;
   })
-  
-  onFormLoad();
 }
 
-document.onload = init();
+init();
+onFormLoad();
 
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
