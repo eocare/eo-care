@@ -392,7 +392,7 @@ function init() {
   onFormLoad();
 }
 
-init();
+document.onload = init();
 
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
