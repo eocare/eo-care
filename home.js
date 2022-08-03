@@ -15,17 +15,17 @@ let animationOneIntervalId;
 let animationTwoIntervalId;
 let animationThreeIntervalId;
 document.querySelector('#animate1').style.opacity = '1';
-document.querySelector('#animate1').style.transition = "opacity 1000ms ease";
+document.querySelector('#animate1').style.transition = "opacity 1500ms ease";
 document.querySelector('#animate2').style.opacity = '0';
-document.querySelector('#animate2').style.transition = "opacity 1000ms ease";
+document.querySelector('#animate2').style.transition = "opacity 1500ms ease";
 document.querySelector('#animate3').style.opacity = '1';
-document.querySelector('#animate3').style.transition = "opacity 1000ms ease";
+document.querySelector('#animate3').style.transition = "opacity 1500ms ease";
 document.querySelector('#animate4').style.opacity = '0';
-document.querySelector('#animate4').style.transition = "opacity 1000ms ease";
+document.querySelector('#animate4').style.transition = "opacity 1500ms ease";
 document.querySelector('#animate5').style.opacity = '1';
-document.querySelector('#animate5').style.transition = "opacity 1000ms ease";
+document.querySelector('#animate5').style.transition = "opacity 1500ms ease";
 document.querySelector('#animate6').style.opacity = '0';
-document.querySelector('#animate6').style.transition = "opacity 1000ms ease";
+document.querySelector('#animate6').style.transition = "opacity 1500ms ease";
 
 function slideChange(activeImageId, inactiveImageId) {
 	let activeImage = document.querySelector(`#${activeImageId}`);
