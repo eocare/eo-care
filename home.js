@@ -44,7 +44,7 @@ window.onscroll = function (e) {
 					secOneSlideTwo.style.height = 'auto';
 					secOneSlideTwo.style.opacity = '1'
 				}
-			}, 2500);
+			}, 5000);
 		}
 	}
 	if (window.scrollY >= 871) {
