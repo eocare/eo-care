@@ -98,7 +98,7 @@ async function createProfile(formData) {
       "password": formData.get('pwd'),
       "phone": formData.get('phone'),
       "street-address-1": formData.get('street'),
-      "street-address-2": formData.get('street-line-2'),
+      "street-address-2": formData.get('street-line2'),
       "city": formData.get('city'),
       "zip": formData.get('zip')
     },
@@ -388,10 +388,11 @@ function init() {
     validateForm();
     return false;
   })
+  
+  onFormLoad();
 }
 
 init();
-onFormLoad();
 
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
