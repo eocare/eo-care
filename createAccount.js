@@ -123,10 +123,10 @@ async function createProfile(formData) {
     body: JSON.stringify(body)
   });
 
-  const data = await resp.json();
+  // const data = await resp.json();
   console.log(resp.ok);
   console.log(resp.status);
-  if (resp.status == 200) {
+  if (resp.ok && resp.status === 200) {
     // const {checkout_session_url} = data.stripe;
     // Save Session URL to local Storage
     // saveSessionURL(checkout_session_url);
@@ -397,7 +397,7 @@ function init() {
 init();
 
 // PRE FORM SUBMISSION VALIDATION
-async function validateForm() {
+function validateForm() {
   let fnameCheck = isFieldNotEmpty('firstname');
   let lnameCheck = isFieldNotEmpty('lastname');
   let phoneCheck = phoneValidator('phone');
@@ -420,7 +420,7 @@ async function validateForm() {
     // Create Web Profile
     console.log("Form Validation Successful.");
     const formData = new FormData(document.querySelector('#create-account-form'));
-    await createProfile(formData);
+    createProfile(formData);
   } else {
     _resetState('create-account-submit-btn');
     console.log("Form Validation Failed. Please fix the highlighted errors and resubmit.");
