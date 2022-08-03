@@ -26,11 +26,11 @@ document.querySelector('#animate5').style.opacity = '1';
 document.querySelector('#animate5').style.transition = "opacity 1000ms ease";
 document.querySelector('#animate6').style.opacity = '0';
 document.querySelector('#animate6').style.transition = "opacity 1000ms ease";
-let currentScreen = 0;
 window.onscroll = function (e) {
 	if (window.scrollY >= 871) {
 		// Begin animation
 		if (!animationOneIntervalId) {
+			let currentScreen = 0;
 			animationOneIntervalId = setInterval(()=>{
 				let secOneSlideOne = document.querySelector('#animate1');
 				let secOneSlideTwo = document.querySelector('#animate2');
