@@ -30,23 +30,26 @@ window.onscroll = function (e) {
 	if (window.scrollY >= 871) {
 		// Begin animation
 		if (!animationOneIntervalId) {
-			let currentScreen = 0;
+			var currentScreen = 0;
 			animationOneIntervalId = setInterval(()=>{
 				let secOneSlideOne = document.querySelector('#animate1');
 				let secOneSlideTwo = document.querySelector('#animate2');
 				if (currentScreen === 0) {
+					console.log(Date.now());
 					secOneSlideOne.style.height = 'auto';
 					secOneSlideOne.style.opacity = '1';
 					secOneSlideTwo.style.height = '0';
 					secOneSlideTwo.style.opacity = '0'
 					currentScreen += 1;
 				} else if(currentScreen === 1) {
+					console.log(Date.now());
 					secOneSlideOne.style.height = '0';
 					secOneSlideOne.style.opacity = '0';
 					secOneSlideTwo.style.height = 'auto';
 					secOneSlideTwo.style.opacity = '1'
 					currentScreen += 1;
 				} else if(currentScreen === 2) {
+					console.log(Date.now());
 					secOneSlideOne.style.height = 'auto';
 					secOneSlideOne.style.opacity = '1';
 					secOneSlideTwo.style.height = '0';
