@@ -26,34 +26,29 @@ document.querySelector('#animate5').style.opacity = '1';
 document.querySelector('#animate5').style.transition = "opacity 1000ms ease";
 document.querySelector('#animate6').style.opacity = '0';
 document.querySelector('#animate6').style.transition = "opacity 1000ms ease";
+
+function slideChange(activeImageId, inactiveImageId) {
+	let activeImage = document.querySelector(`#${activeImageId}`);
+	let inactiveImage = document.querySelector(`#${inactiveImageId}`);
+	activeImage.style.height = 'auto';
+	activeImage.style.opacity = '1';
+	inactiveImage.style.height = '0';
+	inactiveImage.style.opacity = '0'
+}
 window.onscroll = function (e) {
 	if (window.scrollY >= 871) {
 		// Begin animation
 		if (!animationOneIntervalId) {
-			var currentScreen = 0;
+			let currentSlide = 0;
 			animationOneIntervalId = setInterval(()=>{
-				let secOneSlideOne = document.querySelector('#animate1');
-				let secOneSlideTwo = document.querySelector('#animate2');
-				if (currentScreen === 0) {
-					console.log(Date.now());
-					secOneSlideOne.style.height = 'auto';
-					secOneSlideOne.style.opacity = '1';
-					secOneSlideTwo.style.height = '0';
-					secOneSlideTwo.style.opacity = '0'
-					currentScreen += 1;
-				} else if(currentScreen === 1) {
-					console.log(Date.now());
-					secOneSlideOne.style.height = '0';
-					secOneSlideOne.style.opacity = '0';
-					secOneSlideTwo.style.height = 'auto';
-					secOneSlideTwo.style.opacity = '1'
-					currentScreen += 1;
-				} else if(currentScreen === 2) {
-					console.log(Date.now());
-					secOneSlideOne.style.height = 'auto';
-					secOneSlideOne.style.opacity = '1';
-					secOneSlideTwo.style.height = '0';
-					secOneSlideTwo.style.opacity = '0'
+				if (currentSlide === 0) {
+					slideChange('animate1', 'animate2');
+					currentSlide += 1;
+				} else if(currentSlide === 1) {
+					slideChange('animate2', 'animate1');
+					currentSlide += 1;
+				} else if(currentSlide === 2) {
+					slideChange('animate1', 'animate2');
 					clearInterval(animationOneIntervalId);
 				}
 			}, 5000);
@@ -63,40 +58,34 @@ window.onscroll = function (e) {
 		// Begin animation
 		if (!animationTwoIntervalId) {
 			animationTwoIntervalId = setInterval(()=>{
-				let secTwoSlideOne = document.querySelector('#animate3');
-				let secTwoSlideTwo = document.querySelector('#animate4');
-				if (secTwoSlideOne.style.opacity == '0') {
-					secTwoSlideOne.style.height = 'auto';
-					secTwoSlideOne.style.opacity = '1';
-					secTwoSlideTwo.style.height = '0';
-					secTwoSlideTwo.style.opacity = '0'
-				} else {
-					secTwoSlideOne.style.height = '0';
-					secTwoSlideOne.style.opacity = '0';
-					secTwoSlideTwo.style.height = 'auto';
-					secTwoSlideTwo.style.opacity = '1'
+				if (currentSlide === 0) {
+					slideChange('animate3', 'animate4');
+					currentSlide += 1;
+				} else if(currentSlide === 1) {
+					slideChange('animate4', 'animate3');
+					currentSlide += 1;
+				} else if(currentSlide === 2) {
+					slideChange('animate3', 'animate4');
+					clearInterval(animationTwoIntervalId);
 				}
-			}, 2500);
+			}, 5000);
 		}
 	}
 	if (window.scrollY >= 871) {
 		// Begin animation
 		if (!animationThreeIntervalId) {
 			animationThreeIntervalId = setInterval(()=>{
-				let secThreeSlideOne = document.querySelector('#animate5');
-				let secThreeSlideTwo = document.querySelector('#animate6');
-				if (secThreeSlideOne.style.opacity == '0') {
-					secThreeSlideOne.style.height = 'auto';
-					secThreeSlideOne.style.opacity = '1';
-					secThreeSlideTwo.style.height = '0';
-					secThreeSlideTwo.style.opacity = '0'
-				} else {
-					secThreeSlideOne.style.height = '0';
-					secThreeSlideOne.style.opacity = '0';
-					secThreeSlideTwo.style.height = 'auto';
-					secThreeSlideTwo.style.opacity = '1'
+				if (currentSlide === 0) {
+					slideChange('animate5', 'animate6');
+					currentSlide += 1;
+				} else if(currentSlide === 1) {
+					slideChange('animate6', 'animate5');
+					currentSlide += 1;
+				} else if(currentSlide === 2) {
+					slideChange('animate5', 'animate6');
+					clearInterval(animationThreeIntervalId);
 				}
-			}, 2500);
+			}, 5000);
 		}
 	}
 };
