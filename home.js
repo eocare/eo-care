@@ -26,6 +26,7 @@ document.querySelector('#animate5').style.opacity = '1';
 document.querySelector('#animate5').style.transition = "opacity 1000ms ease";
 document.querySelector('#animate6').style.opacity = '0';
 document.querySelector('#animate6').style.transition = "opacity 1000ms ease";
+let currentScreen = 0;
 window.onscroll = function (e) {
 	if (window.scrollY >= 871) {
 		// Begin animation
@@ -33,16 +34,24 @@ window.onscroll = function (e) {
 			animationOneIntervalId = setInterval(()=>{
 				let secOneSlideOne = document.querySelector('#animate1');
 				let secOneSlideTwo = document.querySelector('#animate2');
-				if (secOneSlideOne.style.opacity == '0') {
+				if (currentScreen === 0) {
 					secOneSlideOne.style.height = 'auto';
 					secOneSlideOne.style.opacity = '1';
 					secOneSlideTwo.style.height = '0';
 					secOneSlideTwo.style.opacity = '0'
-				} else {
+					currentScreen += 1;
+				} else if(currentScreen === 1) {
 					secOneSlideOne.style.height = '0';
 					secOneSlideOne.style.opacity = '0';
 					secOneSlideTwo.style.height = 'auto';
 					secOneSlideTwo.style.opacity = '1'
+					currentScreen += 1;
+				} else if(currentScreen === 2) {
+					secOneSlideOne.style.height = 'auto';
+					secOneSlideOne.style.opacity = '1';
+					secOneSlideTwo.style.height = '0';
+					secOneSlideTwo.style.opacity = '0'
+					clearInterval(animationOneIntervalId);
 				}
 			}, 5000);
 		}
