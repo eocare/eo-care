@@ -174,8 +174,20 @@ function isAtLeast21YrsOld(dob) {
 }
 
 function selectPlanById(htmlPlanId) {
-  document.getElementById(htmlPlanId).style = 'border-color: rgb(0, 0, 0); background-color: rgb(211, 207, 203);';
+  if (htmlPlanId == '249year') {
+    setPlanCss('div-block-245', 'div-block-246');
+  } else {
+    setPlanCss('div-block-246', 'div-block-245');
+  }
   document.getElementById(htmlPlanId).checked = true;
+}
+
+function setPlanCss(selectedClass, deselectedClass) {
+    document.getElementsByClassName(selectedClass)[0].style.borderColor = 'rgb(0,0,0)';
+    document.getElementsByClassName(selectedClass)[0].style.backgroundColor = 'rgb(211, 207, 203)';
+
+    document.getElementsByClassName(deselectedClass)[0].style.borderColor = 'rgba(0,0,0,0)';
+    document.getElementsByClassName(deselectedClass)[0].style.backgroundColor = 'rgb(248, 246, 243)';
 }
 
 // FORM FIELD VALIDATION FUNCTIONS BEGIN
