@@ -36,7 +36,7 @@ function slideChange(activeImageId, inactiveImageId) {
 	inactiveImage.style.opacity = '0'
 }
 window.onscroll = function (e) {
-	if (window.scrollY >= 871) {
+	if (window.scrollY >= 1000) {
 		// Begin animation
 		if (!animationOneIntervalId) {
 			let currentSlide = 0;
@@ -54,7 +54,7 @@ window.onscroll = function (e) {
 			}, 5000);
 		}
 	}
-	if (window.scrollY >= 871) {
+	if (window.scrollY >= 1935) {
 		// Begin animation
 		if (!animationTwoIntervalId) {
 			let currentSlide = 0;
@@ -72,7 +72,7 @@ window.onscroll = function (e) {
 			}, 5000);
 		}
 	}
-	if (window.scrollY >= 871) {
+	if (window.scrollY >= 2828) {
 		// Begin animation
 		if (!animationThreeIntervalId) {
 			let currentSlide = 0;
