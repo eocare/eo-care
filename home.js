@@ -57,6 +57,7 @@ window.onscroll = function (e) {
 	if (window.scrollY >= 871) {
 		// Begin animation
 		if (!animationTwoIntervalId) {
+			let currentSlide = 0;
 			animationTwoIntervalId = setInterval(()=>{
 				if (currentSlide === 0) {
 					slideChange('animate3', 'animate4');
@@ -74,6 +75,7 @@ window.onscroll = function (e) {
 	if (window.scrollY >= 871) {
 		// Begin animation
 		if (!animationThreeIntervalId) {
+			let currentSlide = 0;
 			animationThreeIntervalId = setInterval(()=>{
 				if (currentSlide === 0) {
 					slideChange('animate5', 'animate6');
