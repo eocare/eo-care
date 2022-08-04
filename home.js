@@ -170,9 +170,25 @@ function getWebflowImgSrc(tail) {
 }
 
 makeImageDynamic(
-	'calendar-based-care-default-image', 
+	'animate1', 
 	[
-	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/60cf7491148b7b89422a1442_mobile-mockup-dashboard-1.2.png')
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ebd0b21a9e2b2961b721d6_Screen.svg')
 	  // add more images here if necessary
 	]
-   );
+);
+
+makeImageDynamic(
+	'animate3', 
+	[
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62eaa1727af19a9f76cd5f62_Device-OpenEnd.svg')
+	  // add more images here if necessary
+	]
+);
+
+makeImageDynamic(
+	'animate5', 
+	[
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62eaa172df96d8b7acc9677b_Device-Messages.svg')
+	  // add more images here if necessary
+	]
+);
