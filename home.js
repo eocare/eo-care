@@ -168,3 +168,11 @@ function isImageInVisibleScrollPosition(el) {
 function getWebflowImgSrc(tail) {
   return 'https://global-uploads.webflow.com/' + tail;
 }
+
+makeImageDynamic(
+	'calendar-based-care-default-image', 
+	[
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/60cf7491148b7b89422a1442_mobile-mockup-dashboard-1.2.png')
+	  // add more images here if necessary
+	]
+   );
