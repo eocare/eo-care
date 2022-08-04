@@ -27,28 +27,26 @@ document.querySelector('#animate5').style.transition = "opacity 1500ms ease";
 document.querySelector('#animate6').style.opacity = '0';
 document.querySelector('#animate6').style.transition = "opacity 1500ms ease";
 
-var observer = new IntersectionObserver(function(entries) {
+var observer = new IntersectionObserver(function(entries, index) {
 	// isIntersecting is true when element and viewport are overlapping
 	// isIntersecting is false when element and viewport don't overlap
 	if (entries[0].isIntersecting === true) {
-		console.log('Element One has just become visible in screen');
-		startAnimationOne();
-	}
-	if (entries[1].isIntersecting === true) {
-		console.log('Element Two has just become visible in screen');
-		startAnimationTwo();
-	}
-	if (entries[2].isIntersecting === true) {
-		console.log('Element Three has just become visible in screen');
-		startAnimationThree();
+		if (index === 0) {
+			console.log('Element One has just become visible in screen');
+			startAnimationOne();
+		} else if(index === 1) {
+			console.log('Element Two has just become visible in screen');
+			startAnimationTwo();
+		} else if(index === 2) {
+			console.log('Element Three has just become visible in screen');
+			startAnimationThree();
+		}
 	}
 }, { threshold: [0] });
 
-observer.observe([
-	document.getElementById('animate1'),
-	document.getElementById('animate3'),
-	document.getElementById('animate5'),
-]);
+observer.observe(document.getElementById('animate1'));
+observer.observe(document.getElementById('animate3'));
+observer.observe(document.getElementById('animate5'));
 
 function slideChange(activeImageId, inactiveImageId) {
 	let activeImage = document.querySelector(`#${activeImageId}`);
