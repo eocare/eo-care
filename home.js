@@ -64,11 +64,11 @@ function startAnimationOne() {
 	if (!animationOneIntervalId) {
 		let currentSlide = 0;
 		animationOneIntervalId = setInterval(()=>{
-			if (currentSlide === 0) {
-				slideChange('animate1', 'animate2');
-				console.log(Date.now());
-				currentSlide += 1;
-			} else if(currentSlide === 1) {
+			// if (currentSlide === 0) {
+			// 	slideChange('animate1', 'animate2');
+			// 	console.log(Date.now());
+			// 	currentSlide += 1;
+			if(currentSlide === 0) {
 				slideChange('animate2', 'animate1');
 				console.log(Date.now());
 				currentSlide += 1;
