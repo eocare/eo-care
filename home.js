@@ -30,7 +30,6 @@ document.querySelector('#animate6').style.transition = "opacity 1000ms ease";
 var observerOne = new IntersectionObserver(function(entries) {
 	if (entries[0].isIntersecting === true) {
 		startAnimationOne();
-		console.log(Date.now());
 	}
 }, { threshold: [0] });
 
@@ -66,11 +65,9 @@ function startAnimationOne() {
 		animationOneIntervalId = setInterval(()=>{
 			if(currentSlide === 0) {
 				slideChange('animate2', 'animate1');
-				console.log(Date.now());
 				currentSlide += 1;
 			} else if(currentSlide === 1) {
 				slideChange('animate1', 'animate2');
-				console.log(Date.now());
 				clearInterval(animationOneIntervalId);
 			}
 		}, 5000);
