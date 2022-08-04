@@ -180,7 +180,7 @@ makeImageDynamic(
 makeImageDynamic(
 	'animate3', 
 	[
-	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62eaa1727af19a9f76cd5f62_Device-OpenEnd.svg')
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ebfa4cc09ba384bb03791d_dasdasdas.svg')
 	  // add more images here if necessary
 	]
 );
@@ -188,7 +188,7 @@ makeImageDynamic(
 makeImageDynamic(
 	'animate5', 
 	[
-	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62eaa172df96d8b7acc9677b_Device-Messages.svg')
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ebf80d32e665a539ea6752_Screen6.svg')
 	  // add more images here if necessary
 	]
 );
