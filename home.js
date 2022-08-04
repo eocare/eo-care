@@ -64,15 +64,11 @@ function startAnimationOne() {
 	if (!animationOneIntervalId) {
 		let currentSlide = 0;
 		animationOneIntervalId = setInterval(()=>{
-			// if (currentSlide === 0) {
-			// 	slideChange('animate1', 'animate2');
-			// 	console.log(Date.now());
-			// 	currentSlide += 1;
 			if(currentSlide === 0) {
 				slideChange('animate2', 'animate1');
 				console.log(Date.now());
 				currentSlide += 1;
-			} else if(currentSlide === 2) {
+			} else if(currentSlide === 1) {
 				slideChange('animate1', 'animate2');
 				console.log(Date.now());
 				clearInterval(animationOneIntervalId);
@@ -86,13 +82,10 @@ function startAnimationTwo() {
 	if (!animationTwoIntervalId) {
 		let currentSlide = 0;
 		animationTwoIntervalId = setInterval(()=>{
-			if (currentSlide === 0) {
-				slideChange('animate3', 'animate4');
-				currentSlide += 1;
-			} else if(currentSlide === 1) {
+			if(currentSlide === 0) {
 				slideChange('animate4', 'animate3');
 				currentSlide += 1;
-			} else if(currentSlide === 2) {
+			} else if(currentSlide === 1) {
 				slideChange('animate3', 'animate4');
 				clearInterval(animationTwoIntervalId);
 			}
@@ -106,12 +99,9 @@ function startAnimationThree() {
 		let currentSlide = 0;
 		animationThreeIntervalId = setInterval(()=>{
 			if (currentSlide === 0) {
-				slideChange('animate5', 'animate6');
-				currentSlide += 1;
-			} else if(currentSlide === 1) {
 				slideChange('animate6', 'animate5');
 				currentSlide += 1;
-			} else if(currentSlide === 2) {
+			} else if(currentSlide === 1) {
 				slideChange('animate5', 'animate6');
 				clearInterval(animationThreeIntervalId);
 			}
