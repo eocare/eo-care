@@ -44,9 +44,9 @@ var observer = new IntersectionObserver(function(entries, index) {
 	}
 }, { threshold: [0] });
 
-observer.observe(document.getElementById('animate1'));
-observer.observe(document.getElementById('animate3'));
-observer.observe(document.getElementById('animate5'));
+observer.observe(document.getElementById('animate1'), 0);
+observer.observe(document.getElementById('animate3'), 1);
+observer.observe(document.getElementById('animate5'), 2);
 
 function slideChange(activeImageId, inactiveImageId) {
 	let activeImage = document.querySelector(`#${activeImageId}`);
