@@ -367,6 +367,12 @@ function onFormLoad() {
   // Set Date Of Birth Input Type to Date
   document.getElementById('dob').type = 'date';
 
+  // Set Radio Button's Accent Color
+  let allRadioButtons = document.querySelectorAll('input[type=radio]');
+  for(let i=0; i<allRadioButtons.length; i++) {
+    allRadioButtons[i].style.accentColor = 'black';
+  }
+
   // Limit Input Image Types and allow Capturing from Camera
   const fileAcceptanceCriteria = '.jpg, .jpeg, .png, ;capture=camera';
   document.getElementById('license-front').accept = fileAcceptanceCriteria;
