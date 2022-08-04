@@ -27,6 +27,29 @@ document.querySelector('#animate5').style.transition = "opacity 1500ms ease";
 document.querySelector('#animate6').style.opacity = '0';
 document.querySelector('#animate6').style.transition = "opacity 1500ms ease";
 
+var observer = new IntersectionObserver(function(entries) {
+	// isIntersecting is true when element and viewport are overlapping
+	// isIntersecting is false when element and viewport don't overlap
+	if (entries[0].isIntersecting === true) {
+		console.log('Element One has just become visible in screen');
+		startAnimationOne();
+	}
+	if (entries[1].isIntersecting === true) {
+		console.log('Element Two has just become visible in screen');
+		startAnimationTwo();
+	}
+	if (entries[2].isIntersecting === true) {
+		console.log('Element Three has just become visible in screen');
+		startAnimationThree();
+	}
+}, { threshold: [0] });
+
+observer.observe([
+	document.getElementById('animate1'),
+	document.getElementById('animate3'),
+	document.getElementById('animate5'),
+]);
+
 function slideChange(activeImageId, inactiveImageId) {
 	let activeImage = document.querySelector(`#${activeImageId}`);
 	let inactiveImage = document.querySelector(`#${inactiveImageId}`);
@@ -35,59 +58,60 @@ function slideChange(activeImageId, inactiveImageId) {
 	inactiveImage.style.height = '0';
 	inactiveImage.style.opacity = '0'
 }
-window.onscroll = function (e) {
-	if (window.scrollY >= 1000) {
-		// Begin animation
-		if (!animationOneIntervalId) {
-			let currentSlide = 0;
-			animationOneIntervalId = setInterval(()=>{
-				if (currentSlide === 0) {
-					slideChange('animate1', 'animate2');
-					currentSlide += 1;
-				} else if(currentSlide === 1) {
-					slideChange('animate2', 'animate1');
-					currentSlide += 1;
-				} else if(currentSlide === 2) {
-					slideChange('animate1', 'animate2');
-					clearInterval(animationOneIntervalId);
-				}
-			}, 5000);
-		}
+
+function startAnimationOne() {
+	// Begin animation
+	if (!animationOneIntervalId) {
+		let currentSlide = 0;
+		animationOneIntervalId = setInterval(()=>{
+			if (currentSlide === 0) {
+				slideChange('animate1', 'animate2');
+				currentSlide += 1;
+			} else if(currentSlide === 1) {
+				slideChange('animate2', 'animate1');
+				currentSlide += 1;
+			} else if(currentSlide === 2) {
+				slideChange('animate1', 'animate2');
+				clearInterval(animationOneIntervalId);
+			}
+		}, 5000);
 	}
-	if (window.scrollY >= 1935) {
-		// Begin animation
-		if (!animationTwoIntervalId) {
-			let currentSlide = 0;
-			animationTwoIntervalId = setInterval(()=>{
-				if (currentSlide === 0) {
-					slideChange('animate3', 'animate4');
-					currentSlide += 1;
-				} else if(currentSlide === 1) {
-					slideChange('animate4', 'animate3');
-					currentSlide += 1;
-				} else if(currentSlide === 2) {
-					slideChange('animate3', 'animate4');
-					clearInterval(animationTwoIntervalId);
-				}
-			}, 5000);
-		}
+};
+
+function startAnimationTwo() {
+	// Begin animation
+	if (!animationTwoIntervalId) {
+		let currentSlide = 0;
+		animationTwoIntervalId = setInterval(()=>{
+			if (currentSlide === 0) {
+				slideChange('animate3', 'animate4');
+				currentSlide += 1;
+			} else if(currentSlide === 1) {
+				slideChange('animate4', 'animate3');
+				currentSlide += 1;
+			} else if(currentSlide === 2) {
+				slideChange('animate3', 'animate4');
+				clearInterval(animationTwoIntervalId);
+			}
+		}, 5000);
 	}
-	if (window.scrollY >= 2828) {
-		// Begin animation
-		if (!animationThreeIntervalId) {
-			let currentSlide = 0;
-			animationThreeIntervalId = setInterval(()=>{
-				if (currentSlide === 0) {
-					slideChange('animate5', 'animate6');
-					currentSlide += 1;
-				} else if(currentSlide === 1) {
-					slideChange('animate6', 'animate5');
-					currentSlide += 1;
-				} else if(currentSlide === 2) {
-					slideChange('animate5', 'animate6');
-					clearInterval(animationThreeIntervalId);
-				}
-			}, 5000);
-		}
+};
+
+function startAnimationThree() {
+	// Begin animation
+	if (!animationThreeIntervalId) {
+		let currentSlide = 0;
+		animationThreeIntervalId = setInterval(()=>{
+			if (currentSlide === 0) {
+				slideChange('animate5', 'animate6');
+				currentSlide += 1;
+			} else if(currentSlide === 1) {
+				slideChange('animate6', 'animate5');
+				currentSlide += 1;
+			} else if(currentSlide === 2) {
+				slideChange('animate5', 'animate6');
+				clearInterval(animationThreeIntervalId);
+			}
+		}, 5000);
 	}
 };
