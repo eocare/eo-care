@@ -107,7 +107,7 @@ if (Math.random() <= 0.50) {
 // };
 
 // Original Homepage Animations
-var visibleSecondsDelay = 5;  
+var visibleSecondsDelay = 7;  
 function makeImageDynamic(defaultImageId, alternateImageSrcs) {
   var firstImageEl = document.getElementById(defaultImageId);
   firstImageEl.style.opacity = '1';
