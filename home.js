@@ -77,7 +77,7 @@ function getWebflowImgSrc(tail) {
 makeImageDynamic(
 	'animate1', 
 	[
-	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ed2fa30e99ef38ade11578_screen%202%20(2).png')
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ecffb608977770b9414d6a_Screen1.svg')
 	  // add more images here if necessary
 	]
 );
