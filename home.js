@@ -172,7 +172,7 @@ function getWebflowImgSrc(tail) {
 makeImageDynamic(
 	'animate1', 
 	[
-	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ebd0b21a9e2b2961b721d6_Screen.svg')
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ecffb608977770b9414d6a_Screen1.svg')
 	  // add more images here if necessary
 	]
 );
@@ -188,7 +188,7 @@ makeImageDynamic(
 makeImageDynamic(
 	'animate5', 
 	[
-	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ebf80d32e665a539ea6752_Screen6.svg')
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ecffb605f0c83917aedee1_Screen2.svg')
 	  // add more images here if necessary
 	]
 );
