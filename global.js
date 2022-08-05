@@ -7,6 +7,9 @@ loginFormStartUp();
 captureUTM();
 pwdResetFormStartUp();
 
+/**
+ * Run this on Page load
+ */
 function loginFormStartUp() {
     let loginFormSubmitBtn = document.getElementsByClassName('submit-button-6')[0];
     // Disable Login Form Submit Button
