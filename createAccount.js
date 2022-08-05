@@ -8,7 +8,7 @@ function getPriceIdFromSelectedPlan() {
   if (yearlySubs.checked) {
     return (yearlySubs.dataset.priceid);
   } else if (monthlySubs.checked) {
-    return (monthlySubs.priceid);
+    return (monthlySubs.dataset.priceid);
   } else {
     throw new Error('No Subscription Selected');
   }
