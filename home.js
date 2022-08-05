@@ -85,7 +85,7 @@ makeImageDynamic(
 makeImageDynamic(
 	'animate3', 
 	[
-	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ebfa4cc09ba384bb03791d_dasdasdas.svg')
+	  getWebflowImgSrc('6087423fbc61c1bded1c5d8e/62ed16580a7ec370d6dbb9cc_Screen.svg')
 	  // add more images here if necessary
 	]
 );
