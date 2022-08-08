@@ -134,7 +134,7 @@ async function createProfile(formData) {
     let userEmail = document.getElementById('email').value;
     document.location.href = document.location.origin + '/payment-status?status=success&plan=' + getPriceIdFromSelectedPlan() + '&email=' + btoa(userEmail);
   } else {
-    _resetState('create-account-submit-btn');
+    _resetState('create-account-submit-btn', 'Subscribe');
     if (data["errors"]["email"][0]["message"] === 'already taken') {
       showFieldError('email', 'You already have an account.');
     }
@@ -442,12 +442,12 @@ function validateForm() {
       const formData = new FormData(document.querySelector('#create-account-form'));
       createProfile(formData);
     } else {
-      _resetState('create-account-submit-btn');
+      _resetState('create-account-submit-btn', 'Subscribe');
       console.log("Form Validation Failed. Please fix the highlighted errors and resubmit.");
       // document.getElementById('create-account-submit-btn').innerText = 'Continue to payment'
     }
   } catch(err) {
-    _resetState('create-account-submit-btn');
+    _resetState('create-account-submit-btn', 'Subscribe');
     console.log(err);
   }
 }
