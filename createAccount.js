@@ -417,32 +417,37 @@ init();
 
 // PRE FORM SUBMISSION VALIDATION
 function validateForm() {
-  let fnameCheck = isFieldNotEmpty('firstname');
-  let lnameCheck = isFieldNotEmpty('lastname');
-  let phoneCheck = phoneValidator('phone');
-  let streetAddressCheck = isFieldNotEmpty('street');
-  let cityCheck = isFieldNotEmpty('city');
-  let zipCheck = zipEventHandler('zip');
-  let dobCheck = dobEventHandler('dob');
-  let genderCheck = genderEventHandler('gender');
+  try {
+    let fnameCheck = isFieldNotEmpty('firstname');
+    let lnameCheck = isFieldNotEmpty('lastname');
+    let phoneCheck = phoneValidator('phone');
+    let streetAddressCheck = isFieldNotEmpty('street');
+    let cityCheck = isFieldNotEmpty('city');
+    let zipCheck = zipEventHandler('zip');
+    let dobCheck = dobEventHandler('dob');
+    let genderCheck = genderEventHandler('gender');
 
-  let emailCheck = emailEventHandler('email');
-  let pwdCheck = passwordsEventHandler('pwd-confirmation');
+    let emailCheck = emailEventHandler('email');
+    let pwdCheck = passwordsEventHandler('pwd-confirmation');
 
-  let planCheck = isPlanSelected();
-  let medCardCheck = medicalCardEventHandler('Medical-Card-Number');
+    let planCheck = isPlanSelected();
+    let medCardCheck = medicalCardEventHandler('Medical-Card-Number');
 
-  let licenseCheck = licenseValidator();
+    let licenseCheck = licenseValidator();
 
-  if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck 
-    && emailCheck && pwdCheck && planCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck) {
-    // Create Web Profile
-    console.log("Form Validation Successful.");
-    const formData = new FormData(document.querySelector('#create-account-form'));
-    createProfile(formData);
-  } else {
+    if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck 
+      && emailCheck && pwdCheck && planCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck) {
+      // Create Web Profile
+      console.log("Form Validation Successful.");
+      const formData = new FormData(document.querySelector('#create-account-form'));
+      createProfile(formData);
+    } else {
+      _resetState('create-account-submit-btn');
+      console.log("Form Validation Failed. Please fix the highlighted errors and resubmit.");
+      // document.getElementById('create-account-submit-btn').innerText = 'Continue to payment'
+    }
+  } catch(err) {
     _resetState('create-account-submit-btn');
-    console.log("Form Validation Failed. Please fix the highlighted errors and resubmit.");
-    // document.getElementById('create-account-submit-btn').innerText = 'Continue to payment'
+    console.log(err);
   }
 }
