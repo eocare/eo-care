@@ -293,6 +293,12 @@ function getFormattedDob() {
   let month = document.getElementById('dob-month').value;
   let date = document.getElementById('dob-date').value;
   let year = document.getElementById('dob-year').value;
+  if (Number(date) <= 9) {
+    date = '0' + date;
+  }
+  if (Number(month) <= 9) {
+    month = '0' + month;
+  }
   return  year + '-' + month + '-' + date;
 }
 
