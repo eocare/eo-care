@@ -293,7 +293,7 @@ function getFormattedDob() {
   let month = document.getElementById('dob-month').value;
   let date = document.getElementById('dob-date').value;
   let year = document.getElementById('dob-year').value;
-  return  month + '/' + date + '/' + year;
+  return  year + '-' + month + '-' + date;
 }
 
 function isValidDate(month, date, year) {
