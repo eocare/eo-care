@@ -296,9 +296,6 @@ function getFormattedDob() {
   if (Number(date) <= 9) {
     date = '0' + date;
   }
-  if (Number(month) <= 9) {
-    month = '0' + month;
-  }
   return  year + '-' + month + '-' + date;
 }
 
