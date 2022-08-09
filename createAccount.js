@@ -294,7 +294,7 @@ function getFormattedDob() {
   let date = document.getElementById('dob-date').value;
   let year = document.getElementById('dob-year').value;
   if (Number(date) <= 9) {
-    date = '0' + date;
+    date = '0' + Number(date).toString();
   }
   return  year + '-' + month + '-' + date;
 }
