@@ -196,6 +196,7 @@ function disableContinueWithout() {
   continueWithout.disabled = true;
   // Line through text
   continueWithout.nextSibling.style.textDecoration = 'line-through';
+  continueWithout.parentNode.style.pointerEvents = 'none';
   // Show Error message
   showMedicalCardOptionError('A medical card is required to take delivery in your area.');
 }
@@ -204,8 +205,9 @@ function restoreContinueWithout() {
   let continueWithout = document.getElementById('continue-without');
   // Enable it
   continueWithout.disabled = false;
-  // Line through text
+  // Restore Text Style
   continueWithout.nextSibling.style.textDecoration = '';
+  continueWithout.parentNode.style.pointerEvents = 'auto';
   // Hide Error message
   hideMedicalCardOptionError();
 }
@@ -265,17 +267,36 @@ async function zipEventHandler(e) {
 }
 
 function dobEventHandler(e) {
-  let target = extractTargetElement(e);
-  if (target.value.length > 0) {
+  let month = document.getElementById('dob-month').value;
+  let date = document.getElementById('dob-date').value;
+  let year = document.getElementById('dob-year').value;
+  let isDateValid = isValidDate(month, date, year);
+  if (month && date && year && isDateValid) {
     hideFieldError(e);
-    let dobEligible = isAtLeast21YrsOld(target.value);
+    let givenDOB = month + '/' + date + '/' + year;
+    let dobEligible = isAtLeast21YrsOld(givenDOB);
     if (!dobEligible) {
       return showFieldError(e, "Must be at least 21 years old");
     } else {
       return hideFieldError(e);
     }
-  } else {
+  } else if(!isDateValid) {
+    return showFieldError(e, "Invalid Date.");
+  }
+  else {
     return showFieldError(e, "Date of birth cannot be blank.");
+  }
+}
+
+function isValidDate(month, date, year) {
+  var d = new Date(month + '/' + date + '/' + year);
+  if (d.toString() === 'Invalid Date') {
+    return false;
+  }
+  if (d.getFullYear() == year && (d.getMonth() + 1) == month && d.getDate() == date) {
+      return true;
+  } else {
+    return false;
   }
 }
 
@@ -440,7 +461,7 @@ function init() {
   document.getElementById('street').addEventListener('input', isFieldNotEmpty);
   document.getElementById('city').addEventListener('input', isFieldNotEmpty);
   document.getElementById('zip').addEventListener('blur', zipEventHandler);
-  document.getElementById('dob').addEventListener('input', dobEventHandler);
+  document.getElementById('dob-block').addEventListener('input', dobEventHandler);
   document.getElementById('pwd-confirmation').addEventListener('input', passwordsEventHandler);
   document.getElementById('Medical-Card-Number').addEventListener('blur', medicalCardEventHandler);
   document.getElementById('Medical-Card-Number').addEventListener('input', medicalCardEventHandler);
@@ -471,7 +492,7 @@ async function validateForm() {
     let streetAddressCheck = isFieldNotEmpty('street');
     let cityCheck = isFieldNotEmpty('city');
     let zipCheck = await zipEventHandler('zip');
-    let dobCheck = dobEventHandler('dob');
+    let dobCheck = dobEventHandler('dob-block');
     let genderCheck = genderEventHandler('gender');
 
     let emailCheck = emailEventHandler('email');
