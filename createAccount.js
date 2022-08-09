@@ -213,7 +213,11 @@ async function zipEventHandler(e) {
   if (target.value.length > 0) {
     hideFieldError(e);
     // Zip Eligibility API Call
-    let zipEligible = await isZipEligible(target.value);
+    let zipEligible = await isZipEligible(target.value)
+    .catch((err) => {
+      console.log(err);
+      return showFieldError(e, "Unable to validate zip at the moment. Please try again.");
+    })
     if (!zipEligible) {
       return showFieldError(e, "eo isn't yet available in your area.");
     } else {
@@ -423,14 +427,14 @@ function init() {
 init();
 
 // PRE FORM SUBMISSION VALIDATION
-function validateForm() {
+async function validateForm() {
   try {
     let fnameCheck = isFieldNotEmpty('firstname');
     let lnameCheck = isFieldNotEmpty('lastname');
     let phoneCheck = phoneValidator('phone');
     let streetAddressCheck = isFieldNotEmpty('street');
     let cityCheck = isFieldNotEmpty('city');
-    let zipCheck = zipEventHandler('zip');
+    let zipCheck = await zipEventHandler('zip');
     let dobCheck = dobEventHandler('dob');
     let genderCheck = genderEventHandler('gender');
 
