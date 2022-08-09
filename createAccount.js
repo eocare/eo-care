@@ -168,10 +168,46 @@ async function isZipEligible(zip) {
   });
 
   if (resp.ok && resp.status === 200) {
+      const {med_card_delivery_only} = await resp.json()
+      .catch((err) => {
+        console.log(err);
+        return false;
+      })
+      handleMedcardOnlyZips(med_card_delivery_only);
       return true;
   } else {
+      // Restore the medcard options
+      restoreContinueWithout();
       return false;
   }
+}
+
+function handleMedcardOnlyZips(isMedCardOnly) {
+  isMedCardOnly ? disableContinueWithout() : restoreContinueWithout();
+}
+
+function disableContinueWithout() {
+  let continueWithout = document.getElementById('continue-without');
+  // Clear I'd like to continue without a card selection
+  continueWithout.checked = false;
+  // Hide the Upload ID Div
+  document.getElementById('upload-id-div').style.display = 'none';
+  // Disable it
+  continueWithout.disabled = true;
+  // Line through text
+  continueWithout.nextSibling.style.textDecoration = 'line-through';
+  // Show Error message
+  showMedicalCardOptionError('A medical card is required to take delivery in your area.');
+}
+
+function restoreContinueWithout() {
+  let continueWithout = document.getElementById('continue-without');
+  // Enable it
+  continueWithout.disabled = false;
+  // Line through text
+  continueWithout.nextSibling.style.textDecoration = '';
+  // Hide Error message
+  hideMedicalCardOptionError();
 }
 
 function isAtLeast21YrsOld(dob) {
