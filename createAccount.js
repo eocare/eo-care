@@ -85,59 +85,66 @@ function getUTM() {
 // API Integration
 
 async function createProfile(formData) {
-  let body = {
-    "profile": {
-      "birth_date": formData.get('dob'),
-      "email": formData.get('email'),
-      "first_name": formData.get('firstname'),
-      "gender": formData.get('gender'),
-      "last_name": formData.get('lastname'),
-      "med_card": formData.get('Medical-Card-Number').length > 0 ? true : false,
-      "med_card_interest": isInterestedInMedcard(formData.get('medical-card')),
-      "med_card_number": formData.get('Medical-Card-Number'),
-      "password": formData.get('pwd'),
-      "phone": formData.get('phone'),
-      "address_line_1": formData.get('street'),
-      "address_line_2": formData.get('street-line2'),
-      "city": formData.get('city'),
-      "zip": formData.get('zip')
-    },
-    "utm": getUTM(),
-    "stripe": {
-      "plan": getPriceIdFromSelectedPlan()
-    }
-  };
-
-  if (document.getElementById('continue-without').checked) {
-    body["license"] = {
-      "front_64": getLicenseFront64(),
-      "back_64": getLicenseBack64()
+  try {
+    let body = {
+      "profile": {
+        "birth_date": formData.get('dob'),
+        "email": formData.get('email'),
+        "first_name": formData.get('firstname'),
+        "gender": formData.get('gender'),
+        "last_name": formData.get('lastname'),
+        "med_card": formData.get('Medical-Card-Number').length > 0 ? true : false,
+        "med_card_interest": isInterestedInMedcard(formData.get('medical-card')),
+        "med_card_number": formData.get('Medical-Card-Number'),
+        "password": formData.get('pwd'),
+        "phone": formData.get('phone'),
+        "address_line_1": formData.get('street'),
+        "address_line_2": formData.get('street-line2'),
+        "city": formData.get('city'),
+        "zip": formData.get('zip')
+      },
+      "utm": getUTM(),
+      "stripe": {
+        "plan": getPriceIdFromSelectedPlan()
+      }
     };
-  }
-  const resp = await fetch(`${API_ROOT_DOMAIN}/web_profile`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  });
 
-  // const data = await resp.json();
-  console.log(resp.ok);
-  console.log(resp.status);
-  if (resp.ok && resp.status === 200) {
-    // const {checkout_session_url} = data.stripe;
-    // Save Session URL to local Storage
-    // saveSessionURL(checkout_session_url);
-    _successfulState('create-account-submit-btn', 'Subscribing...');
-    let userEmail = document.getElementById('email').value;
-    document.location.href = document.location.origin + '/payment-status?status=success&plan=' + getPriceIdFromSelectedPlan() + '&email=' + btoa(userEmail);
-  } else {
-    _resetState('create-account-submit-btn', 'Subscribe');
-    if (data["errors"]["email"][0]["message"] === 'already taken') {
-      showFieldError('email', 'You already have an account.');
+    if (document.getElementById('continue-without').checked) {
+      body["license"] = {
+        "front_64": getLicenseFront64(),
+        "back_64": getLicenseBack64()
+      };
     }
+    const resp = await fetch(`${API_ROOT_DOMAIN}/web_profile`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    console.log(resp.ok);
+    console.log(resp.status);
+    if (resp.ok && resp.status === 200) {
+      // const {checkout_session_url} = data.stripe;
+      // Save Session URL to local Storage
+      // saveSessionURL(checkout_session_url);
+      _successfulState('create-account-submit-btn', 'Subscribing...');
+      let userEmail = document.getElementById('email').value;
+      document.location.href = document.location.origin + '/payment-status?status=success&plan=' + getPriceIdFromSelectedPlan() + '&email=' + btoa(userEmail);
+    } else {
+      const data = await resp.json()
+      .catch((err) => {
+        throw(err);
+      });
+      _resetState('create-account-submit-btn', 'Subscribe');
+      if (data["errors"]["email"][0]["message"] === 'already taken') {
+        showFieldError('email', 'You already have an account.');
+      }
+    }
+  } catch(err) {
+    _resetState('create-account-submit-btn', 'Subscribe');
   }
 };
 
