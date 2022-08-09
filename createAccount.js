@@ -267,6 +267,7 @@ async function zipEventHandler(e) {
 }
 
 function dobEventHandler(e) {
+  e = 'dob-block';
   let month = document.getElementById('dob-month').value;
   let date = document.getElementById('dob-date').value;
   let year = document.getElementById('dob-year').value;
@@ -280,7 +281,7 @@ function dobEventHandler(e) {
     } else {
       return hideFieldError(e);
     }
-  } else if(!isDateValid) {
+  } else if(!isDateValid && date && year) {
     return showFieldError(e, "Invalid Date.");
   }
   else {
@@ -461,7 +462,9 @@ function init() {
   document.getElementById('street').addEventListener('input', isFieldNotEmpty);
   document.getElementById('city').addEventListener('input', isFieldNotEmpty);
   document.getElementById('zip').addEventListener('blur', zipEventHandler);
-  document.getElementById('dob-block').addEventListener('input', dobEventHandler);
+  document.getElementById('dob-month').addEventListener('input', dobEventHandler);
+  document.getElementById('dob-date').addEventListener('input', dobEventHandler);
+  document.getElementById('dob-year').addEventListener('input', dobEventHandler);
   document.getElementById('pwd-confirmation').addEventListener('input', passwordsEventHandler);
   document.getElementById('Medical-Card-Number').addEventListener('blur', medicalCardEventHandler);
   document.getElementById('Medical-Card-Number').addEventListener('input', medicalCardEventHandler);
