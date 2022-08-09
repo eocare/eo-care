@@ -88,7 +88,7 @@ async function createProfile(formData) {
   try {
     let body = {
       "profile": {
-        "birth_date": formData.get('dob'),
+        "birth_date": getFormattedDob(),
         "email": formData.get('email'),
         "first_name": formData.get('firstname'),
         "gender": formData.get('gender'),
@@ -274,7 +274,7 @@ function dobEventHandler(e) {
   let isDateValid = isValidDate(month, date, year);
   if (month && date && year && isDateValid) {
     hideFieldError(e);
-    let givenDOB = month + '/' + date + '/' + year;
+    let givenDOB = getFormattedDob();
     let dobEligible = isAtLeast21YrsOld(givenDOB);
     if (!dobEligible) {
       return showFieldError(e, "Must be at least 21 years old");
@@ -287,6 +287,13 @@ function dobEventHandler(e) {
   else {
     return showFieldError(e, "Date of birth cannot be blank.");
   }
+}
+
+function getFormattedDob() {
+  let month = document.getElementById('dob-month').value;
+  let date = document.getElementById('dob-date').value;
+  let year = document.getElementById('dob-year').value;
+  return  month + '/' + date + '/' + year;
 }
 
 function isValidDate(month, date, year) {
