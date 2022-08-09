@@ -282,7 +282,7 @@ function dobEventHandler(e) {
       return hideFieldError(e);
     }
   } else if(!isDateValid && date && year) {
-    return showFieldError(e, "Invalid Date.");
+    return showFieldError(e, "Please enter a valid Date.");
   }
   else {
     return showFieldError(e, "Date of birth cannot be blank.");
