@@ -3,15 +3,8 @@ function isPlanSelected() {
 }
 
 function getPriceIdFromSelectedPlan() {
-  const monthlySubs = document.getElementById(monthly);
-  const yearlySubs = document.getElementById(yearly);
-  if (yearlySubs.checked) {
-    return (yearlySubs.dataset.priceid);
-  } else if (monthlySubs.checked) {
-    return (monthlySubs.dataset.priceid);
-  } else {
-    throw new Error('No Subscription Selected');
-  }
+  // Defaults to annual plan
+  return 'annualPlan';
 }
 
 function isMedicalCardOptionSelected() {
@@ -218,23 +211,6 @@ function isAtLeast21YrsOld(dob) {
   return (yrsOld >= 21) ? true : false;
 }
 
-function selectPlanById(htmlPlanId) {
-  if (htmlPlanId == '249year') {
-    setPlanCss('div-block-245', 'div-block-246');
-  } else {
-    setPlanCss('div-block-246', 'div-block-245');
-  }
-  document.getElementById(htmlPlanId).checked = true;
-}
-
-function setPlanCss(selectedClass, deselectedClass) {
-    document.getElementsByClassName(selectedClass)[0].style.borderColor = 'rgb(0,0,0)';
-    document.getElementsByClassName(selectedClass)[0].style.backgroundColor = 'rgb(211, 207, 203)';
-
-    document.getElementsByClassName(deselectedClass)[0].style.borderColor = 'rgba(0,0,0,0)';
-    document.getElementsByClassName(deselectedClass)[0].style.backgroundColor = 'rgb(248, 246, 243)';
-}
-
 // FORM FIELD VALIDATION FUNCTIONS BEGIN
 
 function isFieldNotEmpty(e) {
@@ -257,7 +233,7 @@ async function zipEventHandler(e) {
       return showFieldError(e, "Unable to validate zip at the moment. Please try again.");
     })
     if (!zipEligible) {
-      return showFieldError(e, "eo isn't yet available in your area.");
+      return showFieldError(e);
     } else {
       return hideFieldError(e);
     }
@@ -459,11 +435,6 @@ function onFormLoad() {
 }
 
 function init() {
-  // If plan id is passed, auto select it
-  // else, default to yearly plan
-  const qp = new URLSearchParams(window.location.search);
-  qp.get('plan') ? selectPlanById(qp.get('plan')) : selectPlanById('249year');
-
   // Form Event Listeners
   document.getElementById('firstname').addEventListener('input', isFieldNotEmpty);
   document.getElementById('lastname').addEventListener('input', isFieldNotEmpty);
