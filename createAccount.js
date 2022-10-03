@@ -4,7 +4,7 @@ function isPlanSelected() {
 
 function getPriceIdFromSelectedPlan() {
   // Defaults to annual plan
-  return 'annualPlan';
+  return 'plan_annual';
 }
 
 function isMedicalCardOptionSelected() {
