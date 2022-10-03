@@ -482,13 +482,12 @@ async function validateForm() {
     let emailCheck = emailEventHandler('email');
     let pwdCheck = passwordsEventHandler('pwd-confirmation');
 
-    let planCheck = isPlanSelected();
     let medCardCheck = medicalCardEventHandler('Medical-Card-Number');
 
     let licenseCheck = licenseValidator();
 
     if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck 
-      && emailCheck && pwdCheck && planCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck) {
+      && emailCheck && pwdCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck) {
       // Create Web Profile
       console.log("Form Validation Successful.");
       const formData = new FormData(document.querySelector('#create-account-form'));
