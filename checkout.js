@@ -59,9 +59,9 @@ function init() {
 }
 
 async function completeCheckout(payment) {
-    const API_ROOT_DOMAIN = 'https://332e-223-178-44-82.ngrok.io';
+    const API_ROOT_DOMAIN = 'https://93c2-2405-201-c00a-394c-fd8b-3c93-3a65-d6d.ngrok.io';
     const payload = buildPayload(payment)
-    const resp = await fetch(`${API_ROOT_DOMAIN}/createSubscription`, {
+    const resp = await fetch(`${API_ROOT_DOMAIN}/order`, {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -87,35 +87,35 @@ async function completeCheckout(payment) {
  * @param {*} payment.value
  */
 function buildPayload(payment) {
+    // return JSON.stringify({
+    //     "payment_method": {
+    //         "descriptor": payment['dataDescriptor'],
+    //         "value": payment['dataValue']
+    //     },
+    //     "order": {
+    //         "id": "plan_annual",
+    //         "start_date": "2023-10-01",
+    //         "interval_in_months": 12,
+    //         "price": 2.9
+    //     }, 
+    //     "user_profile": {
+    //         "email": "leon11s1@test.com",
+    //         "shipping_address": {
+    //             "address_line_1": "asdasd",
+    //             "address_line_2": "dasdad",
+    //             "city": "sdadas",
+    //             "zip": "02127"
+    //         },
+    //         "billing_address": {
+    //             "address_line_1": "asdasd",
+    //             "address_line_2": "dasdad",
+    //             "city": "sdadas",
+    //             "zip": "02127"
+    //         }
+    // }
+    // })
     return JSON.stringify({
-        "payment_method": {
-            "descriptor": payment['dataDescriptor'],
-            "value": payment['dataValue']
-        },
-        "order": {
-            "id": "plan_annual",
-            "start_date": "2023-10-01",
-            "interval_in_months": 12,
-            "price": 2.9
-        }, 
-        "user_profile": {
-            "email": "leon11s1@test.com",
-            "shipping_address": {
-                "address_line_1": "asdasd",
-                "address_line_2": "dasdad",
-                "city": "sdadas",
-                "zip": "02127"
-            },
-            "billing_address": {
-                "address_line_1": "asdasd",
-                "address_line_2": "dasdad",
-                "city": "sdadas",
-                "zip": "02127"
-            }
-    }
-    })
-    return JSON.stringify({
-        "user_email": "leon@kenndy212.com",
+        "user_email": "krishn.goteti@gmail.com",
         "subscription": {
             "id": "plan_annual",
             "price": 249,
@@ -126,11 +126,10 @@ function buildPayload(payment) {
             "value": payment['dataValue']
         },
         "billing_address": {
-            "address_line_1": '',
-            "address_line_2": '',
-            "city": '',
-            "zip": '',
-            "country": ''
+            "address_line_1": 'hjkhjsdasd',
+            "address_line_2": 'sdadasd',
+            "city": 'asdsdas',
+            "zip": '02127'
         }
     })
 }
