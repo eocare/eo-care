@@ -4,7 +4,7 @@ let plan
 function getQueryParams() {
     const qs = new URLSearchParams(window.location.search)
     plan = qs.get('plan')
-    email = qs.get('email')
+    email = qs.get('email') ? atob(qs.get('email')) : qs.get('email')
 }
 
 function populateBillingAddress() {
@@ -115,7 +115,7 @@ function buildPayload(payment) {
     // }
     // })
     return JSON.stringify({
-        "email": "krishn.goteti@gmail.com",
+        "email": email ? email : "krishn.goteti@gmail.com",
         "order": {
             "id": "plan_annual",
             "price": 249.00,
@@ -290,4 +290,5 @@ function paymentFormUpdate(opaqueData) {
 // Main
 // populateBillingAddress()
 console.log('Running init')
+getQueryParams()
 init()
