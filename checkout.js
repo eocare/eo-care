@@ -290,7 +290,5 @@ function paymentFormUpdate(opaqueData) {
 
 // Main
 populateBillingAddress()
-document.addEventListener('DOMContentLoaded', (event) => {
-    console.log('Running init')
-    init()
-})
+console.log('Running init')
+init()
