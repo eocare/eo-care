@@ -1,9 +1,6 @@
 let email
 let plan
 
-populateBillingAddress()
-init()
-
 function getQueryParams() {
     const qs = new URLSearchParams(window.location.search)
     plan = qs.get('plan')
@@ -290,3 +287,7 @@ function paymentFormUpdate(opaqueData) {
 
     completeCheckout(opaqueData)
 }
+
+// Main
+populateBillingAddress()
+init()
