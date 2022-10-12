@@ -1,10 +1,8 @@
 let email
 let plan
 
-window.onload = (event) =>{
-    populateBillingAddress()
-    init()
-};
+populateBillingAddress()
+init()
 
 function getQueryParams() {
     const qs = new URLSearchParams(window.location.search)
