@@ -115,11 +115,11 @@ function buildPayload(payment) {
     // }
     // })
     return JSON.stringify({
-        "user_email": "krishn.goteti@gmail.com",
-        "subscription": {
+        "email": "krishn.goteti@gmail.com",
+        "order": {
             "id": "plan_annual",
-            "price": 249,
-            "renewal_frequency_in_months": 12
+            "price": 249.00,
+            "interval_in_months": 12
         },
         "payment_method": {
             "descriptor": payment['dataDescriptor'],
