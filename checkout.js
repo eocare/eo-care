@@ -9,10 +9,10 @@ function getQueryParams() {
 
 function populateBillingAddress() {
     const data = JSON.parse(localStorage.getItem('shipping_address'));
-    document.getElementById("address_line_1").value = data.address_line_1;
-    document.getElementById("address_line_2").value = data.address_line_2;
-    document.getElementById("city").value = data.city;
-    document.getElementById("zip").value = data.zip;
+    document.querySelector('#billingAddress1').value = data.address_line_1;
+    document.querySelector('#billingAddress2').value = data.address_line_2;
+    document.querySelector('#billingCity').value = data.city;
+    document.querySelector('#billingZip').value = data.zip;
 }
 
 function submitCheckoutForm() {
@@ -212,9 +212,6 @@ function cardExpFormatter(e) {
         e.target.value = formatted
     }   
 }
-
-
-// init()
 
 
 /**
