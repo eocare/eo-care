@@ -8,11 +8,11 @@ function getQueryParams() {
 }
 
 function populateBillingAddress() {
-    const data = JSON.parse(localStorage.getItem('subscribeInfo'));
-    document.getElementById("billingAddress1").value = data.street;
-    document.getElementById("billingAddress2").value = data.streetline2;
-    document.getElementById("billingCity").value = data.city;
-    document.getElementById("billingZip").value = data.zip;
+    const data = JSON.parse(localStorage.getItem('shipping_address'));
+    document.getElementById("address_line_1").value = data.street;
+    document.getElementById("address_line_2").value = data.streetline2;
+    document.getElementById("city").value = data.city;
+    document.getElementById("zip").value = data.zip;
 }
 
 function submitCheckoutForm() {

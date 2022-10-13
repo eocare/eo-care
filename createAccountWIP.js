@@ -108,6 +108,7 @@ function isPlanSelected() {
           "back_64": getLicenseBack64()
         };
       }
+      // TODO: Change this back
       const resp = await fetch(`https://api.staging.eo.care/web_profile`, {
         method: 'POST',
         mode: 'cors',
@@ -120,9 +121,13 @@ function isPlanSelected() {
       console.log(resp.ok);
       console.log(resp.status);
       if (resp.ok && resp.status === 200) {
-        // const {checkout_session_url} = data.stripe;
-        // Save Session URL to local Storage
-        // saveSessionURL(checkout_session_url);
+        // Save Address to local Storage
+        saveAddressLocally({
+            "address_line_1": formData.get('street'),
+            "address_line_2": formData.get('street-line2'),
+            "city": formData.get('city'),
+            "zip": formData.get('zip')
+        });
         _successfulState('create-account-submit-btn', 'Subscribing...');
         let userEmail = document.getElementById('email').value;
         document.location.href = document.location.origin + '/checkout?plan=' + getPriceIdFromSelectedPlan() + '&email=' + btoa(userEmail);
@@ -209,6 +214,10 @@ function isPlanSelected() {
     const dobParsed = new Date(dob);
     const yrsOld = (Date.now() - dobParsed) / (60 * 60 * 24 * 365 * 1000);
     return (yrsOld >= 21) ? true : false;
+  }
+
+  function saveAddressLocally(address) {
+    localStorage.setItem("shipping_address", JSON.stringify(address));
   }
   
   // FORM FIELD VALIDATION FUNCTIONS BEGIN
