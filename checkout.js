@@ -38,6 +38,9 @@ function submitCheckoutForm() {
 }
 
 function init() {
+    document.querySelector('#cardNumber').maxLength = 19
+    document.querySelector('#cardExp').maxLength = 5
+    document.querySelector('#cardCode').maxLength = 4
     // Form Event Listeners
     document.querySelector('#cardName').addEventListener('blur', ()=>{console.log('card name validation')});
     document.querySelector('#cardNumber').addEventListener('keyup', creditCardClassifier);
@@ -87,33 +90,6 @@ async function completeCheckout(payment) {
  * @param {*} payment.value
  */
 function buildPayload(payment) {
-    // return JSON.stringify({
-    //     "payment_method": {
-    //         "descriptor": payment['dataDescriptor'],
-    //         "value": payment['dataValue']
-    //     },
-    //     "order": {
-    //         "id": "plan_annual",
-    //         "start_date": "2023-10-01",
-    //         "interval_in_months": 12,
-    //         "price": 2.9
-    //     }, 
-    //     "user_profile": {
-    //         "email": "leon11s1@test.com",
-    //         "shipping_address": {
-    //             "address_line_1": "asdasd",
-    //             "address_line_2": "dasdad",
-    //             "city": "sdadas",
-    //             "zip": "02127"
-    //         },
-    //         "billing_address": {
-    //             "address_line_1": "asdasd",
-    //             "address_line_2": "dasdad",
-    //             "city": "sdadas",
-    //             "zip": "02127"
-    //         }
-    // }
-    // })
     return JSON.stringify({
         "email": email ? email : "krishn.goteti@gmail.com",
         "order": {
@@ -261,14 +237,6 @@ function cardExpFormatter(e) {
 
 function responseHandler(response) {
     if (response.messages.resultCode === "Error") {
-        // var i = 0;
-        // while (i < response.messages.message.length) {
-        //     console.log(
-        //         response.messages.message[i].code + ": " +
-        //         response.messages.message[i].text
-        //     );
-        //     i = i + 1;
-        // }
         console.log(`Error`)
         console.log(response.messages)
     } else {
