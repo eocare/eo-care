@@ -62,6 +62,7 @@ function init() {
 }
 
 async function completeCheckout(payment) {
+    // TODO: Update this
     const API_ROOT_DOMAIN = 'https://93c2-2405-201-c00a-394c-fd8b-3c93-3a65-d6d.ngrok.io';
     const payload = buildPayload(payment)
     const resp = await fetch(`${API_ROOT_DOMAIN}/order`, {
@@ -80,7 +81,18 @@ async function completeCheckout(payment) {
         document.location.href = document.location.origin + '/payment-status?status=success&plan=' + plan + '&email=' + btoa(email);
         return true;
     } else {
+        handlePaymentErrorResponse(resp.json())
         return false;
+    }
+}
+
+function handlePaymentErrorResponse(res) {
+    if (res.status == "error") {
+        if (res.message == "The transaction was unsuccessful." 
+        || res.message == "Invalid OTS Token.") {
+            console.log("Something went wrong, please try again.")
+            alert("Something went wrong, please try again.")
+        }
     }
 }
 
