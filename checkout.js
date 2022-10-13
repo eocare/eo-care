@@ -268,7 +268,7 @@ function paymentFormUpdate(opaqueData) {
 }
 
 // Main
-// populateBillingAddress()
 console.log('Running init')
 getQueryParams()
 init()
+populateBillingAddress()
