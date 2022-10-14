@@ -279,7 +279,7 @@ function responseHandler(response) {
     if (response.messages.resultCode === "Error") {
         console.log(`Error`)
         console.log(response.messages)
-        _showFieldError('payButton', response?.message[0]?.text)
+        _showFieldError('payButton', response.messages?.message[0]?.text)
     } else {
         console.log(response)
         paymentFormUpdate(response.opaqueData);
