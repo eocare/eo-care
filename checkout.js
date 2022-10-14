@@ -63,7 +63,7 @@ function init() {
 
 async function completeCheckout(payment) {
     // TODO: Update this
-    const API_ROOT_DOMAIN = 'https://93c2-2405-201-c00a-394c-fd8b-3c93-3a65-d6d.ngrok.io';
+    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
     const payload = buildPayload(payment)
     const resp = await fetch(`${API_ROOT_DOMAIN}/order`, {
         method: 'POST',
