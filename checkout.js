@@ -74,14 +74,15 @@ async function completeCheckout(payment) {
         body: payload
     });
 
-    console.log(resp.json())
+    let responseData = resp.json()
+    console.log(responseData)
 
     if (resp.ok && resp.status === 200) {
         _successfulState('payButton', 'Payment Successful')
         document.location.href = document.location.origin + '/payment-status?status=success&plan=' + plan + '&email=' + btoa(email);
         return true;
     } else {
-        handlePaymentErrorResponse(resp.json())
+        handlePaymentErrorResponse(responseData)
         return false;
     }
 }
