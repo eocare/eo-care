@@ -17,23 +17,33 @@ function populateBillingAddress() {
 
 function submitCheckoutForm() {
     // Validate Inputs
-    const nameOnCard = document.querySelector('#cardName')
-    const cardNumber = document.querySelector('#cardNumber')
-    const cardExp = document.querySelector('#cardExp')
-    const nameCheck = nameOnCard.value.length > 0
-    const cardNumberCheck = cardNumber.value.replace(' ', '').length == 16
-    const cardExpCheck = cardExp.value.length === 5
-    console.log(document.querySelector('#cardNumber').value)
-    console.log(document.querySelector('#cardExp').value)
-    console.log(document.querySelector('#cardCode').value)
+    // const nameOnCard = document.querySelector('#cardName')
+    // const cardNumber = document.querySelector('#cardNumber')
+    // const cardExp = document.querySelector('#cardExp')
+    // const cardCode = document.querySelector('#cardCode')
 
-    console.log(document.querySelector('#billingAddress1').value)
-    console.log(document.querySelector('#billingAddress2').value)
-    console.log(document.querySelector('#billingCity').value)
-    console.log( document.querySelector('#billingZip').value)
-    const countryIndex = document.querySelector('#billingCountry').selectedIndex
-    console.log(document.querySelector('#billingCountry').options[countryIndex].text)
+    // const billingAddress1 = document.querySelector('#billingAddress1')
+    // const billingAddress2 = document.querySelector('#billingAddress2')
+    // const billingCity = document.querySelector('#billingCity')
+    // const billingZip = document.querySelector('#billingZip')
 
+    // const cardNameCheck = nameOnCard.value.length > 0
+    // const cardNumberCheck = cardNumber.value.replace(' ', '').length <= 16
+    // const cardExpCheck = cardExp.value.length === 5
+    // const cardCodeCheck = cardCode.value.length > 0 && cardCode.value.length <=4
+    // const billingAddress1Check = billingAddress1.value.length > 0
+    // const billingCityCheck = billingCity.value.length > 0
+    // const billingZipCheck = billingZip.value.length === 5
+
+    // if (cardNameCheck && 
+    //     cardNumberCheck &&
+    //     cardExpCheck &&
+    //     cardCodeCheck &&
+    //     billingAddress1Check &&
+    //     billingCityCheck &&
+    //     billingZipCheck) {
+    //         sendPaymentDataToAnet()
+    //     }
     sendPaymentDataToAnet()
 }
 
@@ -42,14 +52,16 @@ function init() {
     document.querySelector('#cardExp').maxLength = 5
     document.querySelector('#cardCode').maxLength = 4
     // Form Event Listeners
-    document.querySelector('#cardName').addEventListener('blur', ()=>{console.log('card name validation')});
+    document.querySelector('#cardName').addEventListener('blur',(e) => {_isFieldNotEmpty(e, "Name on card cannot be blank.")});
     document.querySelector('#cardNumber').addEventListener('keyup', creditCardClassifier);
+    // document.querySelector('#cardNumber').addEventListener('blur', cardNumberValidator);
     document.querySelector('#cardExp').addEventListener('keyup', cardExpFormatter);
-    document.querySelector('#cardCode').addEventListener('blur', _isFieldNotEmpty);
+    document.querySelector('#cardExp').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Card expiry cannot be blank.")});
+    // document.querySelector('#cardCode').addEventListener('blur', );
 
-    document.querySelector('#billingAddress1').addEventListener('blur', _isFieldNotEmpty);
-    document.querySelector('#billingCity').addEventListener('blur', _isFieldNotEmpty);
-    document.querySelector('#billingZip').addEventListener('blur', _isFieldNotEmpty);
+    document.querySelector('#billingAddress1').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Billing address cannot be blank.")});
+    document.querySelector('#billingCity').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Billing city cannot be blank.")});
+    // document.querySelector('#billingZip').addEventListener('blur', zipValidator);
 
     document.getElementById('payButton').addEventListener('click', (e)=>{
         e.preventDefault();
@@ -59,6 +71,26 @@ function init() {
         submitCheckoutForm();
         return false;
     })
+}
+
+function zipValidator(e) {
+    if (e.target.value.length === 0) {
+        return _isFieldNotEmpty(e, "Billing zip cannot be blank.")
+    }
+    else if (e.target.value.length < 5) {
+        return _isFieldNotEmpty(e, "Billing zip is not valid.")
+    } else {
+        return false
+    }
+}
+
+function cardNumberValidator(e) {
+    if (e.target.value.length === 0) {
+        document.querySelector('#cardNumberErrDiv').value = 'Card number cannot be blank.'
+        document.querySelector('#cardNumberErrDiv').style.display = ''
+    } else {
+        document.querySelector('#cardNumberErrDiv').style.display = 'none'
+    }
 }
 
 async function completeCheckout(payment) {
@@ -92,7 +124,7 @@ function handlePaymentErrorResponse(res) {
         if (res.message == "The transaction was unsuccessful." 
         || res.message == "Invalid OTS Token.") {
             console.log("Something went wrong, please try again.")
-            alert("Something went wrong, please try again.")
+            _showFieldError('payButton', 'Something went wrong, please try again.')
         }
     }
 }
@@ -122,8 +154,6 @@ function buildPayload(payment) {
         }
     })
 }
-
-
 
 const ccLogoImageIds = ['visa', 'master', 'amex', 'discover']
 const mask = [
@@ -249,6 +279,7 @@ function responseHandler(response) {
     if (response.messages.resultCode === "Error") {
         console.log(`Error`)
         console.log(response.messages)
+        _showFieldError('payButton', response.messages)
     } else {
         console.log(response)
         paymentFormUpdate(response.opaqueData);
