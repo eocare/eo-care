@@ -280,6 +280,7 @@ function responseHandler(response) {
         console.log(`Error`)
         console.log(response.messages)
         _showFieldError('payButton', response.messages?.message[0]?.text)
+        _resetState('payButton', 'Pay')
     } else {
         console.log(response)
         paymentFormUpdate(response.opaqueData);
