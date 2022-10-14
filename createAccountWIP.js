@@ -92,7 +92,7 @@ function isPlanSelected() {
           "password": formData.get('pwd'),
           "phone": formData.get('phone'),
           "address_line_1": formData.get('street'),
-          "address_line_2": formData.get('street-line2'),
+          "address_line_2": formData.get('street-line2') || '',
           "city": formData.get('city'),
           "zip": formData.get('zip')
         },

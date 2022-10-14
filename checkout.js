@@ -9,10 +9,10 @@ function getQueryParams() {
 
 function populateBillingAddress() {
     const data = JSON.parse(localStorage.getItem('shipping_address'));
-    document.querySelector('#billingAddress1').value = data.address_line_1;
-    document.querySelector('#billingAddress2').value = data.address_line_2;
-    document.querySelector('#billingCity').value = data.city;
-    document.querySelector('#billingZip').value = data.zip;
+    document.querySelector('#billingAddress1').value = data.address_line_1 || '';
+    document.querySelector('#billingAddress2').value = data.address_line_2 || '';
+    document.querySelector('#billingCity').value = data.city || '';
+    document.querySelector('#billingZip').value = data.zip || '';
 }
 
 function submitCheckoutForm() {
@@ -104,7 +104,7 @@ function handlePaymentErrorResponse(res) {
  */
 function buildPayload(payment) {
     return JSON.stringify({
-        "email": email ? email : "krishn.goteti@gmail.com",
+        "email": email,
         "order": {
             "id": "plan_annual",
             "price": 249.00,
@@ -115,10 +115,10 @@ function buildPayload(payment) {
             "value": payment['dataValue']
         },
         "billing_address": {
-            "address_line_1": 'hjkhjsdasd',
-            "address_line_2": 'sdadasd',
-            "city": 'asdsdas',
-            "zip": '02127'
+            "address_line_1": document.querySelector('#billingAddress1').value,
+            "address_line_2": document.querySelector('#billingAddress2').value,
+            "city": document.querySelector('#billingCity').value,
+            "zip": document.querySelector('#billingZip').value
         }
     })
 }
