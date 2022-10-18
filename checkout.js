@@ -49,6 +49,7 @@ function init() {
     document.querySelector('#cardNumber').maxLength = 19
     document.querySelector('#cardExp').maxLength = 5
     document.querySelector('#cardCode').maxLength = 4
+    
     // Form Event Listeners
     document.querySelector('#cardName').addEventListener('blur',(e) => {_isFieldNotEmpty(e, "Name on card cannot be blank.")});
     document.querySelector('#cardNumber').addEventListener('keyup', creditCardClassifier);
