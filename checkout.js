@@ -83,8 +83,8 @@ function zipValidator(e) {
 
 function showHideErrorDiv(elementId, show, text) {
     if (show) {
-        document.querySelector(`#${elementId}`).value = text;
-        document.querySelector(`#${elementId}`).style.display = ''
+        document.querySelector(`#${elementId}`).innerText = text;
+        document.querySelector(`#${elementId}`).style.display = 'block'
     } else {
         document.querySelector(`#${elementId}`).style.display = 'none'
     }
