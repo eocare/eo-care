@@ -128,7 +128,7 @@ function isPlanSelected() {
             "city": formData.get('city'),
             "zip": formData.get('zip')
         });
-        _successfulState('create-account-submit-btn', 'Subscribing...');
+        _successfulState('create-account-submit-btn', 'Just A Moment...');
         let userEmail = document.getElementById('email').value;
         document.location.href = document.location.origin + '/checkout?plan=' + getPriceIdFromSelectedPlan() + '&email=' + btoa(userEmail);
       } else {

@@ -17,33 +17,31 @@ function populateBillingAddress() {
 
 function submitCheckoutForm() {
     // Validate Inputs
-    // const nameOnCard = document.querySelector('#cardName')
-    // const cardNumber = document.querySelector('#cardNumber')
-    // const cardExp = document.querySelector('#cardExp')
-    // const cardCode = document.querySelector('#cardCode')
+    const cardNumber = document.querySelector('#cardNumber')
+    const cardExp = document.querySelector('#cardExp')
+    const cardCode = document.querySelector('#cardCode')
 
-    // const billingAddress1 = document.querySelector('#billingAddress1')
-    // const billingAddress2 = document.querySelector('#billingAddress2')
-    // const billingCity = document.querySelector('#billingCity')
-    // const billingZip = document.querySelector('#billingZip')
+    const billingAddress1 = document.querySelector('#billingAddress1')
+    const billingCity = document.querySelector('#billingCity')
+    const billingZip = document.querySelector('#billingZip')
 
-    // const cardNameCheck = nameOnCard.value.length > 0
-    // const cardNumberCheck = cardNumber.value.replace(' ', '').length <= 16
-    // const cardExpCheck = cardExp.value.length === 5
-    // const cardCodeCheck = cardCode.value.length > 0 && cardCode.value.length <=4
-    // const billingAddress1Check = billingAddress1.value.length > 0
-    // const billingCityCheck = billingCity.value.length > 0
-    // const billingZipCheck = billingZip.value.length === 5
+    const cardNameCheck = _isFieldNotEmpty('cardName', 'Name on card cannot be blank.')
+    const cardNumberCheck = cardNumber.value.replace(' ', '').length <= 16
+    const cardExpCheck = cardExp.value.length === 5
+    const cardCodeCheck = cardCode.value.length > 0 && cardCode.value.length <=4
+    const billingAddress1Check = billingAddress1.value.length > 0
+    const billingCityCheck = billingCity.value.length > 0
+    const billingZipCheck = billingZip.value.length === 5
 
-    // if (cardNameCheck && 
-    //     cardNumberCheck &&
-    //     cardExpCheck &&
-    //     cardCodeCheck &&
-    //     billingAddress1Check &&
-    //     billingCityCheck &&
-    //     billingZipCheck) {
-    //         sendPaymentDataToAnet()
-    //     }
+    if (cardNameCheck && 
+        cardNumberCheck &&
+        cardExpCheck &&
+        cardCodeCheck &&
+        billingAddress1Check &&
+        billingCityCheck &&
+        billingZipCheck) {
+            sendPaymentDataToAnet()
+        }
     sendPaymentDataToAnet()
 }
 
@@ -54,14 +52,13 @@ function init() {
     // Form Event Listeners
     document.querySelector('#cardName').addEventListener('blur',(e) => {_isFieldNotEmpty(e, "Name on card cannot be blank.")});
     document.querySelector('#cardNumber').addEventListener('keyup', creditCardClassifier);
-    // document.querySelector('#cardNumber').addEventListener('blur', cardNumberValidator);
+    document.querySelector('#cardNumber').addEventListener('blur', cardNumberValidator);
     document.querySelector('#cardExp').addEventListener('keyup', cardExpFormatter);
     document.querySelector('#cardExp').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Card expiry cannot be blank.")});
-    // document.querySelector('#cardCode').addEventListener('blur', );
+    document.querySelector('#cardCode').addEventListener('blur', cardCodeValidator);
 
     document.querySelector('#billingAddress1').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Billing address cannot be blank.")});
     document.querySelector('#billingCity').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Billing city cannot be blank.")});
-    // document.querySelector('#billingZip').addEventListener('blur', zipValidator);
 
     document.getElementById('payButton').addEventListener('click', (e)=>{
         e.preventDefault();
@@ -84,12 +81,31 @@ function zipValidator(e) {
     }
 }
 
+function showHideErrorDiv(elementId, show, text) {
+    if (show) {
+        document.querySelector(`#${elementId}`).value = text;
+        document.querySelector(`#${elementId}`).style.display = ''
+    } else {
+        document.querySelector(`#${elementId}`).style.display = 'none'
+    }
+}
+
 function cardNumberValidator(e) {
     if (e.target.value.length === 0) {
-        document.querySelector('#cardNumberErrDiv').value = 'Card number cannot be blank.'
-        document.querySelector('#cardNumberErrDiv').style.display = ''
+        showHideErrorDiv('cardNumberErrDiv', true, 'Card number cannot be blank.')
+    } else if (e.target.value.replace(' ', '').length <= 16) {
+        showHideErrorDiv('cardNumberErrDiv', true, 'Enter a valid card number.')
+    }
+    else {
+        showHideErrorDiv('cardNumberErrDiv', false, '')
+    }
+}
+
+function cardCodeValidator(e) {
+    if (e.target.value.length === 0) {
+        showHideErrorDiv('cardCodeErrDiv', true, 'Card code cannot be blank.')
     } else {
-        document.querySelector('#cardNumberErrDiv').style.display = 'none'
+        showHideErrorDiv('cardCodeErrDiv', false, '')
     }
 }
 
