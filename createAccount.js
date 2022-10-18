@@ -108,8 +108,7 @@ function isPlanSelected() {
           "back_64": getLicenseBack64()
         };
       }
-      // TODO: Change this back
-      const resp = await fetch(`https://api.staging.eo.care/web_profile`, {
+      const resp = await fetch(`https://api.eo.care/web_profile`, {
         method: 'POST',
         mode: 'cors',
         headers: {

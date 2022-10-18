@@ -111,8 +111,7 @@ function cardCodeValidator(e) {
 }
 
 async function completeCheckout(payment) {
-    // TODO: Update this
-    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
+    const API_ROOT_DOMAIN = 'https://api.eo.care';
     const payload = buildPayload(payment)
     const resp = await fetch(`${API_ROOT_DOMAIN}/order`, {
         method: 'POST',
