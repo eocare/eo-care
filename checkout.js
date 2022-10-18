@@ -259,8 +259,8 @@ function cardExpFormatter(e) {
 
  function sendPaymentDataToAnet() {
     var authData = {};
-        authData.clientKey = "9Kme758Rh9Snu8yfRa4eBPPuUnRS3yF55T29fGGmbnpH5QMN2BPA5EQyRtzu27dy";
-        authData.apiLoginID = "35k7PdmP5";
+        authData.clientKey = "57KuE5yx7U67ztegzWQwdMbSEJ9WWmEh2Rxb7h63PN383AtAWw5G9q24Es4y6yD5";
+        authData.apiLoginID = "4jdE38KyxULH";
 
     var cardData = {};
         cardData.cardNumber = document.getElementById("cardNumber").value.replaceAll(' ', '');
