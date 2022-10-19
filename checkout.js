@@ -38,7 +38,7 @@ function submitCheckoutForm() {
         billingZipCheck) {
             sendPaymentDataToAnet()
         }
-    sendPaymentDataToAnet()
+    // sendPaymentDataToAnet()
 }
 
 function init() {
