@@ -138,6 +138,8 @@ function handlePaymentErrorResponse(res) {
         || res.message == "Invalid OTS Token.") {
             console.log("Something went wrong, please try again.")
             _showFieldError('payButton', 'Something went wrong, please try again.')
+        } else {
+            _showFieldError('payButton', 'Something went wrong, please try again.')
         }
     }
 }
