@@ -36,6 +36,7 @@ function submitCheckoutForm() {
         billingAddress1Check &&
         billingCityCheck &&
         billingZipCheck) {
+            _submittingState('payButton')
             sendPaymentDataToAnet()
         }
     // sendPaymentDataToAnet()
@@ -60,7 +61,6 @@ function init() {
 
     document.getElementById('payButton').addEventListener('click', (e)=>{
         e.preventDefault();
-        _submittingState(e);
         console.log("Form Submit Intercepted.")
         // Validate form and submit
         submitCheckoutForm();
