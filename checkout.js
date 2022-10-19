@@ -29,17 +29,17 @@ function submitCheckoutForm() {
     const billingCityCheck = _isFieldNotEmpty('billingCity', "Billing city cannot be blank.")
     const billingZipCheck = _isFieldNotEmpty('billingZip', "Billing zip cannot be blank.")
 
-    if (cardNameCheck && 
-        cardNumberCheck &&
-        cardExpCheck &&
-        cardCodeCheck &&
-        billingAddress1Check &&
-        billingCityCheck &&
-        billingZipCheck) {
-            _submittingState('payButton')
-            sendPaymentDataToAnet()
-        }
-    // sendPaymentDataToAnet()
+    // if (cardNameCheck && 
+    //     cardNumberCheck &&
+    //     cardExpCheck &&
+    //     cardCodeCheck &&
+    //     billingAddress1Check &&
+    //     billingCityCheck &&
+    //     billingZipCheck) {
+    //         sendPaymentDataToAnet()
+    //     }
+    _submittingState('payButton')
+    sendPaymentDataToAnet()
 }
 
 function init() {
