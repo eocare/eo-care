@@ -135,13 +135,13 @@ function isPlanSelected() {
         .catch((err) => {
           throw(err);
         });
-        _resetState('create-account-submit-btn', 'Subscribe');
+        _resetState('create-account-submit-btn', 'Finish & Pay');
         if (data["errors"]["email"][0]["message"] === 'already taken') {
           showFieldError('email', 'You already have an account.');
         }
       }
     } catch(err) {
-      _resetState('create-account-submit-btn', 'Subscribe');
+      _resetState('create-account-submit-btn', 'Finish & Pay');
     }
   };
   
@@ -501,12 +501,12 @@ function isPlanSelected() {
         const formData = new FormData(document.querySelector('#create-account-form'));
         createProfile(formData);
       } else {
-        _resetState('create-account-submit-btn', 'Subscribe');
+        _resetState('create-account-submit-btn', 'Finish & Pay');
         console.log("Form Validation Failed. Please fix the highlighted errors and resubmit.");
         // document.getElementById('create-account-submit-btn').innerText = 'Continue to payment'
       }
     } catch(err) {
-      _resetState('create-account-submit-btn', 'Subscribe');
+      _resetState('create-account-submit-btn', 'Finish & Pay');
       console.log(err);
     }
   }
