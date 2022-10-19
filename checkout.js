@@ -21,17 +21,13 @@ function submitCheckoutForm() {
     const cardExp = document.querySelector('#cardExp')
     const cardCode = document.querySelector('#cardCode')
 
-    const billingAddress1 = document.querySelector('#billingAddress1')
-    const billingCity = document.querySelector('#billingCity')
-    const billingZip = document.querySelector('#billingZip')
-
     const cardNameCheck = _isFieldNotEmpty('cardName', 'Name on card cannot be blank.')
     const cardNumberCheck = cardNumber.value.replace(' ', '').length <= 16
     const cardExpCheck = cardExp.value.length === 5
     const cardCodeCheck = cardCode.value.length > 0 && cardCode.value.length <=4
-    const billingAddress1Check = billingAddress1.value.length > 0
-    const billingCityCheck = billingCity.value.length > 0
-    const billingZipCheck = billingZip.value.length === 5
+    const billingAddress1Check = _isFieldNotEmpty('billingAddress1', "Billing address cannot be blank.")
+    const billingCityCheck = _isFieldNotEmpty('billingCity', "Billing city cannot be blank.")
+    const billingZipCheck = _isFieldNotEmpty('billingZip', "Billing zip cannot be blank.")
 
     if (cardNameCheck && 
         cardNumberCheck &&
@@ -60,6 +56,7 @@ function init() {
 
     document.querySelector('#billingAddress1').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Billing address cannot be blank.")});
     document.querySelector('#billingCity').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Billing city cannot be blank.")});
+    document.querySelector('#billingZip').addEventListener('blur', (e) => {_isFieldNotEmpty(e, "Billing zip cannot be blank.")});
 
     document.getElementById('payButton').addEventListener('click', (e)=>{
         e.preventDefault();
