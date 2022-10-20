@@ -135,12 +135,16 @@ async function completeCheckout(payment) {
 function handlePaymentErrorResponse(res) {
     if (res.status == "error") {
         if (res.message == "The transaction was unsuccessful." 
-        || res.message == "Invalid OTS Token.") {
-            console.log("Something went wrong, please try again.")
-            _showFieldError('payButton', 'Something went wrong, please try again.')
+        || res.message == "Invalid OTS Token." || "This transaction has been declined.") {
+            console.log(res.message)
+            _showFieldError('payButton', res.message)
         } else {
             _showFieldError('payButton', 'Something went wrong, please try again.')
         }
+        // Redirect to payment failed page
+        document.setTimeout(() => {
+            document.location.href = document.location.origin + '/payment-status?status=failed&plan=' + plan + '&email=' + btoa(email) + '&msg=' + btoa(res.message);
+        }, 1000)
     }
 }
 

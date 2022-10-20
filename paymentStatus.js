@@ -6,9 +6,9 @@ function paymentFailed() {
     document.getElementById('payment-failed-div').style.display = 'block';
     document.querySelector('.payment-successful').style.display = 'none';
     document.querySelector('.payment-successful-mobile').style.display = 'none';
-    const sessionURL = getSessionURL();
-    if (sessionURL) {
-        document.getElementById('retry-payment-link').href = sessionURL;
+    const retryURL = getRetryURL();
+    if (retryURL) {
+        document.getElementById('retry-payment-link').href = retryURL;
         document.getElementById('payment-failed-active-sub-heading').style.display = 'block';
         document.getElementById('payment-failed-expired-sub-heading').style.display = 'none';
     } else {
@@ -54,17 +54,10 @@ if (qs.get('status')) {
     pageExpired();
 }
 
-function getSessionURL() {
-    const sessionPaymentURL = localStorage.getItem('EO_PAYMENT_SESSION_URL');
-    const sessionTimestamp = new Date(localStorage.getItem('EO_PAYMENT_SESSION_TIMESTAMP'));
-    if (sessionPaymentURL && sessionTimestamp) {
-        let howOldInHours = Math.abs(new Date() - sessionTimestamp) / (60*60*1000);
-        if (howOldInHours < 24) { // Stripe payment link expires in 24 hours
-            return (sessionPaymentURL);
-        } else {
-            return (null);
-        }
-    } else {
-        return (null);
-    }
+function getRetryURL() {
+    let qs = new URLSearchParams(document.location.search);
+    let planSelected = qs.get('plan')
+    let userEmailBase64 = qs.get('email')
+    let retryURL = document.location.origin + '/checkout?plan=' + planSelected + '&email=' + userEmailBase64
+    return retryURL
 }
