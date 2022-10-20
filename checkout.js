@@ -119,7 +119,7 @@ async function completeCheckout(payment) {
         body: payload
     });
 
-    let responseData = resp.json()
+    let responseData = await resp.json()
     console.log(responseData)
 
     if (resp.ok && resp.status === 200) {
