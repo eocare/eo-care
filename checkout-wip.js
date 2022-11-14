@@ -201,7 +201,7 @@ async function validateDiscountCode() {
         if (status === 'valid') { // Check Discount Code Status
             console.log(message)
             document.querySelector('.discount').style.display = 'none'
-            document.querySelector('.coupon-code').style.display = 'block'
+            document.querySelector('.coupon-code').style.display = 'flex'
             document.querySelector('#discount-code-error').style.display = 'none'
             const newPricing = responseData
             updatePricing(newPricing)
