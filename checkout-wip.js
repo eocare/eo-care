@@ -66,8 +66,19 @@ function init() {
         submitCheckoutForm();
         return false;
     })
+    // Discount Code Form Button
+    document.querySelector('.discount-form').style.display = 'block'
+    let thatBtn = document.getElementById('apply-button')
+    let applyDiscountBtn = document.createElement('button')
+    applyDiscountBtn.setAttribute('value', thatBtn.getAttribute('value'))
+    applyDiscountBtn.setAttribute('data-w-id', thatBtn.getAttribute('data-w-id'))
+    applyDiscountBtn.setAttribute('class', thatBtn.getAttribute('class'))
+    applyDiscountBtn.setAttribute('id', thatBtn.getAttribute('id'))
+    applyDiscountBtn.innerText = 'Apply'
     // Apply Discount Code Listener
-    document.getElementById('apply-button').addEventListener('click', applyDiscountCode)
+    applyDiscountBtn.onclick = applyDiscountCode
+    thatBtn.replaceWith(applyDiscountBtn)
+
     // Clear Discount
     document.getElementById('clear_coupon').addEventListener('click', clearDiscount)
 }
@@ -112,7 +123,7 @@ function cardCodeValidator(e) {
 }
 
 async function completeCheckout(payment) {
-    const API_ROOT_DOMAIN = 'https://api.eo.care';
+    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
     const payload = buildPayload(payment)
     const resp = await fetch(`${API_ROOT_DOMAIN}/order`, {
         method: 'POST',
@@ -187,13 +198,17 @@ async function validateDiscountCode() {
     console.log(responseData)
 
     if (resp.ok && resp.status === 200) {
-        if (status === 'valid') {
+        if (status === 'valid') { // Check Discount Code Status
             console.log(message)
+            document.querySelector('#discount-code-error').style.display = 'none'
             const newPricing = responseData
             updatePricing(newPricing)
             return true
         } else {
             console.log(message)
+            let errMsg = document.querySelector('#discount-code-error')
+            errMsg.innerText = message
+            errMsg.style.display = 'block'
             return false
         }
         
@@ -216,7 +231,11 @@ function updatePricing(newPricing) {
     document.querySelector('#amount').textContent = `$ ${final_price}`
     document.querySelector('#due-total-value').textContent = `$ ${final_price}`
     document.querySelector('#coupon-applied-value').textContent = getDiscountCode()
-    document.querySelector('#percent-off-value').textContent = flat_off ? `Flat $ ${flat_off} off` : `${percent_off}% off - Max Discount: ${max_discount_amount}`
+    let discountInfo = flat_off ? `Flat $ ${flat_off} off` : `${percent_off}% off`
+    if (max_discount_amount) {
+        discountInfo += ` - Max Discount: ${max_discount_amount}`
+    }
+    document.querySelector('#percent-off-value').textContent = discountInfo
     document.querySelector('#discount-amount').textContent = `-$ ${discount_amount}`
 }
 
