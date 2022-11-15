@@ -175,6 +175,10 @@ function clearDiscount(e) {
     document.querySelector('#coupon-value').value = ''
     document.querySelector('#amount').textContent = `$ ${originalPrice}`
     document.querySelector('#due-total-value').textContent = `$ ${originalPrice}`
+    // Show Discount Code Input Field
+    document.querySelector('.promo-code-div').style.display = 'block'
+    // Hide Discount Breakdown Section
+    document.querySelector('.coupon-code-applied').style.display = 'none'
 }
 
 function getDiscountCode() {
