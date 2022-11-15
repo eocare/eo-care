@@ -182,7 +182,7 @@ function clearDiscount(e) {
 }
 
 function getDiscountCode() {
-    return document.querySelector('#coupon-value').value
+    return document.querySelector('#coupon-value').value.toUpperCase()
 }
 
 async function validateDiscountCode() {
