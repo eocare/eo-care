@@ -201,9 +201,9 @@ async function validateDiscountCode() {
         if (status === 'valid') { // Check Discount Code Status
             console.log(message)
             // Hide Discount Code Input Field
-            document.querySelector('.discount').style.display = 'none'
+            document.querySelector('.promo-code-div').style.display = 'none'
             // Show Discount Breakdown Section
-            document.querySelector('.coupon-code').style.display = 'flex'
+            document.querySelector('.coupon-code-applied').style.display = 'flex'
             document.querySelector('#discount-code-error').style.display = 'none'
             const newPricing = responseData
             updatePricing(newPricing)
@@ -211,9 +211,9 @@ async function validateDiscountCode() {
         } else {
             console.log(message)
             // Show Discount Code Input Field
-            document.querySelector('.discount').style.display = 'block'
+            document.querySelector('.promo-code-div').style.display = 'block'
             // Hide Discount Breakdown Section
-            document.querySelector('.coupon-code').style.display = 'none'
+            document.querySelector('.coupon-code-applied').style.display = 'none'
             let errMsg = document.querySelector('#discount-code-error')
             errMsg.innerText = message
             errMsg.style.display = 'block'
