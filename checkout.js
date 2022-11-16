@@ -159,7 +159,7 @@ function buildPayload(payment) {
     return JSON.stringify({
         "email": email,
         "order": {
-            "id": "plan_annual",
+            "plan_id": "plan_annual",
             "price": 99.00,
             "interval_in_months": 12
         },
