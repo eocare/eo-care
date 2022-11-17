@@ -160,7 +160,7 @@ function buildPayload(payment) {
         "email": email,
         "order": {
             "plan_id": "plan_annual",
-            "price": 99.00,
+            "price": 199.00,
             "interval_in_months": 12
         },
         "payment_method": {
