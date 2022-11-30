@@ -123,7 +123,7 @@ function cardCodeValidator(e) {
 }
 
 async function completeCheckout(payment) {
-    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
+    const API_ROOT_DOMAIN = 'https://api.eo.care';
     const payload = buildPayload(payment)
     const resp = await fetch(`${API_ROOT_DOMAIN}/order`, {
         method: 'POST',
@@ -187,8 +187,7 @@ function getDiscountCode() {
 
 async function validateDiscountCode() {
     const discountCode = getDiscountCode()
-    // TODO: Change this in production
-    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
+    const API_ROOT_DOMAIN = 'https://api.eo.care';
     const resp = await fetch(`${API_ROOT_DOMAIN}/discount_codes?discount_code=${discountCode}&plan_id=plan_annual`, {
         method: 'GET',
         mode: 'cors',
