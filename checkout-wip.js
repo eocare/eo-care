@@ -171,7 +171,7 @@ function applyDiscountCode(e) {
 }
 
 function clearDiscount(e) {
-    const originalPrice = '149'
+    const originalPrice = '199'
     document.querySelector('#coupon-value').value = ''
     document.querySelector('#amount').textContent = `$ ${originalPrice}`
     document.querySelector('#due-total-value').textContent = `$ ${originalPrice}`
