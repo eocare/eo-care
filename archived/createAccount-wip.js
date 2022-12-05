@@ -94,12 +94,7 @@ function isPlanSelected() {
           "address_line_1": formData.get('street'),
           "address_line_2": formData.get('street-line2') || '',
           "city": formData.get('city'),
-          "zip": formData.get('zip'),
-          "last_four_digits_of_ssn": formData.get('social-security-number'),
-        },
-        "license": {
-          "front_64": getLicenseFront64(),
-          "back_64": getLicenseBack64()
+          "zip": formData.get('zip')
         },
         "utm": getUTM(),
         "stripe": {
@@ -107,6 +102,17 @@ function isPlanSelected() {
         }
       };
   
+      if (document.getElementById('continue-without').checked) {
+        body["license"] = {
+          "front_64": getLicenseFront64(),
+          "back_64": getLicenseBack64()
+        };
+      }
+
+      if (document.getElementById('like-to-have').checked) {
+        body["proof_of_residency_64"] = getResidenceProof64()
+      }
+
       const resp = await fetch(`https://api.eo.care/web_profile`, {
         method: 'POST',
         mode: 'cors',
@@ -385,37 +391,42 @@ function isPlanSelected() {
     return (uppercaseCheck && lowercaseCheck && numberCheck && atleast8Characters);
   }
   
-  function socialSecurityValidator() {
-    // SSN is only required if obtaining Medical card
-    if (document.getElementById('like-to-have').checked) {
-      const ssnLastFourId = '#option-upload-security-number'
-      let ssnVal = document.querySelector(`${ssnLastFourId}`).value
-      if (ssnVal.length === 4 && !isNaN(ssnVal)) {
-        return true
+  function licenseValidator() {
+    if (document.getElementById('continue-without').checked) {
+      const licenseFrontPreviewDiv = document.querySelector('.license-upload-front-div')
+      .querySelector('.license-preview-div');
+      const licenseBackPreviewDiv = document.querySelector('.license-upload-back-div')
+      .querySelector('.license-preview-div');
+      if (licenseFrontPreviewDiv.dataset.file && licenseBackPreviewDiv.dataset.file) {
+        return true;
       } else {
-        showFieldError('option-upload-security-number', 'Enter valid last 4 digits of Social Security Number.')
-        return false
+        if (!licenseFrontPreviewDiv.dataset.file) {
+          showFieldError('license-upload-front-div', 'ID is required');
+        }
+        if (!licenseBackPreviewDiv.dataset.file) {
+          showFieldError('license-upload-back-div', 'ID is required');
+        }
+        return false;
       }
     } else {
-      return true
+      return true;
     }
   }
 
-  function licenseValidator() {
-    const licenseFrontPreviewDiv = document.querySelector('.license-upload-front-div')
-    .querySelector('.license-preview-div');
-    const licenseBackPreviewDiv = document.querySelector('.license-upload-back-div')
-    .querySelector('.license-preview-div');
-    if (licenseFrontPreviewDiv.dataset.file && licenseBackPreviewDiv.dataset.file) {
-      return true;
+  function residenceProofValidator() {
+    if (document.getElementById('like-to-have').checked) {
+      const licenseFrontPreviewDiv = document.querySelector('.residence-upload-front-div')
+      .querySelector('.residence-preview-div');
+      if (licenseFrontPreviewDiv.dataset.file) {
+        return true;
+      } else {
+        if (!licenseFrontPreviewDiv.dataset.file) {
+          showFieldError('residence-upload-front-div', 'Residence Proof is required');
+        }
+        return false;
+      }
     } else {
-      if (!licenseFrontPreviewDiv.dataset.file) {
-        showFieldError('license-upload-front-div', 'ID is required');
-      }
-      if (!licenseBackPreviewDiv.dataset.file) {
-        showFieldError('license-upload-back-div', 'ID is required');
-      }
-      return false;
+      return true;
     }
   }
   
@@ -435,6 +446,13 @@ function isPlanSelected() {
     .file;
   }
   
+  function getResidenceProof64() {
+    return document.querySelector('.residence-upload-front-div')
+    .querySelector('.residence-preview-div')
+    .dataset
+    .file;
+  }
+
   function onFormLoad() {
     // Change Form Submit Button Type
     document.getElementById('create-account-submit-btn').type = 'button';
@@ -451,9 +469,6 @@ function isPlanSelected() {
     const fileAcceptanceCriteria = '.jpg, .jpeg, .png, ;capture=camera';
     document.getElementById('license-front').accept = fileAcceptanceCriteria;
     document.getElementById('license-back').accept = fileAcceptanceCriteria;
-
-    // Set max length on ssn input field & change type to number
-    document.getElementById('option-upload-security-number').setAttribute('maxlength', '4')
   }
   
   function init() {
@@ -507,11 +522,10 @@ function isPlanSelected() {
       let medCardCheck = medicalCardEventHandler('Medical-Card-Number');
   
       let licenseCheck = licenseValidator();
-
-      let socialSecurityCheck = socialSecurityValidator();
+      let residenceProofCheck = residenceProofValidator();
   
       if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck 
-        && emailCheck && pwdCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck && socialSecurityCheck) {
+        && emailCheck && pwdCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck && residenceProofCheck) {
         // Create Web Profile
         console.log("Form Validation Successful.");
         const formData = new FormData(document.querySelector('#create-account-form'));

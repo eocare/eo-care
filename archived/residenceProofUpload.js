@@ -6,30 +6,31 @@ const RESIDENCE_ID_LABEL_DIV = 'residence-label-div';
 const RESIDENCE_DRAG_TEXT = 'residence-front-drag-text'
 
 // Upload via Input type file
-function fileUploadStartUp() {
-    const licenseFront = document.getElementsByClassName('w-file-upload-input')[0];
-    hideAllFileUploadStates();
-    licenseFront.addEventListener('change', (e)=>{
+function residenceFileUploadStartUp() {
+    const residenceInput = document.getElementsByClassName('w-file-upload-input')[2];
+    hideResidenceFileUploadStates();
+    residenceInput.addEventListener('change', (e)=>{
         let dropArea = document.querySelector(`.${RESIDENCE_DIV}`);
         let dragText = dropArea.querySelector(`.${RESIDENCE_DRAG_TEXT}`);
         dragText.textContent = 'Uploading...';
         console.log(`Residence Upload`);
         let file = e.target.files[0];
-        idPreview(file, RESIDENCE_DIV);
-        showEditLink(RESIDENCE_UPLOAD_EDIT_LINK);
+        residencePreview(file, RESIDENCE_DIV);
+        showResidenceEditLink(RESIDENCE_UPLOAD_EDIT_LINK);
     });
 }
 
 // Upload via Drag & Drop
-function frontIdUploadStartUp() {
-    hideEditLink(RESIDENCE_DIV);
+function residenceIdUploadStartUp() {
+    hideResidenceEditLink(RESIDENCE_DIV);
     const dropArea = document.querySelector(`.${RESIDENCE_DIV}`);
     let dragText = dropArea.querySelector(`.${RESIDENCE_DRAG_TEXT}`);
     let file;
 
-    let licenseFrontEditLink = document.getElementsByClassName(RESIDENCE_UPLOAD_EDIT_LINK)[0];
+    let residenceEditLink = document.getElementsByClassName(RESIDENCE_UPLOAD_EDIT_LINK)[2];
     // License Front Clear/Edit Link Handler
-    licenseFrontEditLink.addEventListener("click", (e)=>{
+    residenceEditLink.addEventListener("click", (e)=>{
+        console.log('edit clicked')
         let previewDiv = dropArea.querySelector(`.${RESIDENCE_PREVIEW_DIV}`);
         previewDiv.style.background = '';
         previewDiv.dataset.file = '';
@@ -40,7 +41,7 @@ function frontIdUploadStartUp() {
         inputDiv.querySelector('input').value = '';
         inputDiv.style.display = '';
 
-        resetFrontDragText(dropArea);
+        resetResidenceDragText(dropArea);
     });
 
     dropArea.addEventListener("dragover", (event)=>{
@@ -61,12 +62,12 @@ function frontIdUploadStartUp() {
         console.log(`Residence Proof Uploaded`);
         console.log(file);
 
-        idPreview(file, RESIDENCE_DIV);
-        showEditLink(RESIDENCE_UPLOAD_EDIT_LINK);
+        residencePreview(file, RESIDENCE_DIV);
+        showResidenceEditLink(RESIDENCE_UPLOAD_EDIT_LINK);
     });
 }
 
-function idPreview(file, parentClassName) {
+function residencePreview(file, parentClassName) {
     let fileType = file.type;
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
     const filesizeLimitInBytes = 4 * 1000 * 1000;
@@ -100,39 +101,30 @@ function idPreview(file, parentClassName) {
 
 // Helper Functions Begin
 
-function showEditLink(className) {
+function showResidenceEditLink(className) {
     let editLink = document.querySelector(`.${className}`);
     editLink.style.display = '';
 }
 
-function hideEditLink(parentClassName) {
+function hideResidenceEditLink(parentClassName) {
     let parent = document.querySelector(`.${parentClassName}`);
     parent.querySelector(`.${RESIDENCE_ID_LABEL_DIV}`).querySelector(`.${RESIDENCE_UPLOAD_EDIT_LINK}`).style.display = 'none';
 }
 
-function resetFrontDragText(dropArea) {
+function resetResidenceDragText(dropArea) {
     let dragText = dropArea.querySelector(`.${RESIDENCE_DRAG_TEXT}`);
     dragText.textContent = "Drag & Drop to Upload File";
 }
 
-function dragDropfileUploadStartUp() {
-    frontIdUploadStartUp();
-    backIdUploadStartUp();
-}
-
-function hideAllFileUploadStates() {
-    // Remove unwanted ID Front File Upload States 
-    document.getElementsByClassName('w-file-upload-uploading')[0].remove();
-    document.getElementsByClassName('w-file-upload-success')[0].remove();
-    document.getElementsByClassName('w-file-upload-error')[0].remove();
-    // Remove unwanted ID Back File Upload States
-    document.querySelector('.w-file-upload-uploading').remove();
-    document.querySelector('.w-file-upload-success').remove();
-    document.querySelector('.w-file-upload-error').remove();
+function hideResidenceFileUploadStates() {
+    // Remove unwanted Residence File Upload States 
+    document.getElementsByClassName('w-file-upload-uploading')[2].remove();
+    document.getElementsByClassName('w-file-upload-success')[2].remove();
+    document.getElementsByClassName('w-file-upload-error')[2].remove();
 }
 
 // Helper Functions End
 
 // Initialize
-dragDropfileUploadStartUp();
-fileUploadStartUp();
+residenceIdUploadStartUp();
+residenceFileUploadStartUp();
