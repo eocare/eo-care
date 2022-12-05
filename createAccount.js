@@ -309,7 +309,7 @@ function isPlanSelected() {
   
   function genderEventHandler(e) {
     let target = extractTargetElement(e);
-    if (target.selectedIndex === 0) {
+    if (target.selectedIndex === -1) {
       return showFieldError(e, "Gender cannot be blank.");
     } else {
       return hideFieldError(e);
@@ -391,12 +391,14 @@ function isPlanSelected() {
       const ssnLastFourId = '#option-upload-security-number'
       let ssnVal = document.querySelector(`${ssnLastFourId}`).value
       if (ssnVal.length === 4 && !isNaN(ssnVal)) {
+        hideFieldError('option-upload-security-number')
         return true
       } else {
         showFieldError('option-upload-security-number', 'Enter valid last 4 digits of Social Security Number.')
         return false
       }
     } else {
+      hideFieldError('option-upload-security-number')
       return true
     }
   }
