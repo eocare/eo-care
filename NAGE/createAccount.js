@@ -1,22 +1,24 @@
 
 async function isZipEligible(zip) {
-    const resp = await fetch('https://api.eo.care/profile/eligible', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        mode: "cors",
-        body: JSON.stringify({
-            "zip": zip
-        })
-    });
+    // const resp = await fetch('https://api.eo.care/profile/eligible', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     mode: "cors",
+    //     body: JSON.stringify({
+    //         "zip": zip
+    //     })
+    // });
     // console.log(resp.ok)
     // if (resp.ok && resp.status === 200) {
     //     return true;
     // } else {
     //     return false;
     // }
-    if (zip == '02127') { return true } else {
+    if (zip == '02127') { 
+        return true 
+    } else {
         return false
     }
 }
@@ -44,6 +46,12 @@ function onload() {
     const qs = new URLSearchParams(window.location.search)
     const submission_id = qs.get('submission_id')
     document.getElementById('accountSetupIframe').src = document.getElementById('accountSetupIframe').src + `?submission_id=${submission_id}` 
+
+    const form = document.getElementById('230166657739163')
+    form.addEventListener('submit', (e)=>{
+        e.preventDefault()
+        alert('validate')
+    })
 }
 
 onload()
