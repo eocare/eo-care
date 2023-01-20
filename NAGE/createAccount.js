@@ -36,3 +36,11 @@ async function myFun(e) {
         }
     }
 }
+
+function onload() {
+    const qs = new URLSearchParams(window.location.search)
+    const submission_id = qs.get('submission_id')
+    document.getElementById('accountSetupIframe').src = document.getElementById('accountSetupIframe').src + `?submission_id=${submission_id}` 
+}
+
+onload()
