@@ -46,12 +46,11 @@ function onload() {
     const qs = new URLSearchParams(window.location.search)
     const submission_id = qs.get('submission_id')
     document.getElementById('accountSetupIframe').src = document.getElementById('accountSetupIframe').src + `?submission_id=${submission_id}` 
-
-    const form = document.getElementById('230166657739163')
-    form.addEventListener('submit', (e)=>{
-        e.preventDefault()
-        alert('validate')
-    })
 }
 
+function onSubmit(e) {
+    e.preventDefault()
+    alert('validate')
+    return(false)
+}
 onload()
