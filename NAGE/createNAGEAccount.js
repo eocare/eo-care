@@ -80,7 +80,7 @@ async function sendAccountFormData(uid) {
 }
 
 async function test() {
-    const uid = await sendProfileOnboardingFormData('5499286375636664033')
+    const uid = await sendProfileOnboardingFormData('5498492605635170237')
     sendAccountFormData(uid)
 }
 
