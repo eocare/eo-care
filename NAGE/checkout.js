@@ -204,7 +204,7 @@ function buildPayload(payment) {
         "email": email,
         "order": {
             // TODO: NAGE Payment Plans Here
-            "plan_id": "plan_annual_nage"
+            "plan_id": plan
         },
         "payment_method": {
             "descriptor": payment['dataDescriptor'],
