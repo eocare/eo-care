@@ -167,7 +167,7 @@ function handlePaymentErrorResponse(res) {
         _resetState('payButton', 'Pay')
         // Redirect to payment failed page
         setTimeout(() => {
-            document.location.href = document.location.origin + '/payment-status?status=failed&plan=' + plan + '&email=' + btoa(email) + '&msg=' + btoa(res.message);
+            document.location.href = document.location.origin + '/iiff/payment-status?status=failed&plan=' + plan + '&email=' + email + '&msg=' + btoa(res.message) + '&uid=' + uid;
         }, 1000)
     }
 }
