@@ -46,8 +46,9 @@ if (qs.get('status')) {
     if (status === 'success') {
         let planSelected = qs.get('plan');
         let userEmail = qs.get('email');
-        let uid = qs.get('uid');
+        let uid = qs.get('uid') || localStorage.getItem('uid')
         paymentSuccessful(planSelected, userEmail);
+        profileCompletionLink()
     } else {
         paymentFailed();
     }
@@ -61,4 +62,31 @@ function getRetryURL() {
     let userEmailBase64 = qs.get('email')
     let retryURL = document.location.origin + '/iiff/checkout?plan=' + planSelected + '&email=' + userEmailBase64
     return retryURL
+}
+
+function profileCompletionLink() {
+    let med_card = localStorage.getItem('med_card')
+    let med_card_delivery_only = localStorage.getItem('med_card_delivery_only')
+    let rec_delivery_possible = localStorage.getItem('rec_delivery_possible')
+    let thc_type_preference = localStorage.getItem('thc_type_preference')
+
+    if (med_card == "true") {
+        med_card = "True"
+    } else if (med_card == "false") {
+        med_card = "False"
+    }
+
+    if (rec_delivery_possible == "true") {
+        rec_delivery_possible = "True"
+    } else if (rec_delivery_possible == "false") {
+        rec_delivery_possible = "False"
+    }
+
+    if (med_card_delivery_only == "true") {
+        med_card_delivery_only = "True"
+    } else if (med_card_delivery_only == "false") {
+        med_card_delivery_only = "False"
+    }
+    const link = `https://form.jotform.com/230184858952466?thc_plan_type=${thc_type_preference}&med_card_status=${med_card}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}`
+    document.getElementById('profile-completion-link').href = link
 }

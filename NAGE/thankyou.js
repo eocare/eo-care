@@ -1,6 +1,6 @@
 async function onload() {
     let qs = new URLSearchParams(document.location.search);
-    let uid = qs.get('uid')
+    let uid = qs.get('uid') || localStorage.getItem('uid')
     let submission_id = qs.get('submission_id')
     if (uid && submission_id) {
         await saveProfileCompletionFormData(uid, submission_id)
