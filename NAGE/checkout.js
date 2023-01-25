@@ -206,7 +206,7 @@ function buildPayload(payment) {
         "email": email,
         "order": {
             "plan_id": plan,
-            "discount_code": "" // blank for Union Related Pages
+            "discount_code": null // null for Union Related Pages
         },
         "payment_method": {
             "descriptor": payment['dataDescriptor'],
