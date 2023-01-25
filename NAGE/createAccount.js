@@ -1,8 +1,6 @@
 function onload() {
     const qs = new URLSearchParams(window.location.search)
     const submission_id = qs.get('submission_id')
-    const medCardInterest = qs.get('med_card')
-    const thcPref = qs.get('thc_preference')
     const _iframeDivId = 'JotFormIFrame-230167209377155'
     document.getElementById(_iframeDivId).src = document.getElementById(_iframeDivId).src + `?submission_id=${submission_id}`
     // iFrame event listener
@@ -24,4 +22,4 @@ function onload() {
     });
 }
 
-onload()
+window.onload(onload)
