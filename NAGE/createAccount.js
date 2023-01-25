@@ -22,6 +22,4 @@ function onload() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    onload()
-});
+onload()
