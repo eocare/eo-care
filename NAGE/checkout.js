@@ -5,8 +5,10 @@ function getQueryParams() {
     const qs = new URLSearchParams(window.location.search)
     plan = qs.get('plan')
     email = qs.get('email')
-
-    plan = plan === '$100: Billed Yearly' ? 'nage_plan_annual' : 'nage_plan_monthly'
+    if (plan !== 'nage_plan_annual' || plan !== 'nage_plan_monthly') {
+        // TODO: NAGE Payment Plans Here
+        plan = plan === '$100: Billed Yearly' ? 'nage_plan_annual' : 'nage_plan_monthly'
+    }
     console.log(plan)
     console.log(email)
 }
@@ -203,7 +205,6 @@ function buildPayload(payment) {
     return JSON.stringify({
         "email": email,
         "order": {
-            // TODO: NAGE Payment Plans Here
             "plan_id": plan
         },
         "payment_method": {
