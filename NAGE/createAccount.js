@@ -6,7 +6,8 @@ function onload() {
     // iFrame event listener
     console.log(`Adding iFrame message listener.`)
     window.addEventListener('message', function(event) {
-        console.log("Message received from the child: " + event.data); // Message received from child
+        console.log("Message received from the child: ") // Message received from child
+        console.log(event.data)
     });
 }
 
