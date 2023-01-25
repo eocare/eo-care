@@ -205,7 +205,8 @@ function buildPayload(payment) {
     return JSON.stringify({
         "email": email,
         "order": {
-            "plan_id": plan
+            "plan_id": plan,
+            "discount_code": "" // blank for Union Related Pages
         },
         "payment_method": {
             "descriptor": payment['dataDescriptor'],
