@@ -22,6 +22,8 @@ function onload() {
     const _iframeDivId = 'JotFormIFrame-230167209377155'
     document.getElementById(_iframeDivId).src =  `https://eo-care.web.app/account.html?submission_id=${submission_id}`
     document.getElementById(_iframeDivId).style.display = ''
+    document.getElementById(_iframeDivId).style.height = '100%'
+    document.getElementById(_iframeDivId).style.width = '100%'
 }
 
 // setTimeout(onload, 800)
