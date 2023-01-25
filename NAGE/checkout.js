@@ -6,6 +6,7 @@ function getQueryParams() {
     plan = qs.get('plan')
     email = qs.get('email')
 
+    plan = plan === '$100: Billed Yearly' ? 'nage_plan_annual' : 'nage_plan_monthly'
     console.log(plan)
     console.log(email)
 }
@@ -145,7 +146,7 @@ async function completeCheckout(payment) {
         _successfulState('payButton', 'Payment Successful')
         const uid = await localStorage.getItem('uid')
         // TODO: On Success redirect to NAGE Payment Success Page
-        document.location.href = document.location.origin + '/payment-status?status=success&plan=' + plan + '&email=' + email + '&uid=' + uid;
+        document.location.href = document.location.origin + '/iiff/payment-status?status=success&plan=' + plan + '&email=' + email + '&uid=' + uid;
         return true;
     } else {
         handlePaymentErrorResponse(responseData)
