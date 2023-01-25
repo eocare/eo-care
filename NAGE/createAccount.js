@@ -22,4 +22,6 @@ function onload() {
     });
 }
 
-window.onload(onload)
+document.addEventListener("DOMContentLoaded", () => {
+    onload()
+});
