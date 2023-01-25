@@ -126,7 +126,8 @@ function cardCodeValidator(e) {
 }
 
 async function completeCheckout(payment) {
-    const API_ROOT_DOMAIN = 'https://api.eo.care';
+    // TODO: Replace this in production
+    const API_ROOT_DOMAIN = 'https://api.staging.eo.care';
     const payload = buildPayload(payment)
     const resp = await fetch(`${API_ROOT_DOMAIN}/order`, {
         method: 'POST',
@@ -142,8 +143,9 @@ async function completeCheckout(payment) {
 
     if (resp.ok && resp.status === 200) {
         _successfulState('payButton', 'Payment Successful')
+        const uid = await localStorage.getItem('uid')
         // TODO: On Success redirect to NAGE Payment Success Page
-        document.location.href = document.location.origin + '/payment-status?status=success&plan=' + plan + '&email=' + btoa(email);
+        document.location.href = document.location.origin + '/payment-status?status=success&plan=' + plan + '&email=' + email + '&uid=' + uid;
         return true;
     } else {
         handlePaymentErrorResponse(responseData)
