@@ -8,8 +8,7 @@ async function onload() {
 }
 
 async function saveProfileCompletionFormData(uid, submission_id) {
-    // TODO: Replace this Endpoint
-    const resp = await fetch(`https://23f1-171-61-143-62.ngrok.io/eo-care/us-central1/profileCompletion?uid=${uid}&submission_id=${submission_id}`, {
+    const resp = await fetch(`https://us-central1-eo-care.cloudfunctions.net/profileCompletion?uid=${uid}&submission_id=${submission_id}`, {
           method: 'GET'
     });
     if (resp.ok && resp.status === 200) {
