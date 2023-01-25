@@ -4,7 +4,10 @@ let plan
 function getQueryParams() {
     const qs = new URLSearchParams(window.location.search)
     plan = qs.get('plan')
-    email = qs.get('email') ? atob(qs.get('email')) : qs.get('email')
+    email = qs.get('email')
+
+    console.log(plan)
+    console.log(email)
 }
 
 // function populateBillingAddress() {
