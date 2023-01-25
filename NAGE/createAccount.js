@@ -22,4 +22,5 @@ function onload() {
     });
 }
 
-onload()
+setTimeout(onload, 800)
+// onload()
