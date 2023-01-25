@@ -20,7 +20,8 @@ function onload() {
     });
 
     const _iframeDivId = 'JotFormIFrame-230167209377155'
-    document.getElementById(_iframeDivId).src = document.getElementById(_iframeDivId).src + `?submission_id=${submission_id}`
+    document.getElementById(_iframeDivId).src =  `https://eo-care.web.app/account.html?submission_id=${submission_id}`
+    document.getElementById(_iframeDivId).style.display = ''
 }
 
 // setTimeout(onload, 800)
