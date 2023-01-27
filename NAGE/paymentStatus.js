@@ -93,6 +93,6 @@ function profileCompletionLink() {
     } else {
         thc_type_preference = 'CBD'
     }
-    const link = `https://form.jotform.com/230184858952466?thc_plan_type=${thc_type_preference}&med_card_status=${med_card}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}`
+    const link = `https://eo-marketing.webflow.io/iaff/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}`
     document.getElementById('profile-completion-link').href = link
 }
