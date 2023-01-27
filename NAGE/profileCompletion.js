@@ -1,9 +1,12 @@
 function onload() {
     const qs = new URLSearchParams(window.location.search)
-    const submission_id = qs.get('submission_id')
+    const thcPlanType = qs.get('thc_plan_type')
+    const medCardStatus = qs.get('med_card_status')
+    const recDeliveryPossible = qs.get('rec_delivery_possible')
+    const medDeliveryOnly = qs.get('med_delivery_only')
 
-    const _iframeDivId = 'JotFormIFrame-230167209377155'
-    document.getElementById(_iframeDivId).src =  `https://eo-care.web.app/account.html?submission_id=${submission_id}`
+    const _iframeDivId = 'JotFormIFrame-230184858952466'
+    document.getElementById(_iframeDivId).src =  `https://eo-care.web.app/account.html?thc_plan_type=${thcPlanType}&med_card_status=${medCardStatus}&rec_delivery_possible=${recDeliveryPossible}&med_delivery_only=${medDeliveryOnly}`
     document.getElementById(_iframeDivId).style.display = ''
     document.getElementById(_iframeDivId).style.height = '100%'
     document.getElementById(_iframeDivId).style.width = '100%'
