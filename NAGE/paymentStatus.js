@@ -74,6 +74,8 @@ function profileCompletionLink() {
         med_card = "True"
     } else if (med_card == "false") {
         med_card = "False"
+    } else {
+        med_card = "False"
     }
 
     if (rec_delivery_possible == "true") {
