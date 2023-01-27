@@ -148,7 +148,7 @@ async function completeCheckout(payment) {
         _successfulState('payButton', 'Payment Successful')
         const uid = await localStorage.getItem('uid')
         // TODO: On Success redirect to NAGE Payment Success Page
-        document.location.href = document.location.origin + '/iiff/payment-status?status=success&plan=' + plan + '&email=' + email + '&uid=' + uid;
+        document.location.href = document.location.origin + '/iaff/payment-status?status=success&plan=' + plan + '&email=' + email + '&uid=' + uid;
         return true;
     } else {
         handlePaymentErrorResponse(responseData)
@@ -169,7 +169,7 @@ function handlePaymentErrorResponse(res) {
         _resetState('payButton', 'Pay')
         // Redirect to payment failed page
         setTimeout(() => {
-            document.location.href = document.location.origin + '/iiff/payment-status?status=failed&plan=' + plan + '&email=' + email + '&msg=' + btoa(res.message) + '&uid=' + uid;
+            document.location.href = document.location.origin + '/iaff/payment-status?status=failed&plan=' + plan + '&email=' + email + '&msg=' + btoa(res.message) + '&uid=' + uid;
         }, 1000)
     }
 }
