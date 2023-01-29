@@ -25,11 +25,11 @@ function paymentSuccessful(selectedPlan, userEmailAddress) {
     document.getElementById('payment-successful-div').style.display = 'block';
     // Mobile Breakpoint
     if (window.screen.width <= 479) {
-        document.querySelector('.payment-successful').style.display = 'none';
-        document.querySelector('.payment-successful-mobile').style.display = 'flex';
+        document.querySelector('.payment-successful')?.style.display = 'none';
+        document.querySelector('.payment-successful-mobile')?.style.display = 'flex';
     } else {
-        document.querySelector('.payment-successful').style.display = 'flex';
-        document.querySelector('.payment-successful-mobile').style.display = 'none';
+        document.querySelector('.payment-successful')?.style.display = 'flex';
+        document.querySelector('.payment-successful-mobile')?.style.display = 'none';
     }
 }
 
@@ -75,7 +75,7 @@ function profileCompletionLink() {
     } else if (med_card == "false") {
         med_card = "False"
     } else {
-        med_card = "False"
+        med_card = "Interested"
     }
 
     if (rec_delivery_possible == "true") {
