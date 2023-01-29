@@ -69,13 +69,17 @@ function profileCompletionLink() {
     let med_card_delivery_only = localStorage.getItem('med_card_delivery_only')
     let rec_delivery_possible = localStorage.getItem('rec_delivery_possible')
     let thc_type_preference = localStorage.getItem('thc_type_preference')
+    let med_card_number = localStorage.getItem('med_card_number')
+    let med_card_status;
 
-    if (med_card == "true") {
-        med_card = "True"
-    } else if (med_card == "false") {
-        med_card = "False"
+    if (med_card_number) {
+        med_card_status = "True"
+    } else if (!med_card_number && med_card == "true") {
+        med_card_status = "Interested"
+    } else if (!med_card_number && med_card == "false") {
+        med_card_status = "False"
     } else {
-        med_card = "Interested"
+        med_card_status = "False"
     }
 
     if (rec_delivery_possible == "true") {
@@ -95,6 +99,6 @@ function profileCompletionLink() {
     } else {
         thc_type_preference = 'CBD'
     }
-    const link = `https://eo-marketing.webflow.io/iaff/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}`
+    const link = `https://eo-marketing.webflow.io/iaff/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}`
     document.getElementById('profile-completion-link').href = link
 }

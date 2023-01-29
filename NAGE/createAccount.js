@@ -12,10 +12,11 @@ function onload() {
             this.localStorage.setItem('med_card_delivery_only', med_card_delivery_only)
             this.localStorage.setItem('rec_delivery_possible', rec_delivery_possible)
         }
-        if (uid || thc_type_preference || med_card) {
+        if (uid || thc_type_preference || med_card || med_card_number) {
             this.localStorage.setItem('uid', uid)
             this.localStorage.setItem('thc_type_preference', thc_type_preference)
             this.localStorage.setItem('med_card', med_card)
+            this.localStorage.setItem('med_card_number', med_card_number)
         }
     });
 
