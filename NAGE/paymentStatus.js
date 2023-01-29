@@ -25,10 +25,10 @@ function paymentSuccessful(selectedPlan, userEmailAddress) {
     document.getElementById('payment-successful-div').style.display = 'block';
     // Mobile Breakpoint
     if (window.screen.width <= 479) {
-        document.querySelector('.payment-successful')?.style.display = 'none';
+        document.querySelector('.payment-successful').style.display = 'none';
         document.querySelector('.payment-successful-mobile')?.style.display = 'flex';
     } else {
-        document.querySelector('.payment-successful')?.style.display = 'flex';
+        document.querySelector('.payment-successful').style.display = 'flex';
         document.querySelector('.payment-successful-mobile')?.style.display = 'none';
     }
 }
