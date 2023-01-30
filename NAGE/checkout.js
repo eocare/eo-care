@@ -7,7 +7,7 @@ function getQueryParams() {
     email = qs.get('email')
     if (plan !== 'nage_plan_annual' || plan !== 'nage_plan_monthly') {
         // TODO: NAGE Payment Plans Here
-        plan = plan === '$100: Billed Yearly' ? 'nage_plan_annual' : 'nage_plan_monthly'
+        plan = plan === '$99: Billed Yearly' ? 'nage_plan_annual' : 'nage_plan_monthly'
     }
     console.log(plan)
     console.log(email)
