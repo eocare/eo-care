@@ -6,7 +6,7 @@ function onload() {
     window.addEventListener('message', function(event) {
         console.log("Message received from the child: ") // Message received from child
         console.log(event.data)
-        const { zip, uid, thc_type_preference, med_card } = event.data
+        const { zip, uid, thc_type_preference, med_card, med_card_number } = event.data
         if (zip) {
             const { med_card_delivery_only, rec_delivery_possible } = zip
             this.localStorage.setItem('med_card_delivery_only', med_card_delivery_only)
