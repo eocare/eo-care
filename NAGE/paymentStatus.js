@@ -72,11 +72,11 @@ function profileCompletionLink() {
     let med_card_number = localStorage.getItem('med_card_number')
     let med_card_status;
 
-    if (med_card_number) {
+    if (med_card_number != 'null') {
         med_card_status = "True"
-    } else if (!med_card_number && med_card == "true") {
+    } else if (med_card_number == 'null' && med_card == "true") {
         med_card_status = "Interested"
-    } else if (!med_card_number && med_card == "false") {
+    } else if (med_card_number == 'null' && med_card == "false") {
         med_card_status = "False"
     } else {
         med_card_status = "False"
@@ -94,7 +94,7 @@ function profileCompletionLink() {
         med_card_delivery_only = "False"
     }
 
-    if (thc_type_preference.toLowerCase().includes('cbd')) {
+    if (thc_type_preference.toLowerCase().includes('non_thc')) {
         thc_type_preference = 'CBD'
     } else {
         thc_type_preference = 'THC'
