@@ -94,10 +94,10 @@ function profileCompletionLink() {
         med_card_delivery_only = "False"
     }
 
-    if (thc_type_preference.toLowerCase().includes('thc')) {
-        thc_type_preference = 'THC'
-    } else {
+    if (thc_type_preference.toLowerCase().includes('cbd')) {
         thc_type_preference = 'CBD'
+    } else {
+        thc_type_preference = 'THC'
     }
     const link = `https://eo-marketing.webflow.io/iaff/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}`
     document.getElementById('profile-completion-link').href = link
