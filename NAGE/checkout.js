@@ -1,10 +1,20 @@
 let email
 let plan
 
-function getQueryParams() {
-    const qs = new URLSearchParams(window.location.search)
-    plan = qs.get('plan')
-    email = qs.get('email')
+function getQueryParams(url) {
+    const paramArr = url.slice(url.indexOf('?') + 1).split('&');
+    const params = {};
+    paramArr.map((param) => {
+        const [key, val] = param.split('=');
+        params[key] = decodeURIComponent(val);
+    })
+    return params
+}
+
+function setEmailAndPlan() {
+    const qs = getQueryParams(window.location.search)
+    plan = qs['plan']
+    email = qs['email']
     if (plan !== 'nage_plan_annual' || plan !== 'nage_plan_monthly') {
         // TODO: NAGE Payment Plans Here
         plan = plan === '$99: Billed Yearly' ? 'nage_plan_annual' : 'nage_plan_monthly'
@@ -365,6 +375,6 @@ function paymentFormUpdate(opaqueData) {
 
 // Main
 console.log('Running init')
-getQueryParams()
+setEmailAndPlan()
 init()
 populateBillingAddress()
