@@ -60,7 +60,7 @@ function getRetryURL() {
     let qs = new URLSearchParams(document.location.search);
     let planSelected = qs.get('plan')
     let userEmailBase64 = qs.get('email')
-    let retryURL = document.location.origin + '/iiff/checkout?plan=' + planSelected + '&email=' + userEmailBase64
+    let retryURL = document.location.origin + '/iaff/checkout?plan=' + planSelected + '&email=' + userEmailBase64
     return retryURL
 }
 
