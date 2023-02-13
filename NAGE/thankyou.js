@@ -8,7 +8,9 @@ async function onload() {
 }
 
 async function saveProfileCompletionFormData(uid, submission_id) {
-    const resp = await fetch(`https://us-central1-eo-care.cloudfunctions.net/profileCompletion?uid=${uid}&submission_id=${submission_id}`, {
+    // 
+    // https://us-central1-eo-care.cloudfunctions.net
+    const resp = await fetch(`https://9166-122-177-44-42.ngrok.io/eo-care/us-central1/profileCompletion?uid=${uid}&submission_id=${submission_id}`, {
           method: 'GET'
     });
     if (resp.ok && resp.status === 200) {
