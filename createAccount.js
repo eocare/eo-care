@@ -322,7 +322,7 @@ function isPlanSelected() {
       let expiryDate = document.getElementById('medCardExpiry-date').value;
       let expiryYear = document.getElementById('medCardExpiry-year').value;
       if (Number(expiryDate) <= 9) {
-        date = '0' + Number(expiryDate).toString();
+        expiryDate = '0' + Number(expiryDate).toString();
       }
       return  expiryYear + '-' + expiryMonth + '-' + expiryDate;
     } else {
