@@ -291,7 +291,7 @@ function isPlanSelected() {
         let givenMedExpiry = getFormattedMedCardExpiry();
         let dateExpired = isDateExpired(givenMedExpiry);
         if (dateExpired) {
-          return showFieldError(e, "Med card expiry is not valid.");
+          return showFieldError(e, "Med card expiry should be in the future.");
         } else {
           return hideFieldError(e);
         }
@@ -318,9 +318,9 @@ function isPlanSelected() {
 
   function getFormattedMedCardExpiry() {
     if (document.getElementById('already-have').checked) {
-      let expiryMonth = document.getElementById('medCardExpiry-month')
-      let expiryDate = document.getElementById('medCardExpiry-date')
-      let expiryYear = document.getElementById('medCardExpiry-year')
+      let expiryMonth = document.getElementById('medCardExpiry-month').value;
+      let expiryDate = document.getElementById('medCardExpiry-date').value;
+      let expiryYear = document.getElementById('medCardExpiry-year').value;
       if (Number(expiryDate) <= 9) {
         date = '0' + Number(expiryDate).toString();
       }
