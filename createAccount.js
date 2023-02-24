@@ -89,6 +89,7 @@ function isPlanSelected() {
           "med_card": formData.get('Medical-Card-Number').length > 0 ? true : false,
           "med_card_interest": isInterestedInMedcard(formData.get('medical-card')),
           "med_card_number": formData.get('Medical-Card-Number'),
+          "med_card_expiry": getFormattedMedCardExpiry(),
           "password": formData.get('pwd'),
           "phone": formData.get('phone'),
           "address_line_1": formData.get('street'),
@@ -214,6 +215,12 @@ function isPlanSelected() {
     return (yrsOld >= 21) ? true : false;
   }
 
+  function isDateExpired(medExpiry) {
+    const medExpiryParsed = new Date(medExpiry);
+    const yrsOld = (Date.now() - medExpiryParsed) / (60 * 60 * 24 * 365 * 1000);
+    return (yrsOld >= 0) ? true : false;
+  }
+
   function saveAddressLocally(address) {
     localStorage.setItem("shipping_address", JSON.stringify(address));
   }
@@ -271,6 +278,33 @@ function isPlanSelected() {
       return showFieldError(e, "Date of birth cannot be blank.");
     }
   }
+
+  function medExpiryEventHandler(e) {
+    if (document.getElementById('already-have').checked) {
+      e = 'medicalCardExpiration-block';
+      let month = document.getElementById('medCardExpiry-month').value;
+      let date = document.getElementById('medCardExpiry-date').value;
+      let year = document.getElementById('medCardExpiry-year').value;
+      let isDateValid = isValidDate(month, date, year);
+      if (month && date && year && isDateValid) {
+        hideFieldError(e);
+        let givenMedExpiry = getFormattedMedCardExpiry();
+        let dateExpired = isDateExpired(givenMedExpiry);
+        if (dateExpired) {
+          return showFieldError(e, "Med card expiry is not valid.");
+        } else {
+          return hideFieldError(e);
+        }
+      } else if(!isDateValid && date && year) {
+        return showFieldError(e, "Please enter a valid Date.");
+      }
+      else {
+        return showFieldError(e, "Med card expiry cannot be blank.");
+      }
+    } else {
+      return true;
+    }
+  }
   
   function getFormattedDob() {
     let month = document.getElementById('dob-month').value;
@@ -280,6 +314,20 @@ function isPlanSelected() {
       date = '0' + Number(date).toString();
     }
     return  year + '-' + month + '-' + date;
+  }
+
+  function getFormattedMedCardExpiry() {
+    if (document.getElementById('already-have').checked) {
+      let expiryMonth = document.getElementById('medCardExpiry-month')
+      let expiryDate = document.getElementById('medCardExpiry-date')
+      let expiryYear = document.getElementById('medCardExpiry-year')
+      if (Number(expiryDate) <= 9) {
+        date = '0' + Number(expiryDate).toString();
+      }
+      return  expiryYear + '-' + expiryMonth + '-' + expiryDate;
+    } else {
+      return null;
+    }
   }
   
   function isValidDate(month, date, year) {
@@ -473,6 +521,11 @@ function isPlanSelected() {
     document.getElementById('pwd-confirmation').addEventListener('input', passwordsEventHandler);
     document.getElementById('Medical-Card-Number').addEventListener('blur', medicalCardEventHandler);
     document.getElementById('Medical-Card-Number').addEventListener('input', medicalCardEventHandler);
+    
+    document.getElementById('medCardExpiry-month').addEventListener('input', medExpiryEventHandler);
+    document.getElementById('medCardExpiry-date').addEventListener('input', medExpiryEventHandler);
+    document.getElementById('medCardExpiry-year').addEventListener('input', medExpiryEventHandler);
+    
     document.getElementById('email').addEventListener('blur', emailEventHandler);
     document.getElementById('gender').addEventListener('blur', genderEventHandler);
     document.getElementById('gender').addEventListener('input', genderEventHandler);
@@ -501,6 +554,7 @@ function isPlanSelected() {
       let cityCheck = isFieldNotEmpty('city');
       let zipCheck = await zipEventHandler('zip');
       let dobCheck = dobEventHandler('dob-block');
+      let medCardExpiryCheck = medExpiryEventHandler('medicalCardExpiration-block')
       let genderCheck = genderEventHandler('gender');
   
       let emailCheck = emailEventHandler('email');
@@ -513,7 +567,7 @@ function isPlanSelected() {
       let socialSecurityCheck = socialSecurityValidator();
   
       if (fnameCheck && lnameCheck && phoneCheck && zipCheck && dobCheck && genderCheck 
-        && emailCheck && pwdCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck && socialSecurityCheck) {
+        && emailCheck && pwdCheck && medCardCheck && licenseCheck && streetAddressCheck && cityCheck && socialSecurityCheck && medCardExpiryCheck) {
         // Create Web Profile
         console.log("Form Validation Successful.");
         const formData = new FormData(document.querySelector('#create-account-form'));
