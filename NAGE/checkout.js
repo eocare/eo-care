@@ -1,6 +1,13 @@
 let email
 let plan
 
+let union_type = 'iaff'
+if (window.location.pathname.includes('/iaff/')) {
+    union_type = 'iaff'
+} else if ((window.location.pathname.includes('/btu/'))) {
+    union_type = 'btu'
+}
+
 function getQueryParams(url) {
     const paramArr = url.slice(url.indexOf('?') + 1).split('&');
     const params = {};
@@ -15,10 +22,10 @@ function setEmailAndPlan() {
     const qs = getQueryParams(window.location.search)
     plan = qs['plan']
     email = qs['email']
-    if (plan !== 'nage_plan_annual' || plan !== 'nage_plan_monthly') {
-        // TODO: NAGE Payment Plans Here
-        plan = plan === '$99: Billed Yearly' ? 'nage_plan_annual' : 'nage_plan_monthly'
-    }
+    // if (plan !== 'nage_plan_annual' || plan !== 'nage_plan_monthly') {
+    //     // TODO: Payment Plans Here
+    //     plan = plan === '$99: Billed Yearly' ? `${union_type}_plan_annual` : `${union_type}_plan_monthly`
+    // }
     console.log(plan)
     console.log(email)
 }
@@ -157,7 +164,7 @@ async function completeCheckout(payment) {
         _successfulState('payButton', 'Payment Successful')
         const uid = await localStorage.getItem('uid')
         // TODO: On Success redirect to NAGE Payment Success Page
-        document.location.href = document.location.origin + '/iaff/payment-status?status=success&plan=' + plan + '&email=' + email + '&uid=' + uid;
+        document.location.href = document.location.origin + `/${union_type}/payment-status?status=success&plan=` + plan + '&email=' + email + '&uid=' + uid;
         return true;
     } else {
         handlePaymentErrorResponse(responseData)
@@ -178,7 +185,7 @@ function handlePaymentErrorResponse(res) {
         _resetState('payButton', 'Pay')
         // Redirect to payment failed page
         setTimeout(() => {
-            document.location.href = document.location.origin + '/iaff/payment-status?status=failed&plan=' + plan + '&email=' + email + '&msg=' + btoa(res.message) + '&uid=' + uid;
+            document.location.href = document.location.origin + `/${union_type}/payment-status?status=failed&plan=` + plan + '&email=' + email + '&msg=' + btoa(res.message) + '&uid=' + uid;
         }, 1000)
     }
 }

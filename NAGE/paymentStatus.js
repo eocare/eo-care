@@ -41,6 +41,13 @@ function pageExpired() {
 }
 
 const qs = new URLSearchParams(document.location.search);
+// Check which union page the user is on
+let union_type = 'iaff' // defaults to iaff
+if (window.location.pathname.includes('/iaff/')) {
+    union_type = 'iaff'
+} else if ((window.location.pathname.includes('/btu/'))) {
+    union_type = 'btu'
+}
 if (qs.get('status')) {
     let status = qs.get('status');
     if (status === 'success') {
@@ -60,7 +67,7 @@ function getRetryURL() {
     let qs = new URLSearchParams(document.location.search);
     let planSelected = qs.get('plan')
     let userEmailBase64 = qs.get('email')
-    let retryURL = document.location.origin + '/iaff/checkout?plan=' + planSelected + '&email=' + userEmailBase64
+    let retryURL = document.location.origin + `/${union_type}/checkout?plan=` + planSelected + '&email=' + userEmailBase64
     return retryURL
 }
 
@@ -99,6 +106,6 @@ function profileCompletionLink() {
     } else {
         thc_type_preference = 'THC'
     }
-    const link = `https://www.eo.care/iaff/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}`
+    const link = `https://www.eo.care/${union_type}/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}`
     document.getElementById('profile-completion-link').href = link
 }
