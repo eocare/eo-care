@@ -24,6 +24,9 @@ function onload() {
             this.localStorage.setItem('med_card', med_card)
             this.localStorage.setItem('med_card_number', med_card_number)
         }
+        if (redirect) {
+            this.document.location.href = redirect
+        }
     });
 
     const _iframeDivId = 'JotFormIFrame-230167209377155'
