@@ -4,9 +4,10 @@ function onload() {
     const medCardStatus = qs.get('med_card_status')
     const recDeliveryPossible = qs.get('rec_delivery_possible')
     const medDeliveryOnly = qs.get('med_delivery_only')
+    const union = qs.get('union')
 
     const _iframeDivId = 'JotFormIFrame-230184858952466'
-    document.getElementById(_iframeDivId).src =  `https://form.jotform.com/230184858952466?thc_plan_type=${thcPlanType}&med_card_status=${medCardStatus}&rec_delivery_possible=${recDeliveryPossible}&med_delivery_only=${medDeliveryOnly}`
+    document.getElementById(_iframeDivId).src =  `https://form.jotform.com/230184858952466?thc_plan_type=${thcPlanType}&med_card_status=${medCardStatus}&rec_delivery_possible=${recDeliveryPossible}&med_delivery_only=${medDeliveryOnly}&union=${union}`
     document.getElementById(_iframeDivId).style.display = ''
     document.getElementById(_iframeDivId).style.height = '100%'
     document.getElementById(_iframeDivId).style.width = '100%'
