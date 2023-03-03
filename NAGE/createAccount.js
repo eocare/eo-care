@@ -32,7 +32,7 @@ function onload() {
     const _iframeDivId = 'JotFormIFrame-230167209377155'
     document.getElementById(_iframeDivId).src =  `https://eo-care.web.app/account_setup_new/account.html?submission_id=${submission_id}&union_type=${union_type}`
     document.getElementById(_iframeDivId).style.display = ''
-    document.getElementById(_iframeDivId).style.height = '80%'
+    document.getElementById(_iframeDivId).style.height = '60%'
     document.getElementById(_iframeDivId).style.width = '100%'
 }
 
