@@ -42,12 +42,13 @@ function pageExpired() {
 
 const qs = new URLSearchParams(document.location.search);
 // Check which union page the user is on
-let union_type = 'iaff' // defaults to iaff
-if (window.location.pathname.includes('/iaff/')) {
-    union_type = 'iaff'
-} else if ((window.location.pathname.includes('/btu/'))) {
-    union_type = 'btu'
-}
+let supported_unions = ['iaff', 'btu', 'ethos']
+let union_type = 'iaff'
+supported_unions.forEach((union) => {
+    if (window.location.pathname.includes(`/${union}/`)) {
+        union_type = union
+    }
+})
 if (qs.get('status')) {
     let status = qs.get('status');
     if (status === 'success') {

@@ -1,12 +1,13 @@
 let email
 let plan
 
+let supported_unions = ['iaff', 'btu', 'ethos']
 let union_type = 'iaff'
-if (window.location.pathname.includes('/iaff/')) {
-    union_type = 'iaff'
-} else if ((window.location.pathname.includes('/btu/'))) {
-    union_type = 'btu'
-}
+supported_unions.forEach((union) => {
+    if (window.location.pathname.includes(`/${union}/`)) {
+        union_type = union
+    }
+})
 
 function getQueryParams(url) {
     const paramArr = url.slice(url.indexOf('?') + 1).split('&');

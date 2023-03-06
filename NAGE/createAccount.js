@@ -1,12 +1,13 @@
 function onload() {
     const qs = new URLSearchParams(window.location.search)
     const submission_id = qs.get('submission_id')
+    let supported_unions = ['iaff', 'btu', 'ethos']
     let union_type = 'iaff'
-    if (window.location.pathname.includes('/iaff/')) {
-        union_type = 'iaff'
-    } else if ((window.location.pathname.includes('/btu/'))) {
-        union_type = 'btu'
-    }
+    supported_unions.forEach((union) => {
+        if (window.location.pathname.includes(`/${union}/`)) {
+            union_type = union
+        }
+    })
     // iFrame event listener
     console.log(`Adding iFrame message listener.`)
     window.addEventListener('message', function(event) {
