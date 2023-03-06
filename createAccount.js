@@ -190,7 +190,7 @@
     // Clear I'd like to continue without a card selection
     continueWithout.checked = false;
     // Hide the Upload ID Div
-    document.getElementById('upload-id-div').style.display = 'none';
+    // document.getElementById('upload-id-div').style.display = 'none';
     // Disable it
     continueWithout.disabled = true;
     // Line through text
@@ -204,8 +204,6 @@
     let continueWithout = document.getElementById('continue-without');
     // Enable it
     continueWithout.disabled = false;
-    // Un hide the Upload ID div
-    document.getElementById('upload-id-div').style.display = '';
     // Restore Text Style
     continueWithout.nextSibling.style.textDecoration = '';
     continueWithout.parentNode.style.pointerEvents = 'auto';
@@ -456,11 +454,6 @@
   }
 
   function licenseValidator() {
-    if (isMedCardOnlyZip === true) {
-      // Medcard is required for delivery in the selected zip
-      // no license is required
-      return true;
-    } else {
       const licenseFrontPreviewDiv = document.querySelector('.license-upload-front-div')
       .querySelector('.license-preview-div');
       const licenseBackPreviewDiv = document.querySelector('.license-upload-back-div')
@@ -476,7 +469,6 @@
         }
         return false;
       }
-    }
   }
   
   // FORM FIELD VALIDATION FUNCTIONS END 
