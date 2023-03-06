@@ -1,4 +1,5 @@
-function isPlanSelected() {
+  let isMedCardOnlyZip = false;
+  function isPlanSelected() {
     return document.getElementById(monthly).checked || document.getElementById(yearly).checked;
   }
   
@@ -170,6 +171,7 @@ function isPlanSelected() {
           console.log(err);
           return false;
         })
+        isMedCardOnlyZip = med_card_delivery_only
         handleMedcardOnlyZips(med_card_delivery_only);
         return true;
     } else {
@@ -202,6 +204,8 @@ function isPlanSelected() {
     let continueWithout = document.getElementById('continue-without');
     // Enable it
     continueWithout.disabled = false;
+    // Un hide the Upload ID div
+    document.getElementById('upload-id-div').style.display = '';
     // Restore Text Style
     continueWithout.nextSibling.style.textDecoration = '';
     continueWithout.parentNode.style.pointerEvents = 'auto';
@@ -452,20 +456,26 @@ function isPlanSelected() {
   }
 
   function licenseValidator() {
-    const licenseFrontPreviewDiv = document.querySelector('.license-upload-front-div')
-    .querySelector('.license-preview-div');
-    const licenseBackPreviewDiv = document.querySelector('.license-upload-back-div')
-    .querySelector('.license-preview-div');
-    if (licenseFrontPreviewDiv.dataset.file && licenseBackPreviewDiv.dataset.file) {
+    if (isMedCardOnlyZip === true) {
+      // Medcard is required for delivery in the selected zip
+      // no license is required
       return true;
     } else {
-      if (!licenseFrontPreviewDiv.dataset.file) {
-        showFieldError('license-upload-front-div', 'ID is required');
+      const licenseFrontPreviewDiv = document.querySelector('.license-upload-front-div')
+      .querySelector('.license-preview-div');
+      const licenseBackPreviewDiv = document.querySelector('.license-upload-back-div')
+      .querySelector('.license-preview-div');
+      if (licenseFrontPreviewDiv.dataset.file && licenseBackPreviewDiv.dataset.file) {
+        return true;
+      } else {
+        if (!licenseFrontPreviewDiv.dataset.file) {
+          showFieldError('license-upload-front-div', 'ID is required');
+        }
+        if (!licenseBackPreviewDiv.dataset.file) {
+          showFieldError('license-upload-back-div', 'ID is required');
+        }
+        return false;
       }
-      if (!licenseBackPreviewDiv.dataset.file) {
-        showFieldError('license-upload-back-div', 'ID is required');
-      }
-      return false;
     }
   }
   
