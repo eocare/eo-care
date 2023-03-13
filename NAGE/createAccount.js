@@ -1,7 +1,7 @@
 function onload() {
     const qs = new URLSearchParams(window.location.search)
     const submission_id = qs.get('submission_id')
-    let supported_unions = ['iaff', 'btu', 'ethos']
+    let supported_unions = ['iaff', 'btu', 'ethos', 'web']
     let union_type = 'iaff'
     supported_unions.forEach((union) => {
         if (window.location.pathname.includes(`/${union}/`)) {
