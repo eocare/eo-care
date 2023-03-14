@@ -1,7 +1,7 @@
 let email
 let plan
 
-let supported_unions = ['iaff', 'btu', 'ethos']
+let supported_unions = ['iaff', 'btu', 'ethos', 'web']
 let union_type = 'iaff'
 supported_unions.forEach((union) => {
     if (window.location.pathname.includes(`/${union}/`)) {
@@ -22,6 +22,9 @@ function getQueryParams(url) {
 function setEmailAndPlan() {
     const qs = getQueryParams(window.location.search)
     plan = qs['plan']
+    if (plan.includes('nage_')) {
+        plan = plan.replace('nage_', `${union_type}_`);
+    }
     email = qs['email']
     // if (plan !== 'nage_plan_annual' || plan !== 'nage_plan_monthly') {
     //     // TODO: Payment Plans Here
