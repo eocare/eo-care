@@ -1,13 +1,4 @@
 function onload() {
-    const qs = new URLSearchParams(window.location.search)
-    const submission_id = qs.get('submission_id')
-    let supported_unions = ['iaff', 'btu', 'ethos']
-    let union_type = 'iaff'
-    supported_unions.forEach((union) => {
-        if (window.location.pathname.includes(`/${union}/`)) {
-            union_type = union
-        }
-    })
     // iFrame event listener
     console.log(`Adding iFrame message listener.`)
     window.addEventListener('message', function(event) {
@@ -31,7 +22,7 @@ function onload() {
     });
 
     const _iframeDivId = 'JotFormIFrame-230167209377155'
-    document.getElementById(_iframeDivId).src =  `https://eo-care.web.app/pain-kit/order.html?submission_id=${submission_id}&union_type=${union_type}`
+    document.getElementById(_iframeDivId).src =  `https://eo-care.web.app/pain_kit/account.html`
     document.getElementById(_iframeDivId).style.display = ''
     document.getElementById(_iframeDivId).style.height = '100%'
     document.getElementById(_iframeDivId).style.width = '100%'
