@@ -10,7 +10,7 @@ async function formSubmit(e) {
     let status = await referFriend(payload);
     if (status) {
         _successfulState('refer_friend_submit_btn');
-        // TODO: Update this if 'web' version is removed from the URL
+        // TODO: URL: Update this if 'web' version is removed from the URL
         window.location.href = window.location.origin + '/web/refer-a-friend-thank-you';
         return(status);
     } else {
