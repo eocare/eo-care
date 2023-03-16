@@ -3,7 +3,7 @@ window.onload = () => {
     function currentUrl(){
         const urlParams = new URLSearchParams(window.location.search);
         const k_uid = urlParams.get('k_uid');
-        const url = 'https://api.staging.eo.care/union/profile/careplan?kuid='+ k_uid ;
+        const url = 'https://api.eo.care/union/profile/careplan?kuid='+ k_uid ;
         const products_url = window.location.origin + window.location.pathname.replace('careplan', 'care-products')
         
         document.getElementById("plan-text").style.borderBottom = "1px solid #000000";

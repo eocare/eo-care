@@ -5,7 +5,7 @@ document.getElementById("your-products-mobile-link").style.borderBottom = "1px s
 const urlParams = new URLSearchParams(window.location.search);
 const k_uid = urlParams.get('k_uid'); 
 
-const url = 'https://api.staging.eo.care/union/profile/careplan?kuid='+ k_uid ;
+const url = 'https://api.eo.care/union/profile/careplan?kuid='+ k_uid ;
 
 //url redirection with k_uid
 document.getElementById('your-plan').onclick = function(){
