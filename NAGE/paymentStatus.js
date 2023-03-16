@@ -107,6 +107,6 @@ function profileCompletionLink() {
     } else {
         thc_type_preference = 'THC'
     }
-    const link = `https://eo-marketing.webflow.io/${union_type}/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}&union=${union_type}`
+    const link = `https://eo.care/${union_type}/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}&union=${union_type}`
     document.getElementById('profile-completion-link').href = link
 }
