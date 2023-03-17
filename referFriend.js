@@ -11,7 +11,18 @@ async function formSubmit(e) {
     if (status) {
         _successfulState('refer_friend_submit_btn');
         // TODO: URL: Update this if 'web' version is removed from the URL
-        window.location.href = window.location.origin + '/web/refer-a-friend-thank-you';
+        let supported_unions = ['iaff', 'btu', 'ethos', 'web']
+        let union_type = null
+        supported_unions.forEach((union) => {
+            if (window.location.pathname.includes(`/${union}/`)) {
+                union_type = union
+            }
+        })
+        if (union_type) {
+            window.location.href = window.location.origin + `/${union_type}/refer-a-friend-thank-you`;
+        } else {
+            window.location.href = window.location.origin + `/refer-a-friend-thank-you`;
+        }
         return(status);
     } else {
         console.log(`Refer Friend Request Failed`);
