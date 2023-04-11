@@ -11,7 +11,7 @@ async function formSubmit(e) {
     if (status) {
         _successfulState('refer_friend_submit_btn');
         // TODO: URL: Update this if 'web' version is removed from the URL
-        let supported_unions = ['iaff', 'btu', 'ethos', 'web']
+        let supported_unions = ['iaff', 'btu', 'ethos', 'web', 'ayr']
         let union_type = null
         supported_unions.forEach((union) => {
             if (window.location.pathname.includes(`/${union}/`)) {

@@ -1,7 +1,7 @@
 function onload() {
     const qs = new URLSearchParams(window.location.search)
     const submission_id = qs.get('submission_id')
-    let supported_unions = ['iaff', 'btu', 'ethos', 'web']
+    let supported_unions = ['iaff', 'btu', 'ethos', 'web', 'ayr']
     let union_type = 'iaff'
     supported_unions.forEach((union) => {
         if (window.location.pathname.includes(`/${union}/`)) {
@@ -26,7 +26,12 @@ function onload() {
             this.localStorage.setItem('med_card_number', med_card_number)
         }
         if (redirect) {
-            this.document.location.href = redirect
+            if (union_type === 'ayr') {
+                const link = `https://eo.care/${union_type}/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}&union=${union_type}`;
+                this.document.location.href = link
+            } else {
+                this.document.location.href = redirect
+            }
         }
     });
 

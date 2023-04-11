@@ -1,5 +1,5 @@
 function onload() {
-    let supported_unions = ['iaff', 'btu', 'ethos', 'web']
+    let supported_unions = ['iaff', 'btu', 'ethos', 'web', 'ayr']
     let union_type = 'iaff'
     supported_unions.forEach((union) => {
         if (window.location.pathname.includes(`/${union}/`)) {
