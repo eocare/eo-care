@@ -27,6 +27,16 @@ function onload() {
         }
         if (redirect) {
             if (union_type === 'ayr') {
+                let med_card_status;
+                if (med_card_number != 'null') {
+                    med_card_status = "True"
+                } else if (med_card_number == 'null' && med_card == "true") {
+                    med_card_status = "Interested"
+                } else if (med_card_number == 'null' && med_card == "false") {
+                    med_card_status = "False"
+                } else {
+                    med_card_status = "False"
+                }
                 const link = `https://eo.care/${union_type}/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}&union=${union_type}`;
                 this.document.location.href = link
             } else {
