@@ -14,8 +14,8 @@ function onload() {
         console.log("Message received from the child: ") // Message received from child
         console.log(event.data)
         const { zip, uid, thc_type_preference, med_card, med_card_number, redirect } = event.data
+        const { med_card_delivery_only, rec_delivery_possible } = zip
         if (zip) {
-            const { med_card_delivery_only, rec_delivery_possible } = zip
             this.localStorage.setItem('med_card_delivery_only', med_card_delivery_only)
             this.localStorage.setItem('rec_delivery_possible', rec_delivery_possible)
         }
