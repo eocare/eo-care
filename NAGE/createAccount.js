@@ -36,7 +36,13 @@ function onload() {
     });
 
     const _iframeDivId = 'JotFormIFrame-230167209377155'
-    document.getElementById(_iframeDivId).src =  `https://eo-care.web.app/account_setup_new/account.html?submission_id=${submission_id}&union_type=${union_type}`
+    if (union_type === 'ayr') {
+        const _ayrAccountURL = 'https://eo-care.web.app/ayr/account.html'
+        document.getElementById(_iframeDivId).src =  `${_ayrAccountURL}?submission_id=${submission_id}&union_type=${union_type}`
+    } else {
+        const _accountURL = 'https://eo-care.web.app/account_setup_new/account.html'
+        document.getElementById(_iframeDivId).src =  `${_accountURL}?submission_id=${submission_id}&union_type=${union_type}`
+    }
     document.getElementById(_iframeDivId).style.display = ''
     document.getElementById(_iframeDivId).style.height = '100%'
     document.getElementById(_iframeDivId).style.width = '100%'
