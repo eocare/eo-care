@@ -39,7 +39,7 @@ function onload() {
                 }
                 const rec_delivery_possible = this.localStorage.getItem('rec_delivery_possible')
                 const med_card_delivery_only = this.localStorage.getItem('med_card_delivery_only')
-                const link = `https://eo.care/${union_type}/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}&union=${union_type}`;
+                const link = `https://eo-marketing-06cbaf66a5b1fbfeecb0ca9525.webflow.io/${union_type}/profile-completion?thc_plan_type=${thc_type_preference}&med_card_status=${med_card_status}&rec_delivery_possible=${rec_delivery_possible}&med_delivery_only=${med_card_delivery_only}&union=${union_type}`;
                 this.document.location.href = link
             } else {
                 this.document.location.href = redirect
