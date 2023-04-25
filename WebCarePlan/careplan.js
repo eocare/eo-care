@@ -274,7 +274,7 @@ window.onload = () => {
                     //non workday afternoon [1]
                     document.getElementById('div-11').style.display = 'inline'
                     document.getElementById('prod-11').innerHTML = me.care_plan.non_workday.afternoon[1].product;
-                    document.getElementById('intro-11').innerHTML =  me.care_plan.non_workday.afternoon[1].dose_title.split(me.care_plan.non_workday.aftrenoon[1].product)[0];
+                    document.getElementById('intro-11').innerHTML =  me.care_plan.non_workday.afternoon[1].dose_title.split(me.care_plan.non_workday.afternoon[1].product)[0];
                     
                     document.getElementById('prod-11').href = `${products_url}?k_uid=${k_uid}&productLink=${me.care_plan.non_workday.afternoon[1].name}`;
 
