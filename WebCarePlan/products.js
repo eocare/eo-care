@@ -3,9 +3,9 @@ document.getElementById("product-text").style.marginTop = "1px";
 document.getElementById("your-products-mobile-link").style.borderBottom = "1px solid #000000";
 
 const urlParams = new URLSearchParams(window.location.search);
-const k_uid = urlParams.get('k_uid'); 
-
-const url = 'https://api.eo.care/union/profile/careplan?kuid='+ k_uid ;
+const k_uid = urlParams.get('k_uid');
+let isProduction = ['www.eo.care', 'partner.eo.care'].includes(window.location.host)
+const url = `https://${isProduction ? 'api.eo.care' : 'api.staging.eo.care'}/union/profile/careplan?kuid=`+ k_uid ;
 
 //url redirection with k_uid
 document.getElementById('your-plan').onclick = function(){
@@ -29,21 +29,21 @@ fetch(url)
     const me = JSON.parse(newObject);
     document.getElementById('care-name').innerHTML = me.fname;
     const mydate = me.care_plan.careplan_date;
-    var part1 = mydate.slice(2, 4); 
+    var part1 = mydate.slice(2, 4);
     var part2 = mydate.slice(5, 7);
     var part3 = mydate.slice(8, 10);
 
-    if (part2 < 10){ 
+    if (part2 < 10){
         var part2 = mydate.slice(6, 7);
         console.log(part2)
     }
-    if (part3 < 10){ 
+    if (part3 < 10){
         var part3 = mydate.slice(9, 10);
         console.log(part3)
     }
 
     var editPhone = me.care_plan.delivery_partner_phone;
-    var part4 = editPhone.slice(0, 3); 
+    var part4 = editPhone.slice(0, 3);
     var part5 = editPhone.slice(3, 6);
     var part6 = editPhone.slice(6);
 
@@ -78,10 +78,10 @@ fetch(url)
             document.getElementById('price-' + i).innerHTML = parseFloat(me.products[i].price).toFixed(2);
             console.log(me.products[i].quantity.indexOf("g"))
 
-            if(me.products[i].quantity.includes('unit(s)')) { 
-                var quant = me.products[i].quantity.replace(' unit(s)', '') 
+            if(me.products[i].quantity.includes('unit(s)')) {
+                var quant = me.products[i].quantity.replace(' unit(s)', '')
             } else if (me.products[i].quantity.includes('gram(s)')) {
-                var quant =  me.products[i].quantity.replace(' gram(s)', 'g') 
+                var quant =  me.products[i].quantity.replace(' gram(s)', 'g')
             }
             document.getElementById('quantity-' + i).innerHTML = quant;
             if(me.products[i].about == null){
@@ -112,4 +112,4 @@ fetch(url)
         console.log(elementID);
         document.getElementById(elementID).scrollIntoView({behavior: 'smooth'});
     },2000);
-}); 
+});
