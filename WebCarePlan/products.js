@@ -42,7 +42,7 @@ fetch(url)
         console.log(part3)
     }
 
-    var editPhone = me.care_plan.delivery_partner_phone;
+    var editPhone = me.care_plan.delivery_partner_phone ? me.care_plan.delivery_partner_phone : [];
     var part4 = editPhone.slice(0, 3);
     var part5 = editPhone.slice(3, 6);
     var part6 = editPhone.slice(6);
@@ -110,6 +110,9 @@ fetch(url)
     setTimeout(function smoothScroll(){
         const elementID = urlParams.get('productLink');
         console.log(elementID);
-        document.getElementById(elementID).scrollIntoView({behavior: 'smooth'});
+        if (elementID) {
+          document.getElementById(elementID).scrollIntoView({behavior: 'smooth'});
+        }
+
     },2000);
 });
